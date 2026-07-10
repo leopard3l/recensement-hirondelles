@@ -68,7 +68,7 @@ function mapRow(hdrs, vals) {
   const fi = k => hdrs.findIndex(h => h.toLowerCase().replace(/[^a-z]/g,'').includes(k));
   const v = i => (i>=0 && vals[i]) ? vals[i].trim() : '';
   const n = i => parseInt(v(i)) || 0;
-  const iDate=fi('date'), iObs=fi('observat'), iVill=fi('village')||fi('entit'),
+  const iDate=fi('date'), iObs=fi('observat'), iVill=fi('entit')>=0?fi('entit'):fi('village'),
         iAdr=fi('adresse'), iTyp=fi('type'), iEmpl=fi('emplace'),
         iN0=fi('entier'), iN1=hdrs.findIndex((h,i)=>h.toLowerCase().includes('occup')&&i<8),
         iN2=fi('cass'), iN3=fi('install'),
