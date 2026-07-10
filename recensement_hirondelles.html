@@ -422,6 +422,12 @@ function saveObs(){
   d=editId?d.map(x=>x.id===editId?o:x):[...d,o];
   store(d);renderMkrs();closePanel();
   toast(editId?'\u270F\uFE0F Observation modifi\u00E9e':'\u2705 Observation ajout\u00E9e !');
+  // Envoyer vers Supabase uniquement pour les nouvelles observations
+  if(!editId){
+    sendToSupabase(o).then(ok=>{
+      if(!ok) setTimeout(()=>toast('\u26A0\uFE0F Hors ligne \u2014 observation sauvegard\u00E9e localement',3000),1500);
+    });
+  }
 }
 
 function editObs(id){map.closePopup();openForm(null,null,id);}
@@ -594,7 +600,7 @@ async function reverseGeocode(lat,lon){
   const f=document.getElementById('f-adr');
   f.value='\u23F3\u2026';f.disabled=true;f.style.color='#999';
   try{
-    const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&accept-language=fr&zoom=16',
+    const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&accept-language=fr&zoom=18',
       {headers:{'User-Agent':'HirondellesGaume2026/1.0'}});
     if(!r.ok)throw 0;
     const d=await r.json();const a=d.address||{};
@@ -715,6 +721,42 @@ function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ── SUPABASE ─────────────────────────────────────────────────
+const SB_URL='https://qgrrfthtdzjyxovodieg.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
+
+async function sendToSupabase(o){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SB_KEY,
+        'Authorization':'Bearer '+SB_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        annee:2026,
+        date_recensement:o.date||'',
+        observateur:o.obs||'',
+        village:o.ent||'',
+        adresse:o.adr||'',
+        type_batiment:o.typ||'',
+        nnentiers:o.n0||0,
+        nnoccupes:o.n1||0,
+        nncasses:o.n2||0,
+        nainstalles:o.n3||0,
+        naoccupes:o.n4||0,
+        emplacement:o.empl||'',
+        remarque:o.rem||'',
+        latitude:o.lat||null,
+        longitude:o.lon||null
+      })
+    });
+    return r.ok;
+  }catch{return false;}
 }
 
 renderMkrs();

@@ -717,11 +717,10 @@ function processRows(rows){
 }
 
 // ── SUPABASE ─────────────────────────────────────────────────
-const SB_URL='https://qgrrfthtdzjyxovodiegv.supabase.co';
+const SB_URL='https://qgrrfthtdzjyxovodieg.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
 
 async function sendToSupabase(o){
-  if(!navigator.onLine){ addPending(o); updateBadge(); return false; }
   try{
     const r=await fetch(SB_URL+'/rest/v1/observations',{
       method:'POST',
@@ -753,10 +752,120 @@ async function sendToSupabase(o){
   }catch{return false;}
 }
 
-function addPending(o){ const p=getPending(); p.push(o); savePending(p); }
-
 // ── INIT ──────────────────────────────────────────────────────
 renderMkrs();
+</script>
+<!-- ── GUIDE PAS À PAS ── -->
+<div id="g-overlay" style="display:none;position:fixed;inset:0;z-index:9000">
+  <div id="g-bg" style="position:fixed;inset:0;background:rgba(0,0,0,.55)"></div>
+  <div id="g-spot" style="position:fixed;box-shadow:0 0 0 9999px rgba(0,0,0,.55);border-radius:10px;transition:all .3s;pointer-events:none"></div>
+  <div id="g-box" style="position:fixed;background:#fff;border-radius:12px;padding:18px 20px;width:min(290px,90vw);box-shadow:0 8px 32px rgba(0,0,0,.25);z-index:9001">
+    <div style="font-size:11px;font-weight:700;color:#2d6a2d;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em" id="g-count"></div>
+    <div style="font-size:15px;font-weight:700;color:#1c2b1c;margin-bottom:8px" id="g-title"></div>
+    <div style="font-size:13.5px;color:#556055;line-height:1.55;margin-bottom:14px" id="g-text"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button onclick="endGuide()" style="background:none;border:1px solid #dce8dc;border-radius:7px;padding:7px 12px;font-size:12px;color:#556055;cursor:pointer">Fermer</button>
+      <button id="g-prev" onclick="gStep(-1)" style="background:none;border:1px solid #dce8dc;border-radius:7px;padding:7px 12px;font-size:12px;color:#556055;cursor:pointer">&#8592;</button>
+      <button id="g-next" onclick="gStep(1)" style="background:#2d6a2d;border:none;border-radius:7px;padding:7px 16px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;margin-left:auto">Suivant</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── GUIDE PAS À PAS ──────────────────────────────────────────
+const STEPS=[
+  {sel:'#map',       title:'La carte',               text:'Touchez un bâtiment sur la carte pour démarrer une observation. Le formulaire s\'ouvre automatiquement.'},
+  {sel:'#lbl-ent',  title:'Village',                 text:'Le village est détecté automatiquement. Touchez la pastille verte pour le corriger si nécessaire.'},
+  {sel:'#pill-adr', title:'Adresse',                 text:'Remplie via OpenStreetMap. Complétez le numéro de maison si besoin.'},
+  {sel:'.type-grid',title:'Type de bâtiment',        text:'Touchez le type de bâtiment. Si aucune option ne convient, sélectionnez "Autre" et précisez.'},
+  {sel:'.nids-block',title:'Compter les nids',       text:'Utilisez + et − pour chaque type de nid. Maintenez appuyé pour compter vite. Commencez par les nids naturels entiers.'},
+  {sel:'.empl-grid',title:'Emplacement des nids',    text:'Cochez où se trouvent les nids. Plusieurs choix possibles simultanément.'},
+  {sel:'#btn-save', title:'Enregistrer',             text:'Appuyez pour sauvegarder. Le point apparaît sur la carte et les données partent vers la base du Parc.'},
+  {sel:'#btn-dl',   title:'Télécharger vos données', text:'À la fin de session : téléchargez le CSV et transmettez-le à Marina Rechul. Faites-le avant de vider les données !'},
+];
+let gCur=0;
+
+function startGuide(){
+  gCur=0;
+  document.getElementById('g-overlay').style.display='block';
+  renderGStep();
+}
+function endGuide(){
+  document.getElementById('g-overlay').style.display='none';
+  document.getElementById('g-spot').style.cssText='';
+}
+function gStep(d){
+  gCur=Math.max(0,Math.min(STEPS.length-1,gCur+d));
+  renderGStep();
+}
+function renderGStep(){
+  const s=STEPS[gCur];
+  document.getElementById('g-count').textContent='Étape '+(gCur+1)+' / '+STEPS.length;
+  document.getElementById('g-title').textContent=s.title;
+  document.getElementById('g-text').textContent=s.text;
+  document.getElementById('g-prev').style.visibility=gCur===0?'hidden':'';
+  const nxt=document.getElementById('g-next');
+  if(gCur===STEPS.length-1){nxt.textContent='Terminer';nxt.onclick=endGuide;}
+  else{nxt.textContent='Suivant';nxt.onclick=()=>gStep(1);}
+  const el=document.querySelector(s.sel);
+  const spot=document.getElementById('g-spot');
+  const box=document.getElementById('g-box');
+  if(el){
+    const r=el.getBoundingClientRect(),p=8;
+    spot.style.top=(r.top-p)+'px';spot.style.left=(r.left-p)+'px';
+    spot.style.width=(r.width+p*2)+'px';spot.style.height=(r.height+p*2)+'px';
+    const bW=300,bH=180,bTop=r.bottom+14;
+    const top=bTop+bH>window.innerHeight-10?r.top-bH-14:bTop;
+    const left=Math.min(Math.max(r.left,8),window.innerWidth-bW-8);
+    box.style.top=top+'px';box.style.left=left+'px';box.style.transform='';
+  } else {
+    spot.style.cssText='top:50%;left:50%;width:0;height:0';
+    box.style.top='50%';box.style.left='50%';box.style.transform='translate(-50%,-50%)';
+  }
+}
+
+// ── HORS LIGNE & FILE D'ATTENTE ───────────────────────────────
+const PEND='hiro_pend';
+function getPending(){try{return JSON.parse(localStorage.getItem(PEND))||[];}catch{return[];}}
+function savePending(a){localStorage.setItem(PEND,JSON.stringify(a));}
+function addPending(o){const p=getPending();p.push(o);savePending(p);}
+
+function updateBadge(){
+  const n=getPending().length;
+  const b=document.getElementById('pending-badge');
+  if(b){b.style.display=n>0?'block':'none';b.textContent=n;}
+}
+
+window.addEventListener('online',async()=>{
+  document.getElementById('offline-bar').style.display='none';
+  const pend=getPending();
+  if(!pend.length)return;
+  toast('Connexion r\u00e9tablie \u2014 synchronisation de '+pend.length+' observation(s)\u2026',4000);
+  const failed=[];
+  for(const o of pend){const ok=await sendToSupabase(o);if(!ok)failed.push(o);}
+  savePending(failed);updateBadge();
+  if(!failed.length)toast('\u2705 '+pend.length+' observation(s) synchronis\u00e9e(s) !',3000);
+});
+window.addEventListener('offline',()=>{
+  document.getElementById('offline-bar').style.display='block';
+  toast('\u26a0\ufe0f Hors ligne \u2014 encodage possible, synchro \u00e0 la reconnexion',4000);
+});
+
+// Intercepter sendToSupabase pour mettre en file si hors ligne
+const _origSend=sendToSupabase;
+window.sendToSupabase=async function(o){
+  if(!navigator.onLine){addPending(o);updateBadge();return false;}
+  const ok=await _origSend(o);
+  if(!ok){addPending(o);updateBadge();}
+  return ok;
+};
+
+// ── SERVICE WORKER ────────────────────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(e=>console.log('SW:',e));
+}
+
+// ── INIT FINAL ───────────────────────────────────────────────
 updateBadge();
 if(!navigator.onLine)document.getElementById('offline-bar').style.display='block';
 </script>
