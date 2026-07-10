@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protocole 2026 &mdash; Recensement Hirondelles Gaume</title>
+
+<style>
+*{{box-sizing:border-box;margin:0;padding:0}}
+:root{{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff}}
+body{{font-family:system-ui,sans-serif;background:#f5f8f5;color:var(--t);min-height:100vh;display:flex;flex-direction:column}}
+/* NAV */
+nav{{background:var(--v);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;flex-wrap:wrap;min-height:52px}}
+nav .brand{{color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 0;white-space:nowrap}}
+nav .brand span{{opacity:.9}}
+#nav-toggle{{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px}}
+#nav-links{{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}}
+#nav-links a{{color:rgba(255,255,255,.82);text-decoration:none;padding:14px 10px;font-size:13px;white-space:nowrap;transition:color .15s}}
+#nav-links a:hover{{color:#fff}}
+#nav-links a.active{{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.7)}}
+/* HERO */
+.hero{{background:linear-gradient(135deg,#1a4a1a 0%,#2d6a2d 60%,#3d8a3d 100%);color:#fff;padding:48px 24px;text-align:center}}
+.hero h1{{font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:10px}}
+.hero p{{font-size:16px;opacity:.88;max-width:600px;margin:0 auto}}
+/* MAIN */
+main{{flex:1;max-width:900px;width:100%;margin:0 auto;padding:28px 20px}}
+/* CARDS */
+.card{{background:var(--w);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(45,106,45,.08)}}
+.card h2{{font-size:18px;color:var(--v);margin-bottom:12px;display:flex;align-items:center;gap:8px}}
+.card p,.card li{{font-size:14px;color:var(--s);line-height:1.7;margin-bottom:8px}}
+.card ul{{padding-left:20px}}
+/* SECTION */
+.section-title{{font-size:13px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 10px}}
+/* BADGES */
+.badge{{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500}}
+.badge-green{{background:#e8f5e8;color:var(--v)}}
+.badge-orange{{background:#fff3e0;color:#e65100}}
+/* FOOTER */
+footer{{background:var(--v);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:12px;margin-top:auto}}
+/* RESPONSIVE */
+@media(max-width:640px){{
+  #nav-toggle{{display:block}}
+  #nav-links{{display:none;width:100%;flex-direction:column;padding-bottom:8px}}
+  #nav-links.open{{display:flex}}
+  #nav-links a{{padding:10px 4px}}
+  main{{padding:16px 14px}}
+}}
+</style>
+<style>
+.proto-section{margin-bottom:28px}
+.proto-section h2{font-size:19px;color:var(--v);border-left:4px solid var(--v);padding-left:12px;margin-bottom:12px}
+.proto-section h3{font-size:15px;color:var(--t);margin:16px 0 8px;font-weight:600}
+.proto-section p,.proto-section li{font-size:14px;color:var(--s);line-height:1.75;margin-bottom:8px}
+.proto-section ul,.proto-section ol{padding-left:22px;margin-bottom:10px}
+.proto-section ol li{margin-bottom:10px}
+.highlight{background:var(--vb);border:1px solid var(--b);border-radius:8px;padding:14px 16px;margin:12px 0}
+.highlight strong{color:var(--v)}
+.nest-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0}
+.nest-card{background:var(--vb);border:1px solid var(--b);border-radius:10px;padding:14px;text-align:center}
+.nest-card .ic{font-size:36px;margin-bottom:8px}
+.nest-card h4{font-size:13px;font-weight:700;color:var(--v);margin-bottom:6px}
+.nest-card p{font-size:12px;color:var(--s);margin:0;line-height:1.5}
+.photo-placeholder{background:#f5f5f5;border:2px dashed #ccc;border-radius:8px;height:120px;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px;margin-top:8px}
+.contact-box{background:var(--v);color:#fff;border-radius:10px;padding:16px 20px}
+.contact-box a{color:rgba(255,255,255,.9)}
+.tool-link{display:inline-flex;align-items:center;gap:6px;background:var(--v);color:#fff;text-decoration:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-top:6px}
+@media(max-width:500px){.nest-grid{grid-template-columns:1fr}}
+</style>
+</head><body>
+<nav>
+  <a href="index.html" class="brand">🐦 <span>Hirondelles Gaume 2026</span></a>
+  <button id="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
+  <div id="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="active">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats 2026</a><a href="recensement_hirondelles.html" class="">🖥 Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">📱 Terrain</a></div>
+</nav>
+<div class="hero">
+  <h1>📋 Protocole de recensement 2026</h1>
+  <p>Hirondelle de fen&ecirc;tre (<em>Delichon urbicum</em>) &mdash; Parc Naturel de Gaume &amp; Aves Lorraine</p>
+</div>
+<main>
+
+<div class="proto-section">
+  <h2>Introduction</h2>
+  <p>L'Hirondelle de fen&ecirc;tre (<em>Delichon urbicum</em>) est un oiseau connu de tous, car il est tr&egrave;s facile &agrave; observer de par son habitude de nicher sur les habitations. Son retour dans nos contr&eacute;es &eacute;tant annonciateur du d&eacute;but du printemps, il s'agit d'une esp&egrave;ce tr&egrave;s appr&eacute;ci&eacute;e. Malheureusement, au fil des ann&eacute;es, elle se rar&eacute;fie &agrave; l'&eacute;chelle de la Wallonie (Paquet, Weiserbs &amp; Derouaux, 2021).</p>
+  <p>Dans la r&eacute;gion, les hirondelles de fen&ecirc;tre font partie int&eacute;grante de nos paysages. C'est pourquoi, aujourd'hui, le <strong>Parc naturel de Gaume</strong> s'allie &agrave; <strong>Aves Lorraine</strong> pour organiser un recensement citoyen des hirondelles dans la r&eacute;gion.</p>
+</div>
+
+<div class="proto-section">
+  <h2>Objectifs</h2>
+  <p>Le premier objectif de ce recensement est de faire un &eacute;tat des lieux des populations d'hirondelles de fen&ecirc;tre au sein du territoire gaumais sur une zone d&eacute;finie par les motivations des participants. &Agrave; partir des observations, plusieurs actions pourront &ecirc;tre mises en place&nbsp;:</p>
+  <ul>
+    <li>La distribution directe d'un courrier de sensibilisation et de conseils dans les habitations pr&eacute;sentant au moins un nid</li>
+    <li>L'identification de colonies pouvant b&eacute;n&eacute;ficier d'une pose de nichoirs</li>
+    <li>Un suivi r&eacute;current permettant d'analyser l'&eacute;volution des effectifs nicheurs</li>
+    <li>Une communication aux institutions communales</li>
+  </ul>
+</div>
+
+<div class="proto-section">
+  <h2>P&eacute;riode de recensement</h2>
+  <div class="highlight">
+    <strong>🗓 Mi-juin &agrave; mi-juillet 2026</strong> — quand les nids sont construits et occup&eacute;s. Le comptage des <strong>nids entiers</strong> est consid&eacute;r&eacute; comme le moyen le plus efficace de refl&eacute;ter la taille d'une population nicheuse.
+  </div>
+  <p>Avant le <strong>mardi 15 juin 2026</strong>, s&eacute;lectionnez votre entit&eacute; et contactez la personne de contact pour recevoir le mat&eacute;riel n&eacute;cessaire.</p>
+</div>
+
+<div class="proto-section">
+  <h2>Identifier les nids</h2>
+  <p>La distinction entre nids entiers, cass&eacute;s et occup&eacute;s est essentielle pour la qualit&eacute; des donn&eacute;es.</p>
+  <div class="nest-grid">
+    <div class="nest-card">
+      <div class="ic">🪺</div>
+      <h4>Nid entier</h4>
+      <p>Nid complet, form&eacute; d'une coupe ferm&eacute;e de boue. La structure est int&egrave;gre, m&ecirc;me si le nid n'est pas occup&eacute;.</p>
+      <div class="photo-placeholder">📷 Photo &agrave; venir</div>
+    </div>
+    <div class="nest-card">
+      <div class="ic">🏚</div>
+      <h4>Nid cass&eacute; / incomplet</h4>
+      <p>Structure partiellement d&eacute;grad&eacute;e, &eacute;boul&eacute;e ou incompl&egrave;te. Souvent un demi-nid ou quelques traces de boue.</p>
+      <div class="photo-placeholder">📷 Photo &agrave; venir</div>
+    </div>
+    <div class="nest-card">
+      <div class="ic">🐦</div>
+      <h4>Nid occup&eacute;</h4>
+      <p>Nid entier avec pr&eacute;sence d'adultes entrant/sortant ou de jeunes visibles. Notez <em>si vous en avez connaissance</em>.</p>
+      <div class="photo-placeholder">📷 Photo &agrave; venir</div>
+    </div>
+  </div>
+  <p style="font-size:13px;font-style:italic;color:#888">Les photos illustrant chaque type de nid seront ajout&eacute;es prochainement.</p>
+</div>
+
+<div class="proto-section">
+  <h2>M&eacute;thodologie — Recensement complet d'une entit&eacute;</h2>
+  <ol>
+    <li><strong>S&eacute;lection de l'entit&eacute;</strong> — Avant le 15 juin, choisissez une ou plusieurs entit&eacute;(s) &agrave; prospecter et contactez la personne de contact pour recevoir la carte de l'entit&eacute; et vous organiser avec les autres observateurs.</li>
+    <li><strong>Prospection</strong> — Empruntez tous les axes o&ugrave; des b&acirc;timents sont pr&eacute;sents. Les nids peuvent se situer sur des fa&ccedil;ades, autour des corniches, sur des ponts, des porches ou des fermes. La pr&eacute;sence d'adultes en chasse peut signaler des nids cach&eacute;s.</li>
+    <li>
+      <strong>Encodage num&eacute;rique des observations</strong> — Utilisez l'outil num&eacute;rique d&eacute;velopp&eacute; par le Parc pour encoder vos observations directement sur le terrain&nbsp;:
+      <br><a class="tool-link" href="hirondelles_terrain_mobile.html">📱 Ouvrir l'outil terrain</a>
+      <a class="tool-link" href="recensement_hirondelles.html" style="margin-left:8px">🖥 Ouvrir l'outil bureau</a>
+      <div class="highlight" style="margin-top:12px">
+        Pour chaque observation, notez&nbsp;: l'<strong>adresse ou nom du b&acirc;timent</strong>, le <strong>type de b&acirc;timent</strong>, le <strong>nombre de nids</strong> (entiers / cass&eacute;s / occup&eacute;s pour les nids naturels, install&eacute;s / occup&eacute;s pour les artificiels), l'<strong>emplacement sur le b&acirc;timent</strong> et les <strong>remarques</strong> &eacute;ventuelles. Les coordonn&eacute;es GPS sont captur&eacute;es automatiquement.
+      </div>
+    </li>
+    <li><strong>Envoi des r&eacute;sultats</strong> — Une fois la prospection termin&eacute;e, exportez votre fichier CSV depuis l'outil et transmettez-le &agrave; la personne de contact. Les donn&eacute;es encod&eacute;es en ligne sont d&eacute;j&agrave; transmises automatiquement.</li>
+  </ol>
+</div>
+
+<div class="proto-section">
+  <h2>Contact</h2>
+  <div class="contact-box">
+    <strong>Marina Rechul</strong> &mdash; Parc Naturel de Gaume<br>
+    📧 <a href="mailto:m.rechul@pndg.be">m.rechul@pndg.be</a><br>
+    <small style="opacity:.8;font-size:12px;margin-top:4px;display:block">N'h&eacute;sitez pas &agrave; envoyer des photos si vous avez des doutes sur les informations &agrave; encoder ou &agrave; poser des questions sur la m&eacute;thode.</small>
+  </div>
+</div>
+
+<div class="proto-section">
+  <h2>Remerciements</h2>
+  <p>Nous remercions chaleureusement tous les b&eacute;n&eacute;voles pour leur int&eacute;r&ecirc;t et leur collaboration. Nous remercions &eacute;galement Fabien Dormal et l'&eacute;quipe d'Aves Namur pour leur partage d'exp&eacute;rience, ainsi que Charles Carels et le GT Hirondelles pour leurs conseils avis&eacute;s.</p>
+  <p style="font-size:12px;color:#999;margin-top:12px"><strong>R&eacute;f&eacute;rence&nbsp;:</strong> Paquet, J.-Y., Weiserbs, A., &amp; Derouaux, A. (2021). La Liste rouge des oiseaux nicheurs menac&eacute;s en Wallonie en 2021. <em>Aves</em>, 58(2), 67–88.</p>
+</div>
+
+</main>
+<footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; En partenariat avec Aves Lorraine</footer>
+</body></html>

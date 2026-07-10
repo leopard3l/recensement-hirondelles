@@ -1,53 +1,114 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recensement Hirondelles — Parc Naturel de Gaume</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recensement Hirondelles &mdash; Parc Naturel de Gaume</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f0f7f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.card{background:white;border-radius:20px;padding:32px;max-width:520px;width:100%;box-shadow:0 4px 24px rgba(45,106,45,.12)}
-.logo{font-size:48px;text-align:center;margin-bottom:8px}
-h1{font-size:20px;font-weight:700;color:#1a3a1a;text-align:center;margin-bottom:4px}
-.sub{font-size:13px;color:#5a7a5a;text-align:center;margin-bottom:28px}
-.divider{height:1px;background:#e8f5e8;margin:0 0 24px}
-.tool{display:flex;flex-direction:column;gap:12px}
-.btn{display:flex;align-items:center;gap:16px;background:#f0f7f0;border:2px solid #c8dcc8;border-radius:14px;padding:18px 20px;text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer}
-.btn:hover{border-color:#4a9e4a;background:#e4f0e4}
-.btn .ic{font-size:32px;flex-shrink:0}
-.btn-body{flex:1}
-.btn-title{font-size:15px;font-weight:600;color:#1a3a1a;margin-bottom:3px}
-.btn-desc{font-size:12px;color:#5a7a5a;line-height:1.4}
-.btn-arrow{font-size:20px;color:#4a9e4a;flex-shrink:0}
-.footer{margin-top:20px;font-size:11px;color:#8a9a8a;text-align:center;line-height:1.6}
+*{{box-sizing:border-box;margin:0;padding:0}}
+:root{{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff}}
+body{{font-family:system-ui,sans-serif;background:#f5f8f5;color:var(--t);min-height:100vh;display:flex;flex-direction:column}}
+/* NAV */
+nav{{background:var(--v);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;flex-wrap:wrap;min-height:52px}}
+nav .brand{{color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 0;white-space:nowrap}}
+nav .brand span{{opacity:.9}}
+#nav-toggle{{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px}}
+#nav-links{{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}}
+#nav-links a{{color:rgba(255,255,255,.82);text-decoration:none;padding:14px 10px;font-size:13px;white-space:nowrap;transition:color .15s}}
+#nav-links a:hover{{color:#fff}}
+#nav-links a.active{{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.7)}}
+/* HERO */
+.hero{{background:linear-gradient(135deg,#1a4a1a 0%,#2d6a2d 60%,#3d8a3d 100%);color:#fff;padding:48px 24px;text-align:center}}
+.hero h1{{font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:10px}}
+.hero p{{font-size:16px;opacity:.88;max-width:600px;margin:0 auto}}
+/* MAIN */
+main{{flex:1;max-width:900px;width:100%;margin:0 auto;padding:28px 20px}}
+/* CARDS */
+.card{{background:var(--w);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(45,106,45,.08)}}
+.card h2{{font-size:18px;color:var(--v);margin-bottom:12px;display:flex;align-items:center;gap:8px}}
+.card p,.card li{{font-size:14px;color:var(--s);line-height:1.7;margin-bottom:8px}}
+.card ul{{padding-left:20px}}
+/* SECTION */
+.section-title{{font-size:13px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 10px}}
+/* BADGES */
+.badge{{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500}}
+.badge-green{{background:#e8f5e8;color:var(--v)}}
+.badge-orange{{background:#fff3e0;color:#e65100}}
+/* FOOTER */
+footer{{background:var(--v);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:12px;margin-top:auto}}
+/* RESPONSIVE */
+@media(max-width:640px){{
+  #nav-toggle{{display:block}}
+  #nav-links{{display:none;width:100%;flex-direction:column;padding-bottom:8px}}
+  #nav-links.open{{display:flex}}
+  #nav-links a{{padding:10px 4px}}
+  main{{padding:16px 14px}}
+}}
 </style>
-</head>
-<body>
-<div class="card">
-  <div class="logo">🐦</div>
-  <h1>Recensement Hirondelles de fen&ecirc;tre</h1>
-  <p class="sub">Parc Naturel de Gaume &mdash; 2026</p>
-  <div class="divider"></div>
-  <div class="tool">
-    <a class="btn" href="recensement_hirondelles.html">
+<style>
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tool-card{display:flex;flex-direction:column;align-items:center;background:var(--vb);border:2px solid var(--b);border-radius:14px;padding:28px 20px;text-decoration:none;transition:border-color .15s,transform .1s;gap:10px;text-align:center}
+.tool-card:hover{border-color:var(--vl);transform:translateY(-2px)}
+.tool-card .ic{font-size:40px}
+.tool-card h3{font-size:16px;font-weight:600;color:var(--t)}
+.tool-card p{font-size:13px;color:var(--s);line-height:1.5}
+.tool-card .btn{margin-top:8px;background:var(--v);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%}
+.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat{background:var(--w);border-radius:10px;padding:14px;text-align:center;box-shadow:0 1px 6px rgba(45,106,45,.08)}
+.stat .val{font-size:28px;font-weight:700;color:var(--v)}
+.stat .lbl{font-size:11px;color:var(--s);margin-top:2px}
+@media(max-width:500px){.tools-grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:1fr 1fr}}
+</style>
+</head><body>
+<nav>
+  <a href="index.html" class="brand">🐦 <span>Hirondelles Gaume 2026</span></a>
+  <button id="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
+  <div id="nav-links"><a href="index.html" class="active">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats 2026</a><a href="recensement_hirondelles.html" class="">🖥 Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">📱 Terrain</a></div>
+</nav>
+<div class="hero">
+  <h1>🐦 Recensement participatif de l'Hirondelle de fen&ecirc;tre</h1>
+  <p>Parc Naturel de Gaume &mdash; en partenariat avec Aves Lorraine &mdash; Campagne 2026</p>
+</div>
+<main>
+  <p class="section-title">Avancement de la campagne 2026</p>
+  <div class="stats-bar">
+    <div class="stat"><div class="val" id="s-obs">—</div><div class="lbl">Observations</div></div>
+    <div class="stat"><div class="val" id="s-nids">—</div><div class="lbl">Nids entiers</div></div>
+    <div class="stat"><div class="val" id="s-vill">—</div><div class="lbl">Villages prospectés</div></div>
+  </div>
+  <p class="section-title">Outils d'encodage</p>
+  <div class="tools-grid">
+    <a class="tool-card" href="recensement_hirondelles.html">
       <span class="ic">🖥️</span>
-      <div class="btn-body">
-        <div class="btn-title">Outil bureau</div>
-        <div class="btn-desc">Pour encoder les donn&eacute;es &agrave; la maison &mdash; carte compl&egrave;te, raccourcis clavier, import/export Excel &amp; CSV</div>
-      </div>
-      <span class="btn-arrow">›</span>
+      <h3>Outil bureau</h3>
+      <p>Pour encoder vos donn&eacute;es depuis un ordinateur &mdash; carte compl&egrave;te, raccourcis clavier, import/export</p>
+      <div class="btn">Ouvrir l'outil →</div>
     </a>
-    <a class="btn" href="hirondelles_terrain_mobile.html">
+    <a class="tool-card" href="hirondelles_terrain_mobile.html">
       <span class="ic">📱</span>
-      <div class="btn-body">
-        <div class="btn-title">Outil terrain (mobile)</div>
-        <div class="btn-desc">Sur le terrain avec votre t&eacute;l&eacute;phone &mdash; touchez la carte, comptez les nids avec les boutons + et &minus;</div>
-      </div>
-      <span class="btn-arrow">›</span>
+      <h3>Outil terrain</h3>
+      <p>Sur le terrain avec votre t&eacute;l&eacute;phone &mdash; touchez la carte, compteurs + et &minus; pour les nids</p>
+      <div class="btn">Ouvrir l'outil →</div>
     </a>
   </div>
-  <p class="footer">Donn&eacute;es sauvegard&eacute;es localement sur votre appareil<br>Exportez r&eacute;guli&egrave;rement votre CSV pour ne pas perdre vos observations</p>
-</div>
-</body>
-</html>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+    <a class="tool-card" href="protocole.html" style="flex-direction:row;gap:14px;text-align:left;padding:16px 18px">
+      <span style="font-size:28px">📋</span>
+      <div><h3 style="font-size:14px">Protocole 2026</h3><p style="margin:0">M&eacute;thodologie et instructions</p></div>
+    </a>
+    <a class="tool-card" href="guide.html" style="flex-direction:row;gap:14px;text-align:left;padding:16px 18px">
+      <span style="font-size:28px">❓</span>
+      <div><h3 style="font-size:14px">Guide des outils</h3><p style="margin:0">Comment utiliser les outils num&eacute;riques</p></div>
+    </a>
+  </div>
+</main>
+<footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; En partenariat avec Aves Lorraine</footer>
+<script>
+const SB_URL='https://qgrrfthtdzjyxovodiegv.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
+fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}
+).then(r=>r.json()).then(data=>{
+  document.getElementById('s-obs').textContent=data.length;
+  document.getElementById('s-nids').textContent=data.reduce((s,o)=>s+(o.nnentiers||0),0);
+  document.getElementById('s-vill').textContent=new Set(data.map(o=>o.village).filter(Boolean)).size;
+}).catch(()=>{});
+</script>
+</body></html>
