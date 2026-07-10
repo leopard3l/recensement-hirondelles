@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recensement Hirondelles — Parc Naturel de Gaume</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0f7f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.card{background:white;border-radius:20px;padding:32px;max-width:520px;width:100%;box-shadow:0 4px 24px rgba(45,106,45,.12)}
+.logo{font-size:48px;text-align:center;margin-bottom:8px}
+h1{font-size:20px;font-weight:700;color:#1a3a1a;text-align:center;margin-bottom:4px}
+.sub{font-size:13px;color:#5a7a5a;text-align:center;margin-bottom:28px}
+.divider{height:1px;background:#e8f5e8;margin:0 0 24px}
+.tool{display:flex;flex-direction:column;gap:12px}
+.btn{display:flex;align-items:center;gap:16px;background:#f0f7f0;border:2px solid #c8dcc8;border-radius:14px;padding:18px 20px;text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer}
+.btn:hover{border-color:#4a9e4a;background:#e4f0e4}
+.btn .ic{font-size:32px;flex-shrink:0}
+.btn-body{flex:1}
+.btn-title{font-size:15px;font-weight:600;color:#1a3a1a;margin-bottom:3px}
+.btn-desc{font-size:12px;color:#5a7a5a;line-height:1.4}
+.btn-arrow{font-size:20px;color:#4a9e4a;flex-shrink:0}
+.footer{margin-top:20px;font-size:11px;color:#8a9a8a;text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">🐦</div>
+  <h1>Recensement Hirondelles de fen&ecirc;tre</h1>
+  <p class="sub">Parc Naturel de Gaume &mdash; 2026</p>
+  <div class="divider"></div>
+  <div class="tool">
+    <a class="btn" href="recensement_hirondelles.html">
+      <span class="ic">🖥️</span>
+      <div class="btn-body">
+        <div class="btn-title">Outil bureau</div>
+        <div class="btn-desc">Pour encoder les donn&eacute;es &agrave; la maison &mdash; carte compl&egrave;te, raccourcis clavier, import/export Excel &amp; CSV</div>
+      </div>
+      <span class="btn-arrow">›</span>
+    </a>
+    <a class="btn" href="hirondelles_terrain_mobile.html">
+      <span class="ic">📱</span>
+      <div class="btn-body">
+        <div class="btn-title">Outil terrain (mobile)</div>
+        <div class="btn-desc">Sur le terrain avec votre t&eacute;l&eacute;phone &mdash; touchez la carte, comptez les nids avec les boutons + et &minus;</div>
+      </div>
+      <span class="btn-arrow">›</span>
+    </a>
+  </div>
+  <p class="footer">Donn&eacute;es sauvegard&eacute;es localement sur votre appareil<br>Exportez r&eacute;guli&egrave;rement votre CSV pour ne pas perdre vos observations</p>
+</div>
+</body>
+</html>
