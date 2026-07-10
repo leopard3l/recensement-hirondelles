@@ -108,10 +108,8 @@ async function startImport() {
     st.className = 'fst st-wait';
     document.getElementById('progress-fill').style.width = Math.round((i/filesToProcess.length)*100)+'%';
 
-    try {
-      const text = await f.text();
-      const lines = text.split(/?
-/).filter(l=>l.trim());
+    const lines = text.split('\n').map(l=>l.replace(/\r/,'')).filter(l=>l.trim());
+    
       if (lines.length < 2) { st.textContent='Vide'; st.className='fst st-err'; continue; }
       const hdrs = parseLine(lines[0]).map(h=>h.toLowerCase());
       const rows = [];
