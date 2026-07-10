@@ -1,236 +1,114 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Guide des outils &mdash; Hirondelles Gaume</title>
-
-<style>
-*{{box-sizing:border-box;margin:0;padding:0}}
-:root{{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff}}
-body{{font-family:system-ui,sans-serif;background:#f5f8f5;color:var(--t);min-height:100vh;display:flex;flex-direction:column}}
-/* NAV */
-nav{{background:var(--v);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;flex-wrap:wrap;min-height:52px}}
-nav .brand{{color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 0;white-space:nowrap}}
-nav .brand span{{opacity:.9}}
-#nav-toggle{{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px}}
-#nav-links{{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}}
-#nav-links a{{color:rgba(255,255,255,.82);text-decoration:none;padding:14px 10px;font-size:13px;white-space:nowrap;transition:color .15s}}
-#nav-links a:hover{{color:#fff}}
-#nav-links a.active{{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.7)}}
-/* HERO */
-.hero{{background:linear-gradient(135deg,#1a4a1a 0%,#2d6a2d 60%,#3d8a3d 100%);color:#fff;padding:48px 24px;text-align:center}}
-.hero h1{{font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:10px}}
-.hero p{{font-size:16px;opacity:.88;max-width:600px;margin:0 auto}}
-/* MAIN */
-main{{flex:1;max-width:900px;width:100%;margin:0 auto;padding:28px 20px}}
-/* CARDS */
-.card{{background:var(--w);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(45,106,45,.08)}}
-.card h2{{font-size:18px;color:var(--v);margin-bottom:12px;display:flex;align-items:center;gap:8px}}
-.card p,.card li{{font-size:14px;color:var(--s);line-height:1.7;margin-bottom:8px}}
-.card ul{{padding-left:20px}}
-/* SECTION */
-.section-title{{font-size:13px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 10px}}
-/* BADGES */
-.badge{{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500}}
-.badge-green{{background:#e8f5e8;color:var(--v)}}
-.badge-orange{{background:#fff3e0;color:#e65100}}
-/* FOOTER */
-footer{{background:var(--v);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:12px;margin-top:auto}}
-/* RESPONSIVE */
-@media(max-width:640px){{
-  #nav-toggle{{display:block}}
-  #nav-links{{display:none;width:100%;flex-direction:column;padding-bottom:8px}}
-  #nav-links.open{{display:flex}}
-  #nav-links a{{padding:10px 4px}}
-  main{{padding:16px 14px}}
-}}
-</style>
-<style>
-.step-block{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
-.step-num{width:32px;height:32px;border-radius:50%;background:var(--v);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-body h3{font-size:15px;font-weight:600;color:var(--t);margin-bottom:6px}
-.step-body p,.step-body li{font-size:14px;color:var(--s);line-height:1.65;margin-bottom:6px}
-.step-body ul{padding-left:18px}
-.tab-btns{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.tab-btn{padding:8px 18px;border-radius:99px;border:1.5px solid var(--b);background:var(--w);font-size:13px;cursor:pointer;color:var(--s);font-weight:500}
-.tab-btn.active{background:var(--v);color:#fff;border-color:var(--v)}
-.tab-content{display:none}.tab-content.active{display:block}
-.kbd{background:#f0f0f0;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font-family:monospace;font-size:12px}
-.tip{background:#fff8e1;border-left:3px solid #f59f00;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:13px;color:#7a5c00}
-.faq-item{border-bottom:1px solid var(--b);padding:14px 0}
-.faq-q{font-size:14px;font-weight:600;color:var(--t);cursor:pointer;display:flex;justify-content:space-between}
-.faq-a{font-size:13px;color:var(--s);margin-top:8px;line-height:1.6;display:none}
-.faq-item.open .faq-a{display:block}
-.faq-item.open .faq-q::after{content:"▲"}
-.faq-q::after{content:"▼";color:var(--vl);font-size:11px}
-</style>
-</head><body>
-<nav><a href="index.html" class="brand">🐦 <span>Hirondelles Gaume 2026</span></a><button id="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button><div id="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="active">Guide</a><a href="resultats.html" class="">Résultats 2026</a><a href="recensement_hirondelles.html" class="">🖥 Bureau</a><a href="hirondelles_terrain_mobile.html" class="">📱 Terrain</a></div></nav>
-<div class="hero">
-  <h1>❓ Guide des outils num&eacute;riques</h1>
-  <p>Tout ce qu'il faut savoir pour encoder vos observations</p>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Guide des outils &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html" class="active">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero">
+  <h1>Guide des outils num&eacute;riques</h1>
+  <p>Tout ce qu&apos;il faut savoir pour encoder vos observations efficacement</p>
 </div>
 <main>
-
-<div class="tab-btns">
-  <button class="tab-btn active" onclick="showTab('bureau')">🖥 Outil bureau</button>
-  <button class="tab-btn" onclick="showTab('mobile')">📱 Outil terrain</button>
-  <button class="tab-btn" onclick="showTab('astuces')">⌨ Raccourcis</button>
-  <button class="tab-btn" onclick="showTab('faq')">💬 FAQ</button>
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('bureau',this)">Outil bureau</button>
+  <button class="tab-btn" onclick="showTab('mobile',this)">Outil terrain</button>
+  <button class="tab-btn" onclick="showTab('raccourcis',this)">Raccourcis clavier</button>
+  <button class="tab-btn" onclick="showTab('faq',this)">Questions fr&eacute;quentes</button>
 </div>
 
-<!-- BUREAU -->
-<div class="tab-content active" id="tab-bureau">
+<div class="tab active" id="tab-bureau">
   <div class="card">
-    <h2>🖥 D&eacute;marrage rapide &mdash; Outil bureau</h2>
-    <div class="step-block">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>Ouvrir l'outil</h3>
-        <p>Rendez-vous sur <a href="recensement_hirondelles.html" style="color:var(--v)">l'outil bureau</a>. La carte de la Gaume s'affiche. Les d&eacute;limitations des entit&eacute;s apparaissent en vert pointill&eacute;.</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>Cliquer sur un b&acirc;timent</h3>
-        <p>Cliquez pr&eacute;cis&eacute;ment sur le b&acirc;timent o&ugrave; se trouvent les nids. Le formulaire s'ouvre automatiquement. Le <strong>village</strong> et l'<strong>adresse</strong> sont d&eacute;tect&eacute;s automatiquement via GPS (quelques secondes).</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>Remplir le formulaire</h3>
-        <p>Dans l'ordre&nbsp;:</p>
-        <ul>
-          <li>V&eacute;rifiez le <strong>village</strong> (corrigez si besoin)</li>
-          <li>V&eacute;rifiez l'<strong>adresse</strong> et compl&eacute;tez le num&eacute;ro si n&eacute;cessaire</li>
-          <li>S&eacute;lectionnez le <strong>type de b&acirc;timent</strong></li>
-          <li>Encodez le <strong>nombre de nids</strong> (5 colonnes)</li>
-          <li>Cochez l'<strong>emplacement</strong> des nids</li>
-          <li>Ajoutez une <strong>remarque</strong> si n&eacute;cessaire</li>
-        </ul>
-        <div class="tip">💡 Le curseur se place automatiquement sur "Nids entiers" &agrave; l'ouverture du formulaire. Vous pouvez encoder directement au clavier.</div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>Enregistrer</h3>
-        <p>Cliquez sur <strong>✅ Ajouter l'observation</strong>. Un point appara&icirc;t sur la carte. Les donn&eacute;es sont sauvegard&eacute;es localement ET envoy&eacute;es automatiquement vers la base de donn&eacute;es du Parc.</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <h3>Exporter quand vous avez fini</h3>
-        <p>Cliquez sur <strong>⬇ Télécharger</strong> dans la barre du haut. Un fichier CSV est t&eacute;l&eacute;charg&eacute; au nom <code>recensement_hirondelle_VillageName_2026.csv</code>. Transmettez-le &agrave; la personne de contact.</p>
-      </div>
-    </div>
+    <h2>D&eacute;marrage rapide &mdash; Outil bureau</h2>
+    <div class="step"><div class="step-n">1</div><div class="step-body">
+      <h3>Ouvrir l&apos;outil</h3>
+      <p>Acc&eacute;dez &agrave; <a href="recensement_hirondelles.html" style="color:var(--green)">l&apos;outil bureau</a>. La carte de la Gaume s&apos;affiche avec les d&eacute;limitations des entit&eacute;s en vert pointill&eacute;.</p>
+    </div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body">
+      <h3>Cliquer sur un b&acirc;timent</h3>
+      <p>Cliquez pr&eacute;cis&eacute;ment sur le b&acirc;timent o&ugrave; se trouvent les nids. Le formulaire s&apos;ouvre et le <strong>village</strong> ainsi que l&apos;<strong>adresse</strong> sont d&eacute;tect&eacute;s automatiquement en quelques secondes.</p>
+    </div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body">
+      <h3>Remplir le formulaire</h3>
+      <p>Dans l&apos;ordre&nbsp;: v&eacute;rifiez le village et l&apos;adresse, s&eacute;lectionnez le type de b&acirc;timent, encodez le nombre de nids (5 colonnes), cochez l&apos;emplacement, ajoutez une remarque si n&eacute;cessaire.</p>
+      <div class="tip">Le curseur se place automatiquement sur &laquo;&nbsp;Nids entiers&nbsp;&raquo; &agrave; l&apos;ouverture. Vous pouvez encoder directement au clavier et naviguer entre les colonnes avec la touche Entr&eacute;e.</div>
+    </div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-body">
+      <h3>Enregistrer l&apos;observation</h3>
+      <p>Cliquez sur <strong>Ajouter l&apos;observation</strong>. Un point appara&icirc;t sur la carte. Les donn&eacute;es sont sauvegard&eacute;es localement et envoy&eacute;es automatiquement vers la base de donn&eacute;es.</p>
+    </div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-body">
+      <h3>Exporter le CSV</h3>
+      <p>Une fois votre session termin&eacute;e, cliquez sur <strong>T&eacute;l&eacute;charger</strong> dans la barre du haut. Le fichier CSV est nomm&eacute; automatiquement selon le village et l&apos;ann&eacute;e. Transmettez-le &agrave; la personne de contact.</p>
+    </div></div>
   </div>
 </div>
 
-<!-- MOBILE -->
-<div class="tab-content" id="tab-mobile">
+<div class="tab" id="tab-mobile">
   <div class="card">
-    <h2>📱 D&eacute;marrage rapide &mdash; Outil terrain</h2>
-    <div class="step-block">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>Ouvrir sur votre t&eacute;l&eacute;phone</h3>
-        <p>Ouvrez <a href="hirondelles_terrain_mobile.html" style="color:var(--v)">l'outil terrain</a> dans votre navigateur mobile. La carte de la Gaume s'affiche en plein &eacute;cran.</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>Toucher la carte</h3>
-        <p>Touchez l'emplacement du b&acirc;timent sur la carte. Le formulaire remonte depuis le bas de l'&eacute;cran. Le village est d&eacute;tect&eacute; automatiquement.</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>Compter les nids avec + et &minus;</h3>
-        <p>Utilisez les boutons <strong>+</strong> et <strong>&minus;</strong> pour chaque type de nid. Maintenez appuy&eacute; pour faire d&eacute;filer rapidement. Cochez l'emplacement (Sous corniche / Fen&ecirc;tre).</p>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>Enregistrer &amp; continuer</h3>
-        <p>Appuyez sur <strong>✅ Enregistrer l'observation</strong>. Le formulaire se ferme, le point appara&icirc;t sur la carte. Touchez un nouveau b&acirc;timent pour continuer.</p>
-        <div class="tip">💡 Pour changer de village&nbsp;: exportez d'abord votre CSV, puis appuyez sur 🗑 dans la barre du haut pour vider les donn&eacute;es.</div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <h3>T&eacute;l&eacute;charger vos donn&eacute;es</h3>
-        <p>Appuyez sur <strong>💾 T&eacute;l&eacute;charger (X obs.)</strong> &mdash; le fichier CSV est t&eacute;l&eacute;charg&eacute; dans vos t&eacute;l&eacute;chargements. V&eacute;rifiez bien qu'il est enregistr&eacute; avant de vider les donn&eacute;es.</p>
-      </div>
-    </div>
+    <h2>D&eacute;marrage rapide &mdash; Outil terrain</h2>
+    <div class="step"><div class="step-n">1</div><div class="step-body">
+      <h3>Ouvrir sur votre t&eacute;l&eacute;phone</h3>
+      <p>Ouvrez <a href="hirondelles_terrain_mobile.html" style="color:var(--green)">l&apos;outil terrain</a> dans votre navigateur mobile. La carte s&apos;affiche en plein &eacute;cran.</p>
+    </div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body">
+      <h3>Toucher un b&acirc;timent sur la carte</h3>
+      <p>Touchez l&apos;emplacement du b&acirc;timent. Le formulaire remonte depuis le bas de l&apos;&eacute;cran. Le village est d&eacute;tect&eacute; automatiquement.</p>
+    </div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body">
+      <h3>Compter les nids</h3>
+      <p>Utilisez les boutons <strong>+</strong> et <strong>&minus;</strong> pour chaque type de nid. Maintenez le bouton appuy&eacute; pour faire d&eacute;filer rapidement. Cochez ensuite l&apos;emplacement des nids.</p>
+    </div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-body">
+      <h3>Enregistrer et continuer</h3>
+      <p>Appuyez sur <strong>Enregistrer l&apos;observation</strong>. Le formulaire se ferme et le point appara&icirc;t sur la carte. Touchez un nouveau b&acirc;timent pour continuer.</p>
+      <div class="tip">Pour changer de village&nbsp;: exportez d&apos;abord votre CSV, puis appuyez sur l&apos;ic&ocirc;ne corbeille pour vider les donn&eacute;es.</div>
+    </div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-body">
+      <h3>T&eacute;l&eacute;charger les donn&eacute;es</h3>
+      <p>Appuyez sur le bouton <strong>T&eacute;l&eacute;charger</strong> dans la barre du haut. Le fichier est enregistr&eacute; dans vos t&eacute;l&eacute;chargements. V&eacute;rifiez qu&apos;il est bien sauvegard&eacute; avant de vider les donn&eacute;es.</p>
+    </div></div>
   </div>
 </div>
 
-<!-- RACCOURCIS -->
-<div class="tab-content" id="tab-astuces">
+<div class="tab" id="tab-raccourcis">
   <div class="card">
-    <h2>⌨ Raccourcis clavier &mdash; Outil bureau</h2>
-    <p style="font-size:13px;color:var(--s);margin-bottom:16px">Ces raccourcis fonctionnent quand le formulaire est ouvert et que le curseur n'est pas dans un champ texte.</p>
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <tr style="background:var(--vb)"><th style="padding:8px 12px;text-align:left;color:var(--v)">Touche</th><th style="padding:8px 12px;text-align:left;color:var(--v)">Action</th></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">C</span></td><td style="padding:8px 12px;color:var(--s)">Cocher/d&eacute;cocher Sous corniche</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">F</span></td><td style="padding:8px 12px;color:var(--s)">Cocher/d&eacute;cocher Fen&ecirc;tre</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">A</span></td><td style="padding:8px 12px;color:var(--s)">Cocher/d&eacute;cocher Autre emplacement</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">S</span></td><td style="padding:8px 12px;color:var(--s)">Sauvegarder l'observation</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">Échap</span></td><td style="padding:8px 12px;color:var(--s)">Fermer le formulaire</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">Entrée</span> dans les nids</td><td style="padding:8px 12px;color:var(--s)">Passer &agrave; la colonne suivante</td></tr>
-      <tr style="border-bottom:1px solid var(--b)"><td style="padding:8px 12px"><span class="kbd">→</span> <span class="kbd">←</span> dans les nids</td><td style="padding:8px 12px;color:var(--s)">Naviguer entre les colonnes de nids</td></tr>
-      <tr><td style="padding:8px 12px"><span class="kbd">Entrée</span> dans Remarque</td><td style="padding:8px 12px;color:var(--s)">Sauvegarder directement</td></tr>
+    <h2>Raccourcis clavier &mdash; Outil bureau</h2>
+    <p style="color:var(--muted);margin-bottom:18px;font-size:14px">Ces raccourcis sont actifs quand le formulaire est ouvert et que le curseur n&apos;est pas dans un champ texte.</p>
+    <table class="shortcut-table">
+      <tr><th>Touche</th><th>Action</th></tr>
+      <tr><td><kbd>C</kbd></td><td>Cocher / d&eacute;cocher &laquo;&nbsp;Sous corniche&nbsp;&raquo;</td></tr>
+      <tr><td><kbd>F</kbd></td><td>Cocher / d&eacute;cocher &laquo;&nbsp;Fen&ecirc;tre&nbsp;&raquo;</td></tr>
+      <tr><td><kbd>A</kbd></td><td>Cocher / d&eacute;cocher &laquo;&nbsp;Autre emplacement&nbsp;&raquo;</td></tr>
+      <tr><td><kbd>S</kbd></td><td>Enregistrer l&apos;observation</td></tr>
+      <tr><td><kbd>Echap</kbd></td><td>Fermer le formulaire</td></tr>
+      <tr><td><kbd>Entr&eacute;e</kbd> dans les nids</td><td>Passer &agrave; la colonne suivante</td></tr>
+      <tr><td><kbd>&rarr;</kbd> <kbd>&larr;</kbd> dans les nids</td><td>Naviguer entre les colonnes</td></tr>
+      <tr><td><kbd>Entr&eacute;e</kbd> dans Remarque</td><td>Enregistrer directement</td></tr>
     </table>
-    <div class="tip" style="margin-top:16px">💡 Flux id&eacute;al sans souris&nbsp;: cliquez le b&acirc;timent → encodez les nids → <span class="kbd">C</span>/<span class="kbd">F</span> pour l'emplacement → <span class="kbd">Entrée</span> → <span class="kbd">Entrée</span> en remarque pour sauvegarder.</div>
   </div>
 </div>
 
-<!-- FAQ -->
-<div class="tab-content" id="tab-faq">
+<div class="tab" id="tab-faq">
   <div class="card">
-    <h2>💬 Questions fr&eacute;quentes</h2>
+    <h2>Questions fr&eacute;quentes</h2>
     <div class="faq-item" onclick="this.classList.toggle('open')">
       <div class="faq-q">Mes donn&eacute;es sont-elles perdues si je ferme le navigateur&nbsp;?</div>
-      <div class="faq-a">Non. Les donn&eacute;es sont sauvegard&eacute;es automatiquement dans votre navigateur (localStorage) et envoy&eacute;es vers la base de donn&eacute;es du Parc. Elles restent disponibles quand vous rouvrez l'outil sur le m&ecirc;me appareil et le m&ecirc;me navigateur.</div>
+      <div class="faq-a">Non. Les donn&eacute;es sont sauvegard&eacute;es automatiquement dans votre navigateur et envoy&eacute;es vers la base de donn&eacute;es du Parc. Elles restent disponibles si vous rouvrez l&apos;outil sur le m&ecirc;me appareil et le m&ecirc;me navigateur.</div>
     </div>
     <div class="faq-item" onclick="this.classList.toggle('open')">
       <div class="faq-q">Le village d&eacute;tect&eacute; est incorrect, que faire&nbsp;?</div>
-      <div class="faq-a">Cliquez directement sur le champ "Village" et tapez le nom correct. La d&eacute;tection automatique utilise OpenStreetMap et peut parfois se tromper pour les hameaux tr&egrave;s petits.</div>
+      <div class="faq-a">Cliquez directement sur le champ Village et tapez le nom correct. La d&eacute;tection automatique utilise OpenStreetMap et peut occasionnellement se tromper pour les tr&egrave;s petits hameaux.</div>
     </div>
     <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-q">L'adresse n'appara&icirc;t pas ou est incompl&egrave;te</div>
-      <div class="faq-a">L'adresse est r&eacute;cup&eacute;r&eacute;e via OpenStreetMap. Si le num&eacute;ro de maison ne s'affiche pas, il n'est peut-&ecirc;tre pas encore encod&eacute; dans OSM pour ce b&acirc;timent. Compl&eacute;tez manuellement le champ adresse.</div>
+      <div class="faq-q">L&apos;adresse n&apos;appara&icirc;t pas ou est incompl&egrave;te</div>
+      <div class="faq-a">L&apos;adresse est r&eacute;cup&eacute;r&eacute;e via OpenStreetMap. Si le num&eacute;ro de maison ne s&apos;affiche pas, il n&apos;est peut-&ecirc;tre pas encod&eacute; dans OSM pour ce b&acirc;timent. Compl&eacute;tez manuellement le champ adresse.</div>
     </div>
     <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-q">Comment transf&eacute;rer les donn&eacute;es du t&eacute;l&eacute;phone vers l'ordinateur&nbsp;?</div>
-      <div class="faq-a">Exportez le CSV depuis l'outil mobile (bouton 💾 T&eacute;l&eacute;charger), transmettez le fichier par email ou WhatsApp, puis importez-le dans l'outil bureau (bouton ⬆ Importer) si vous souhaitez tout visualiser ensemble.</div>
+      <div class="faq-q">Comment transf&eacute;rer les donn&eacute;es du t&eacute;l&eacute;phone vers l&apos;ordinateur&nbsp;?</div>
+      <div class="faq-a">Exportez le CSV depuis l&apos;outil mobile, transmettez le fichier par email, puis importez-le dans l&apos;outil bureau via le bouton Importer. Vous pouvez ainsi fusionner plusieurs sessions de terrain.</div>
     </div>
     <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-q">Je travaille sur plusieurs villages, comment m'organiser&nbsp;?</div>
-      <div class="faq-a">Encodez toutes les observations d'un village, exportez le CSV (il portera le nom du village), puis utilisez le bouton 🗑 Vider pour recommencer avec un nouveau village. &Agrave; la fin, importez tous vos CSV les uns apr&egrave;s les autres pour les fusionner.</div>
+      <div class="faq-q">Je travaille sur plusieurs villages, comment m&apos;organiser&nbsp;?</div>
+      <div class="faq-a">Encodez les observations d&apos;un village, exportez le CSV (il porte le nom du village), utilisez le bouton Vider pour repartir de z&eacute;ro. &Agrave; la fin, importez tous vos CSV pour les fusionner.</div>
     </div>
     <div class="faq-item" onclick="this.classList.toggle('open')">
-      <div class="faq-q">Je n'ai pas de connexion internet sur le terrain</div>
-      <div class="faq-a">Les outils fonctionnent hors ligne pour l'encodage. Les donn&eacute;es sont sauvegard&eacute;es localement. Seul le fond de carte OSM et la d&eacute;tection d'adresse n&eacute;cessitent internet. L'envoi vers la base de donn&eacute;es se fera automatiquement si internet n'&eacute;tait pas disponible &mdash; dans ce cas exportez votre CSV et transmettez-le.</div>
+      <div class="faq-q">Je n&apos;ai pas de connexion internet sur le terrain</div>
+      <div class="faq-a">Les outils fonctionnent hors ligne pour l&apos;encodage. Les donn&eacute;es sont sauvegard&eacute;es localement. Le fond de carte et la d&eacute;tection d&apos;adresse n&eacute;cessitent internet, mais l&apos;encodage lui-m&ecirc;me reste possible. Exportez votre CSV et transmettez-le &agrave; votre retour.</div>
     </div>
   </div>
 </div>
-
-</main>
-<footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; En partenariat avec Aves Lorraine</footer>
-<script>
-function showTab(id){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  event.target.classList.add('active');
-}
-</script>
-</body></html>
+</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>function showTab(id,btn){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));document.getElementById("tab-"+id).classList.add("active");btn.classList.add("active");}</script></body></html>

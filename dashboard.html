@@ -1,201 +1,74 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dashboard coordinateur &mdash; Hirondelles Gaume</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-
-<style>
-*{{box-sizing:border-box;margin:0;padding:0}}
-:root{{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff}}
-body{{font-family:system-ui,sans-serif;background:#f5f8f5;color:var(--t);min-height:100vh;display:flex;flex-direction:column}}
-/* NAV */
-nav{{background:var(--v);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;flex-wrap:wrap;min-height:52px}}
-nav .brand{{color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 0;white-space:nowrap}}
-nav .brand span{{opacity:.9}}
-#nav-toggle{{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px}}
-#nav-links{{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}}
-#nav-links a{{color:rgba(255,255,255,.82);text-decoration:none;padding:14px 10px;font-size:13px;white-space:nowrap;transition:color .15s}}
-#nav-links a:hover{{color:#fff}}
-#nav-links a.active{{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.7)}}
-/* HERO */
-.hero{{background:linear-gradient(135deg,#1a4a1a 0%,#2d6a2d 60%,#3d8a3d 100%);color:#fff;padding:48px 24px;text-align:center}}
-.hero h1{{font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:10px}}
-.hero p{{font-size:16px;opacity:.88;max-width:600px;margin:0 auto}}
-/* MAIN */
-main{{flex:1;max-width:900px;width:100%;margin:0 auto;padding:28px 20px}}
-/* CARDS */
-.card{{background:var(--w);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(45,106,45,.08)}}
-.card h2{{font-size:18px;color:var(--v);margin-bottom:12px;display:flex;align-items:center;gap:8px}}
-.card p,.card li{{font-size:14px;color:var(--s);line-height:1.7;margin-bottom:8px}}
-.card ul{{padding-left:20px}}
-/* SECTION */
-.section-title{{font-size:13px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 10px}}
-/* BADGES */
-.badge{{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500}}
-.badge-green{{background:#e8f5e8;color:var(--v)}}
-.badge-orange{{background:#fff3e0;color:#e65100}}
-/* FOOTER */
-footer{{background:var(--v);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:12px;margin-top:auto}}
-/* RESPONSIVE */
-@media(max-width:640px){{
-  #nav-toggle{{display:block}}
-  #nav-links{{display:none;width:100%;flex-direction:column;padding-bottom:8px}}
-  #nav-links.open{{display:flex}}
-  #nav-links a{{padding:10px 4px}}
-  main{{padding:16px 14px}}
-}}
-</style>
-<style>
-.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
-.stat{background:var(--w);border-radius:10px;padding:12px;text-align:center;box-shadow:0 1px 6px rgba(45,106,45,.08)}
-.stat .val{font-size:24px;font-weight:700;color:var(--v)}
-.stat .lbl{font-size:11px;color:var(--s)}
-#map-dash{height:380px;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.data-table{width:100%;border-collapse:collapse;font-size:12px}
-.data-table th{background:var(--vb);padding:8px 10px;text-align:left;color:var(--v);font-weight:600;position:sticky;top:0;white-space:nowrap}
-.data-table td{padding:7px 10px;border-bottom:1px solid #f0f0f0;color:var(--s)}
-.data-table tr:hover td{background:var(--vb)}
-.export-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
-.btn{padding:8px 16px;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500}
-.btn-green{background:var(--v);color:#fff}
-.btn-outline{background:none;border:1.5px solid var(--b);color:var(--s)}
-.filter-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
-.filter-bar input,.filter-bar select{border:1px solid var(--b);border-radius:6px;padding:6px 10px;font-size:13px;color:var(--t)}
-.badge-new{background:#e8f5e8;color:var(--v);border-radius:99px;padding:2px 8px;font-size:11px;font-weight:600}
-@media(max-width:600px){.stats-bar{grid-template-columns:repeat(3,1fr)}}
-</style>
-</head><body>
-<nav><a href="index.html" class="brand">🐦 <span>Hirondelles Gaume 2026</span></a><button id="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button><div id="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats 2026</a><a href="recensement_hirondelles.html" class="">🖥 Bureau</a><a href="hirondelles_terrain_mobile.html" class="">📱 Terrain</a></div></nav>
-<div class="hero" style="padding:28px 24px">
-  <h1>🔧 Dashboard coordinateur</h1>
-  <p>Vue compl&egrave;te des donn&eacute;es &mdash; Campagne 2026</p>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>Dashboard &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero" style="padding:30px 28px">
+  <h1>Dashboard coordinateur</h1>
+  <p>Vue compl&egrave;te des donn&eacute;es &mdash; R&eacute;serv&eacute; au Parc Naturel de Gaume</p>
 </div>
-<main style="max-width:1100px">
-  <div class="stats-bar">
-    <div class="stat"><div class="val" id="d-obs">—</div><div class="lbl">Observations</div></div>
-    <div class="stat"><div class="val" id="d-entiers">—</div><div class="lbl">Nids entiers</div></div>
-    <div class="stat"><div class="val" id="d-occu">—</div><div class="lbl">Nids occup&eacute;s</div></div>
-    <div class="stat"><div class="val" id="d-vill">—</div><div class="lbl">Villages</div></div>
-    <div class="stat"><div class="val" id="d-obs">—</div><div class="lbl">Observateurs</div></div>
+<main class="wide">
+  <div class="stats" style="grid-template-columns:repeat(5,1fr)">
+    <div class="stat-card"><div class="num" id="d-obs">&mdash;</div><div class="lbl">Observations</div></div>
+    <div class="stat-card"><div class="num" id="d-e">&mdash;</div><div class="lbl">Nids entiers</div></div>
+    <div class="stat-card"><div class="num" id="d-oc">&mdash;</div><div class="lbl">Nids occup&eacute;s</div></div>
+    <div class="stat-card"><div class="num" id="d-v">&mdash;</div><div class="lbl">Villages</div></div>
+    <div class="stat-card"><div class="num" id="d-obs2">&mdash;</div><div class="lbl">Observateurs</div></div>
   </div>
-  <div id="map-dash"></div>
-  <div class="export-bar">
-    <button class="btn btn-green" onclick="exportAll()">⬇ Exporter tout (CSV)</button>
-    <button class="btn btn-outline" onclick="loadData()">🔄 Actualiser</button>
-    <span id="last-up" style="font-size:12px;color:#aaa;margin-left:auto"></span>
+  <div id="map-dash" style="height:360px"></div>
+  <div class="toolbar">
+    <button class="btn btn-primary" onclick="exportAll()">T&eacute;l&eacute;charger tout (CSV)</button>
+    <button class="btn btn-secondary" onclick="loadData()">Actualiser</button>
+    <span class="refresh-info" id="last-up"></span>
   </div>
-  <div class="filter-bar">
-    <input type="text" id="f-search" placeholder="Chercher village, adresse..." oninput="filterTable()">
-    <select id="f-village" onchange="filterTable()"><option value="">Tous les villages</option></select>
+  <div class="filter-row">
+    <input type="text" id="f-q" placeholder="Rechercher par village, adresse, observateur..." oninput="filterTable()" style="flex:1">
+    <select id="f-v" onchange="filterTable()"><option value="">Tous les villages</option></select>
   </div>
-  <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--b)">
+  <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border)">
     <table class="data-table">
-      <thead><tr>
-        <th>Date</th><th>Village</th><th>Observateur</th><th>Adresse</th><th>Type</th>
-        <th>Nn.E</th><th>Nn.O</th><th>Nn.C</th><th>Na.I</th><th>Na.O</th>
-        <th>Emplacement</th><th>Remarque</th>
-      </tr></thead>
-      <tbody id="dash-tbody"><tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Chargement...</td></tr></tbody>
+      <thead><tr><th>Date</th><th>Village</th><th>Observateur</th><th>Adresse</th><th>Type</th>
+      <th>Nn.E</th><th>Nn.O</th><th>Nn.C</th><th>Na.I</th><th>Na.O</th><th>Emplacement</th><th>Remarque</th></tr></thead>
+      <tbody id="dtbody"><tr><td colspan="12" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr></tbody>
     </table>
   </div>
-</main>
-<footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; En partenariat avec Aves Lorraine</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script>
-const SB_URL='https://qgrrfthtdzjyxovodiegv.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
-let allData=[];
-
+</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script>const SB_URL="https://qgrrfthtdzjyxovodiegv.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+let all=[];
 const map=L.map('map-dash').setView([49.63,5.50],11);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM'}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OSM'}).addTo(map);
 let mkrs=L.layerGroup().addTo(map);
-
-function colNid(n){return n<=0?'#9e9e9e':n<=5?'#66bb6a':n<=15?'#fdd835':n<=30?'#fb8c00':'#e53935';}
-
+function col(n){return n<=0?'#9e9e9e':n<=5?'#66bb6a':n<=15?'#fdd835':n<=30?'#fb8c00':'#e53935';}
 async function loadData(){
-  try{
-    const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=*&order=created_at.desc',{
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-    });
-    allData=await r.json();
-    renderAll(allData);
-    document.getElementById('last-up').textContent='Actualisé : '+new Date().toLocaleTimeString('fr-BE');
-  }catch(e){
-    document.getElementById('last-up').textContent='Erreur de connexion';
-  }
+  const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  all=await r.json();
+  renderAll(all);
+  document.getElementById('last-up').textContent='Actualis&eacute; &agrave; '+new Date().toLocaleTimeString('fr-BE');
 }
-
-function renderAll(data){
-  // Stats
-  document.getElementById('d-entiers').textContent=data.reduce((s,o)=>s+(o.nnentiers||0),0);
-  document.getElementById('d-occu').textContent=data.reduce((s,o)=>s+(o.nnoccupes||0),0);
-  const vill=new Set(data.map(o=>o.village).filter(Boolean));
-  document.getElementById('d-vill').textContent=vill.size;
-  const obs=new Set(data.map(o=>o.observateur).filter(Boolean));
-  document.querySelectorAll('#d-obs').forEach(el=>el.textContent=data.length);
-  document.querySelectorAll('#d-obs')[1].textContent=obs.size;
-
-  // Village filter
-  const sel=document.getElementById('f-village');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">Tous les villages</option>'+
-    [...vill].sort().map(v=>`<option value="${v}" ${v===cur?'selected':''}>${v}</option>`).join('');
-
-  // Map
+function renderAll(d){
+  document.getElementById('d-obs').textContent=d.length;
+  document.getElementById('d-e').textContent=d.reduce((s,o)=>s+(o.nnentiers||0),0);
+  document.getElementById('d-oc').textContent=d.reduce((s,o)=>s+(o.nnoccupes||0),0);
+  const vS=new Set(d.map(o=>o.village).filter(Boolean));
+  document.getElementById('d-v').textContent=vS.size;
+  document.getElementById('d-obs2').textContent=new Set(d.map(o=>o.observateur).filter(Boolean)).size;
+  const sel=document.getElementById('f-v');const cur=sel.value;
+  sel.innerHTML='<option value="">Tous les villages</option>'+[...vS].sort().map(v=>'<option value="'+v+'"'+(v===cur?' selected':'')+'>'+v+'</option>').join('');
   mkrs.clearLayers();
-  data.forEach(o=>{
-    if(!o.latitude||!o.longitude)return;
-    L.circleMarker([o.latitude,o.longitude],{
-      radius:Math.max(5,Math.min(18,5+(o.nnentiers||0)*.35)),
-      color:'#fff',weight:1.5,fillColor:colNid(o.nnentiers||0),fillOpacity:.88
-    }).addTo(mkrs).bindPopup(
-      '<b style="color:#2d6a2d">'+(o.village||'—')+'</b><br>'+
-      '<small>'+(o.adresse||'—')+'</small><br>'+
-      '🪺 '+(o.nnentiers||0)+' entiers · '+(o.nnoccupes||0)+' occupés<br>'+
-      '<small style="color:#888">'+(o.observateur||'')+'</small>'
-    );
+  d.forEach(o=>{if(!o.latitude||!o.longitude)return;
+    L.circleMarker([o.latitude,o.longitude],{radius:Math.max(5,5+(o.nnentiers||0)*.3),color:'#fff',weight:1.5,fillColor:col(o.nnentiers||0),fillOpacity:.88})
+    .addTo(mkrs).bindPopup('<b style="color:#2d6a2d">'+(o.village||'')+'</b><br>'+(o.adresse||'')+'<br>'+(o.observateur||''));
   });
-
-  // Table
-  document.getElementById('dash-tbody').innerHTML=data.length?data.map(o=>`<tr>
-    <td style="white-space:nowrap">${(o.date_recensement||'').slice(0,10)}</td>
-    <td style="font-weight:500;color:var(--t)">${o.village||''}</td>
-    <td>${o.observateur||''}</td>
-    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.adresse||''}</td>
-    <td style="white-space:nowrap">${o.type_batiment||''}</td>
-    <td style="color:var(--v);font-weight:600">${o.nnentiers||0}</td>
-    <td>${o.nnoccupes||0}</td><td>${o.nncasses||0}</td>
-    <td>${o.nainstalles||0}</td><td>${o.naoccupes||0}</td>
-    <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.emplacement||''}</td>
-    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic;color:#888">${o.remarque||''}</td>
-  </tr>`).join(''):'<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Aucune donn&eacute;e</td></tr>';
+  document.getElementById('dtbody').innerHTML=d.length?d.map(o=>'<tr><td style="white-space:nowrap">'+(o.date_recensement||'').slice(0,10)+'</td><td style="font-weight:600;color:var(--text)">'+(o.village||'')+'</td><td>'+(o.observateur||'')+'</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.adresse||'')+'</td><td>'+(o.type_batiment||'')+'</td><td style="font-weight:700;color:var(--green)">'+(o.nnentiers||0)+'</td><td>'+(o.nnoccupes||0)+'</td><td>'+(o.nncasses||0)+'</td><td>'+(o.nainstalles||0)+'</td><td>'+(o.naoccupes||0)+'</td><td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.emplacement||'')+'</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa;font-style:italic">'+(o.remarque||'')+'</td></tr>').join(''):'<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Aucune donn&eacute;e</td></tr>';
 }
-
 function filterTable(){
-  const q=document.getElementById('f-search').value.toLowerCase();
-  const v=document.getElementById('f-village').value;
-  const filtered=allData.filter(o=>
-    (!v||o.village===v)&&
-    (!q||(o.village||'').toLowerCase().includes(q)||(o.adresse||'').toLowerCase().includes(q)||(o.observateur||'').toLowerCase().includes(q))
-  );
-  renderAll(filtered);
+  const q=document.getElementById('f-q').value.toLowerCase();
+  const v=document.getElementById('f-v').value;
+  renderAll(all.filter(o=>(!v||o.village===v)&&(!q||['village','adresse','observateur'].some(k=>(o[k]||'').toLowerCase().includes(q)))));
 }
-
 function exportAll(){
-  const data=allData;
-  if(!data.length)return;
-  const h=['Date','Observateur','Village','Adresse','Type','Nnentiers','Nnoccupés','Nncassés','Nainstallés','Naoccupés','Emplacement','Remarque','Latitude','Longitude'];
-  const rows=data.map(o=>[o.date_recensement,o.observateur,o.village,o.adresse,o.type_batiment,
-    o.nnentiers,o.nnoccupes,o.nncasses,o.nainstalles,o.naoccupes,
-    o.emplacement,o.remarque,o.latitude,o.longitude]
-    .map(v=>'"'+(v??'').toString().replace(/"/g,'""')+'"').join(','));
-  const csv='\uFEFF'+[h.join(','),...rows].join('\r\n');
+  if(!all.length)return;
+  const h=['Date','Observateur','Village','Adresse','Type','Nnentiers','Nnoccupes','Nncasses','Nainstalles','Naoccupes','Emplacement','Remarque','Latitude','Longitude'];
+  const rows=all.map(o=>[o.date_recensement,o.observateur,o.village,o.adresse,o.type_batiment,o.nnentiers,o.nnoccupes,o.nncasses,o.nainstalles,o.naoccupes,o.emplacement,o.remarque,o.latitude,o.longitude].map(v=>'"'+(v??'').toString().replace(/"/g,'""')+'"').join(','));
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download='recensement_gaume_2026_complet.csv';
-  a.click();
+  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('
+')],{type:'text/csv;charset=utf-8'}));
+  a.download='recensement_gaume_2026_complet.csv';a.click();
 }
-
-loadData();
-setInterval(loadData,120000); // refresh toutes les 2 min
-</script>
-</body></html>
+loadData().catch(()=>{document.getElementById('dtbody').innerHTML='<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Erreur de connexion</td></tr>';});
+setInterval(loadData,120000);
+</script></body></html>

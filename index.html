@@ -1,114 +1,46 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Recensement Hirondelles &mdash; Parc Naturel de Gaume</title>
-
-<style>
-*{{box-sizing:border-box;margin:0;padding:0}}
-:root{{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff}}
-body{{font-family:system-ui,sans-serif;background:#f5f8f5;color:var(--t);min-height:100vh;display:flex;flex-direction:column}}
-/* NAV */
-nav{{background:var(--v);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;flex-wrap:wrap;min-height:52px}}
-nav .brand{{color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 0;white-space:nowrap}}
-nav .brand span{{opacity:.9}}
-#nav-toggle{{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px}}
-#nav-links{{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}}
-#nav-links a{{color:rgba(255,255,255,.82);text-decoration:none;padding:14px 10px;font-size:13px;white-space:nowrap;transition:color .15s}}
-#nav-links a:hover{{color:#fff}}
-#nav-links a.active{{color:#fff;font-weight:600;border-bottom:2px solid rgba(255,255,255,.7)}}
-/* HERO */
-.hero{{background:linear-gradient(135deg,#1a4a1a 0%,#2d6a2d 60%,#3d8a3d 100%);color:#fff;padding:48px 24px;text-align:center}}
-.hero h1{{font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:10px}}
-.hero p{{font-size:16px;opacity:.88;max-width:600px;margin:0 auto}}
-/* MAIN */
-main{{flex:1;max-width:900px;width:100%;margin:0 auto;padding:28px 20px}}
-/* CARDS */
-.card{{background:var(--w);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(45,106,45,.08)}}
-.card h2{{font-size:18px;color:var(--v);margin-bottom:12px;display:flex;align-items:center;gap:8px}}
-.card p,.card li{{font-size:14px;color:var(--s);line-height:1.7;margin-bottom:8px}}
-.card ul{{padding-left:20px}}
-/* SECTION */
-.section-title{{font-size:13px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:.07em;margin:24px 0 10px}}
-/* BADGES */
-.badge{{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:500}}
-.badge-green{{background:#e8f5e8;color:var(--v)}}
-.badge-orange{{background:#fff3e0;color:#e65100}}
-/* FOOTER */
-footer{{background:var(--v);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:12px;margin-top:auto}}
-/* RESPONSIVE */
-@media(max-width:640px){{
-  #nav-toggle{{display:block}}
-  #nav-links{{display:none;width:100%;flex-direction:column;padding-bottom:8px}}
-  #nav-links.open{{display:flex}}
-  #nav-links a{{padding:10px 4px}}
-  main{{padding:16px 14px}}
-}}
-</style>
-<style>
-.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.tool-card{display:flex;flex-direction:column;align-items:center;background:var(--vb);border:2px solid var(--b);border-radius:14px;padding:28px 20px;text-decoration:none;transition:border-color .15s,transform .1s;gap:10px;text-align:center}
-.tool-card:hover{border-color:var(--vl);transform:translateY(-2px)}
-.tool-card .ic{font-size:40px}
-.tool-card h3{font-size:16px;font-weight:600;color:var(--t)}
-.tool-card p{font-size:13px;color:var(--s);line-height:1.5}
-.tool-card .btn{margin-top:8px;background:var(--v);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%}
-.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-.stat{background:var(--w);border-radius:10px;padding:14px;text-align:center;box-shadow:0 1px 6px rgba(45,106,45,.08)}
-.stat .val{font-size:28px;font-weight:700;color:var(--v)}
-.stat .lbl{font-size:11px;color:var(--s);margin-top:2px}
-@media(max-width:500px){.tools-grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:1fr 1fr}}
-</style>
-</head><body>
-<nav>
-  <a href="index.html" class="brand">🐦 <span>Hirondelles Gaume 2026</span></a>
-  <button id="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
-  <div id="nav-links"><a href="index.html" class="active">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats 2026</a><a href="recensement_hirondelles.html" class="">🖥 Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">📱 Terrain</a></div>
-</nav>
-<div class="hero">
-  <h1>🐦 Recensement participatif de l'Hirondelle de fen&ecirc;tre</h1>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Recensement Hirondelles &mdash; Parc Naturel de Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html" class="active">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero">
+  <h1>Recensement participatif de l&apos;Hirondelle de fen&ecirc;tre</h1>
   <p>Parc Naturel de Gaume &mdash; en partenariat avec Aves Lorraine &mdash; Campagne 2026</p>
 </div>
 <main>
-  <p class="section-title">Avancement de la campagne 2026</p>
-  <div class="stats-bar">
-    <div class="stat"><div class="val" id="s-obs">—</div><div class="lbl">Observations</div></div>
-    <div class="stat"><div class="val" id="s-nids">—</div><div class="lbl">Nids entiers</div></div>
-    <div class="stat"><div class="val" id="s-vill">—</div><div class="lbl">Villages prospectés</div></div>
+  <p class="section-label">Avancement de la campagne 2026</p>
+  <div class="stats">
+    <div class="stat-card"><div class="num" id="s-obs">&mdash;</div><div class="lbl">Observations enregistr&eacute;es</div></div>
+    <div class="stat-card"><div class="num" id="s-nids">&mdash;</div><div class="lbl">Nids entiers comptabilis&eacute;s</div></div>
+    <div class="stat-card"><div class="num" id="s-vill">&mdash;</div><div class="lbl">Villages prospecté</div></div>
   </div>
-  <p class="section-title">Outils d'encodage</p>
-  <div class="tools-grid">
+  <p class="section-label">Outils d&apos;encodage</p>
+  <div class="tools">
     <a class="tool-card" href="recensement_hirondelles.html">
-      <span class="ic">🖥️</span>
       <h3>Outil bureau</h3>
-      <p>Pour encoder vos donn&eacute;es depuis un ordinateur &mdash; carte compl&egrave;te, raccourcis clavier, import/export</p>
-      <div class="btn">Ouvrir l'outil →</div>
+      <p>Pour encoder vos donn&eacute;es depuis un ordinateur. Carte compl&egrave;te, raccourcis clavier, import et export CSV.</p>
+      <div class="cta">Ouvrir l&apos;outil bureau &rarr;</div>
     </a>
     <a class="tool-card" href="hirondelles_terrain_mobile.html">
-      <span class="ic">📱</span>
       <h3>Outil terrain</h3>
-      <p>Sur le terrain avec votre t&eacute;l&eacute;phone &mdash; touchez la carte, compteurs + et &minus; pour les nids</p>
-      <div class="btn">Ouvrir l'outil →</div>
+      <p>Optimis&eacute; pour le t&eacute;l&eacute;phone. Touchez la carte, utilisez les boutons + et &minus; pour compter les nids.</p>
+      <div class="cta">Ouvrir l&apos;outil terrain &rarr;</div>
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
-    <a class="tool-card" href="protocole.html" style="flex-direction:row;gap:14px;text-align:left;padding:16px 18px">
-      <span style="font-size:28px">📋</span>
-      <div><h3 style="font-size:14px">Protocole 2026</h3><p style="margin:0">M&eacute;thodologie et instructions</p></div>
+  <div class="links-row">
+    <a class="link-card" href="protocole.html">
+      <div>
+        <h3>Protocole 2026</h3>
+        <p>M&eacute;thodologie et instructions de recensement</p>
+      </div>
     </a>
-    <a class="tool-card" href="guide.html" style="flex-direction:row;gap:14px;text-align:left;padding:16px 18px">
-      <span style="font-size:28px">❓</span>
-      <div><h3 style="font-size:14px">Guide des outils</h3><p style="margin:0">Comment utiliser les outils num&eacute;riques</p></div>
+    <a class="link-card" href="guide.html">
+      <div>
+        <h3>Guide des outils</h3>
+        <p>Comment utiliser les outils num&eacute;riques</p>
+      </div>
     </a>
   </div>
-</main>
-<footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; En partenariat avec Aves Lorraine</footer>
-<script>
-const SB_URL='https://qgrrfthtdzjyxovodiegv.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
-fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}
-).then(r=>r.json()).then(data=>{
-  document.getElementById('s-obs').textContent=data.length;
-  document.getElementById('s-nids').textContent=data.reduce((s,o)=>s+(o.nnentiers||0),0);
-  document.getElementById('s-vill').textContent=new Set(data.map(o=>o.village).filter(Boolean)).size;
+</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodiegv.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}})
+.then(r=>r.json()).then(d=>{
+  document.getElementById('s-obs').textContent=d.length;
+  document.getElementById('s-nids').textContent=d.reduce((s,o)=>s+(o.nnentiers||0),0);
+  document.getElementById('s-vill').textContent=new Set(d.map(o=>o.village).filter(Boolean)).size;
 }).catch(()=>{});
-</script>
-</body></html>
+</script></body></html>
