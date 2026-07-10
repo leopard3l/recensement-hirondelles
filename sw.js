@@ -28,6 +28,8 @@ self.addEventListener('activate', e => {
 // Stratégie : cache en priorité, réseau en fallback
 // Les tuiles OSM sont mises en cache après premier chargement
 self.addEventListener('fetch', e => {
+  // Ignorer tout ce qui n'est pas https (chrome-extension://, etc.)
+  if (!e.request.url.startsWith('https://')) return;
   // Ne pas intercepter les appels Supabase (toujours réseau)
   if (e.request.url.includes('supabase.co')) return;
 
