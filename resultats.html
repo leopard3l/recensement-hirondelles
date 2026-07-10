@@ -1,52 +1,98 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>R&eacute;sultats 2026 &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html" class="active">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero">
-  <h1>R&eacute;sultats de la campagne 2026</h1>
-  <p>Donn&eacute;es mises &agrave; jour en temps r&eacute;el depuis les outils de recensement</p>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>R&eacute;sultats &mdash; Hirondelles Gaume</title><style>.year-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:2px solid var(--border)}.ytab{padding:12px 24px;border:none;background:none;font-size:15px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}.ytab.active{color:var(--green);border-bottom-color:var(--green);font-weight:700}.ycontent{display:none}.ycontent.active{display:block}.iframe-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin:16px 0;background:#f9f9f9}.iframe-wrap iframe{width:100%;height:480px;border:none;display:block}.iframe-label{padding:10px 16px;font-size:13px;font-weight:600;color:var(--green);background:var(--green-bg);border-bottom:1px solid var(--border)}.map-note{font-size:13px;color:var(--muted);font-style:italic;margin:8px 0 20px}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="active">Résultats</a><a href="import.html" class="">Importer données</a><a href="recensement_hirondelles.html" class="">Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">Terrain mobile</a></div></nav><div class="hero">
+  <h1>R&eacute;sultats du recensement</h1>
+  <p>Hirondelle de fen&ecirc;tre (<em>Delichon urbicum</em>) &mdash; Parc Naturel de Gaume</p>
 </div>
 <main style="max-width:1000px">
-  <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-    <div class="stat-card"><div class="num" id="s-obs">&mdash;</div><div class="lbl">Observations</div></div>
-    <div class="stat-card"><div class="num" id="s-entiers">&mdash;</div><div class="lbl">Nids entiers</div></div>
-    <div class="stat-card"><div class="num" id="s-occu">&mdash;</div><div class="lbl">Nids occup&eacute;s</div></div>
-    <div class="stat-card"><div class="num" id="s-vill">&mdash;</div><div class="lbl">Villages prospecté</div></div>
+  <div class="year-tabs">
+    <button class="ytab" onclick="showYear('y2025',this)">Campagne 2025</button>
+    <button class="ytab active" onclick="showYear('y2026',this)">Campagne 2026</button>
   </div>
-  <div id="map-res" style="height:420px"></div>
-  <div class="card" style="padding:0;overflow:hidden">
-    <div style="padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-      <h2 style="margin:0;font-size:16px">R&eacute;sultats par village</h2>
-      <span id="last-up" style="font-size:12px;color:#aaa"></span>
+
+  <!-- ── 2025 ── -->
+  <div class="ycontent" id="y2025">
+    <div class="card">
+      <h2>Campagne 2025 &mdash; Donn&eacute;es d&eacute;finitives</h2>
+      <p>Premier recensement participatif des hirondelles de fen&ecirc;tre dans le territoire gaumais. Les cartes ci-dessous pr&eacute;sentent les r&eacute;sultats de la campagne 2025.</p>
     </div>
-    <div style="overflow-x:auto">
-      <table class="village-table">
-        <thead><tr><th>Village</th><th>Sites</th><th>Nids entiers</th><th>Nids occup&eacute;s</th><th>Nids cass&eacute;s</th><th style="min-width:120px">Proportion</th></tr></thead>
-        <tbody id="vtbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr></tbody>
-      </table>
+    <p class="section-label">Carte de concentration (heatmap)</p>
+    <div class="iframe-wrap">
+      <div class="iframe-label">Distribution et densit&eacute; des nids &mdash; Gaume 2025</div>
+      <iframe src="carte_2025_heatmap.html" title="Heatmap 2025"
+        onerror="this.parentElement.innerHTML='<div style=padding:40px;text-align:center;color:#aaa>Carte disponible prochainement</div>'">
+      </iframe>
+    </div>
+    <p class="map-note">Cliquez sur chaque point pour voir le d&eacute;tail de l&apos;observation. Vert = faible densit&eacute;, rouge = forte densit&eacute;.</p>
+    <p class="section-label">Carte par village</p>
+    <div class="iframe-wrap">
+      <div class="iframe-label">Nombre de nids par entit&eacute; &mdash; Gaume 2025</div>
+      <iframe src="carte_2025_villages.html" title="Carte villages 2025"
+        onerror="this.parentElement.innerHTML='<div style=padding:40px;text-align:center;color:#aaa>Carte disponible prochainement</div>'">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- ── 2026 ── -->
+  <div class="ycontent active" id="y2026">
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat-card"><div class="num" id="s-obs">&mdash;</div><div class="lbl">Observations</div></div>
+      <div class="stat-card"><div class="num" id="s-e">&mdash;</div><div class="lbl">Nids entiers</div></div>
+      <div class="stat-card"><div class="num" id="s-oc">&mdash;</div><div class="lbl">Nids occup&eacute;s</div></div>
+      <div class="stat-card"><div class="num" id="s-v">&mdash;</div><div class="lbl">Villages prospecté</div></div>
+    </div>
+    <p class="section-label">Observations en temps r&eacute;el</p>
+    <p class="map-note">Donn&eacute;es mises &agrave; jour automatiquement &mdash; derni&egrave;re actualisation : <span id="last-up">&mdash;</span></p>
+    <div id="map-res" style="height:420px;margin-bottom:24px"></div>
+    <p class="section-label">Cartes d&apos;analyse (mises &agrave; jour en cours de campagne)</p>
+    <div class="iframe-wrap">
+      <div class="iframe-label">Distribution et densit&eacute; des nids &mdash; Gaume 2026</div>
+      <iframe src="carte_2026_heatmap.html" title="Heatmap 2026"
+        onerror="this.parentElement.innerHTML='<div style=padding:40px;text-align:center;color:#aaa>Carte en cours de g&eacute;n&eacute;ration &mdash; disponible prochainement</div>'">
+      </iframe>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-top:24px">
+      <div style="padding:14px 20px;border-bottom:1px solid var(--border)">
+        <h2 style="margin:0;font-size:16px">D&eacute;tail par village &mdash; 2026</h2>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="village-table">
+          <thead><tr><th>Village</th><th>Sites</th><th>Nids entiers</th><th>Nids occup&eacute;s</th><th>Nids cass&eacute;s</th><th style="min-width:120px">Proportion</th></tr></thead>
+          <tbody id="vtbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script>const SB_URL="https://qgrrfthtdzjyxovodiegv.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+function showYear(id,btn){
+  document.querySelectorAll('.ycontent').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.ytab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
 const map=L.map('map-res').setView([49.63,5.50],11);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OSM'}).addTo(map);
 let mkrs=L.layerGroup().addTo(map);
 function col(n){return n<=0?'#9e9e9e':n<=5?'#66bb6a':n<=15?'#fdd835':n<=30?'#fb8c00':'#e53935';}
 async function load(){
-  const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=*',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-  const d=await r.json();
-  document.getElementById('s-obs').textContent=d.length;
-  document.getElementById('s-entiers').textContent=d.reduce((s,o)=>s+(o.nnentiers||0),0);
-  document.getElementById('s-occu').textContent=d.reduce((s,o)=>s+(o.nnoccupes||0),0);
-  document.getElementById('s-vill').textContent=new Set(d.map(o=>o.village).filter(Boolean)).size;
-  document.getElementById('last-up').textContent='Actualis&eacute; '+new Date().toLocaleTimeString('fr-BE');
-  mkrs.clearLayers();
-  d.forEach(o=>{
-    if(!o.latitude||!o.longitude)return;
-    L.circleMarker([o.latitude,o.longitude],{radius:Math.max(6,6+(o.nnentiers||0)*.3),color:'#fff',weight:1.5,fillColor:col(o.nnentiers||0),fillOpacity:.88})
-    .addTo(mkrs).bindPopup('<b style="color:#2d6a2d">'+(o.village||'&mdash;')+'</b><br><small>'+(o.adresse||'')+'</small><br>Nids entiers&nbsp;: '+(o.nnentiers||0));
-  });
-  const byV={};
-  d.forEach(o=>{const v=o.village||'Non renseign&eacute;';if(!byV[v])byV[v]={s:0,e:0,oc:0,c:0};byV[v].s++;byV[v].e+=o.nnentiers||0;byV[v].oc+=o.nnoccupes||0;byV[v].c+=o.nncasses||0;});
-  const mx=Math.max(...Object.values(byV).map(v=>v.e),1);
-  document.getElementById('vtbody').innerHTML=Object.entries(byV).sort((a,b)=>b[1].e-a[1].e)
-  .map(([v,s])=>'<tr><td style="font-weight:600;color:var(--text)">'+v+'</td><td>'+s.s+'</td><td style="font-weight:700;color:var(--green)">'+s.e+'</td><td>'+s.oc+'</td><td>'+s.c+'</td><td><div class="bar"><div class="bar-fill" style="width:'+Math.round(s.e/mx*100)+'%"></div></div></td></tr>').join('');
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=*',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const d=await r.json();
+    document.getElementById('s-obs').textContent=d.length;
+    document.getElementById('s-e').textContent=d.reduce((s,o)=>s+(o.nnentiers||0),0);
+    document.getElementById('s-oc').textContent=d.reduce((s,o)=>s+(o.nnoccupes||0),0);
+    document.getElementById('s-v').textContent=new Set(d.map(o=>o.village).filter(Boolean)).size;
+    document.getElementById('last-up').textContent=new Date().toLocaleTimeString('fr-BE');
+    mkrs.clearLayers();
+    d.forEach(o=>{
+      if(!o.latitude||!o.longitude)return;
+      L.circleMarker([o.latitude,o.longitude],{radius:Math.max(6,6+(o.nnentiers||0)*.3),color:'#fff',weight:1.5,fillColor:col(o.nnentiers||0),fillOpacity:.88})
+      .addTo(mkrs).bindPopup('<b style="color:#2d6a2d">'+(o.village||'')+'</b><br><small>'+(o.adresse||'')+'</small><br>Nids entiers : '+(o.nnentiers||0)+(o.emplacement?'<br>'+o.emplacement:''));
+    });
+    const byV={};
+    d.forEach(o=>{const v=o.village||'Non renseigné';if(!byV[v])byV[v]={s:0,e:0,oc:0,c:0};byV[v].s++;byV[v].e+=o.nnentiers||0;byV[v].oc+=o.nnoccupes||0;byV[v].c+=o.nncasses||0;});
+    const mx=Math.max(...Object.values(byV).map(v=>v.e),1);
+    document.getElementById('vtbody').innerHTML=Object.entries(byV).sort((a,b)=>b[1].e-a[1].e)
+    .map(([v,s])=>'<tr><td style="font-weight:600;color:var(--text)">'+v+'</td><td>'+s.s+'</td><td style="font-weight:700;color:var(--green)">'+s.e+'</td><td>'+s.oc+'</td><td>'+s.c+'</td><td><div class="bar"><div class="bar-fill" style="width:'+Math.round(s.e/mx*100)+'%"></div></div></td></tr>').join('');
+  }catch(e){document.getElementById('last-up').textContent='Erreur de chargement';}
 }
-load().catch(()=>{document.getElementById('vtbody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:#aaa">Erreur de chargement</td></tr>';});
-setInterval(load,300000);
+load();setInterval(load,300000);
 </script></body></html>

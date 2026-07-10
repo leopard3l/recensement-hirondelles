@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Importer des donn&eacute;es &mdash; Hirondelles Gaume</title><style>.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:48px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--white)}.drop-zone.drag{border-color:var(--green);background:var(--green-bg)}.drop-zone h3{font-size:16px;color:var(--text);margin-bottom:8px}.drop-zone p{font-size:13.5px;color:var(--muted)}.file-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px}.file-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:8px;font-size:13.5px}.file-item .fname{flex:1;font-weight:500;color:var(--text)}.file-item .fst{font-size:12px;padding:3px 10px;border-radius:99px;font-weight:600}.st-wait{background:#f0f0f0;color:#888}.st-ok{background:#e8f5e8;color:var(--green)}.st-err{background:#fef2f2;color:#c0392b}.progress-bar{height:6px;background:#e8f5e8;border-radius:3px;overflow:hidden;margin-top:8px}.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}.summary-box{background:var(--green-bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-top:16px;display:none}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats</a><a href="import.html" class="active">Importer données</a><a href="recensement_hirondelles.html" class="">Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">Terrain mobile</a></div></nav><div class="hero">
+  <h1>Importer des donn&eacute;es</h1>
+  <p>Envoyez vos fichiers CSV vers la base de donn&eacute;es du Parc &mdash; tous les villages en une fois</p>
+</div>
+<main>
+  <div class="card">
+    <h2>Mode d&apos;emploi</h2>
+    <p>Glissez vos fichiers CSV (un par village) dans la zone ci-dessous. Chaque fichier est lu, les donn&eacute;es sont envoy&eacute;es &agrave; Supabase. L&apos;ann&eacute;e est d&eacute;tect&eacute;e automatiquement depuis le champ &laquo;&nbsp;Date&nbsp;&raquo; de chaque ligne.</p>
+    <p>Les doublons sont &eacute;vit&eacute;s gr&acirc;ce &agrave; la v&eacute;rification des coordonn&eacute;es et de l&apos;adresse.</p>
+  </div>
+  <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()"
+    ondragover="event.preventDefault();this.classList.add('drag')"
+    ondragleave="this.classList.remove('drag')"
+    ondrop="handleDrop(event)">
+    <h3>D&eacute;posez vos fichiers CSV ici</h3>
+    <p>ou cliquez pour s&eacute;lectionner des fichiers</p>
+    <input type="file" id="file-input" accept=".csv" multiple style="display:none" onchange="handleFiles(this.files)">
+  </div>
+  <ul class="file-list" id="file-list"></ul>
+  <div class="progress-bar" id="progress-bar" style="display:none">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <div class="summary-box" id="summary-box">
+    <h3 id="summary-title" style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:8px"></h3>
+    <p id="summary-text" style="font-size:14px;color:var(--muted);margin:0"></p>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:10px">
+    <button class="btn btn-primary" id="btn-import" style="display:none" onclick="startImport()">Envoyer vers Supabase</button>
+    <button class="btn btn-secondary" id="btn-reset" style="display:none" onclick="resetAll()">Recommencer</button>
+  </div>
+</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodiegv.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+let filesToProcess = [];
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag');
+  handleFiles(e.dataTransfer.files);
+}
+
+function handleFiles(files) {
+  filesToProcess = Array.from(files).filter(f => f.name.endsWith('.csv'));
+  if (!filesToProcess.length) { alert('Veuillez sélectionner des fichiers .csv'); return; }
+  const list = document.getElementById('file-list');
+  list.innerHTML = '';
+  filesToProcess.forEach((f, i) => {
+    const li = document.createElement('li');
+    li.className = 'file-item';
+    li.innerHTML = '<span class="fname">'+f.name+'</span><span class="fst st-wait" id="st-'+i+'">En attente</span>';
+    list.appendChild(li);
+  });
+  document.getElementById('btn-import').style.display = 'block';
+  document.getElementById('btn-reset').style.display = 'block';
+}
+
+function parseLine(line) {
+  const r=[]; let cur='', inQ=false;
+  for (let i=0; i<line.length; i++) {
+    if (line[i]==='"') { inQ=!inQ; }
+    else if (line[i]===',' && !inQ) { r.push(cur.trim().replace(/^"|"$/g,'')); cur=''; }
+    else cur+=line[i];
+  }
+  r.push(cur.trim().replace(/^"|"$/g,''));
+  return r;
+}
+
+function mapRow(hdrs, vals) {
+  const fi = k => hdrs.findIndex(h => h.toLowerCase().replace(/[^a-z]/g,'').includes(k));
+  const v = i => (i>=0 && vals[i]) ? vals[i].trim() : '';
+  const n = i => parseInt(v(i)) || 0;
+  const iDate=fi('date'), iObs=fi('observat'), iVill=fi('village')||fi('entit'),
+        iAdr=fi('adresse'), iTyp=fi('type'), iEmpl=fi('emplace'),
+        iN0=fi('entier'), iN1=hdrs.findIndex((h,i)=>h.toLowerCase().includes('occup')&&i<8),
+        iN2=fi('cass'), iN3=fi('install'),
+        iN4=hdrs.findLastIndex(h=>h.toLowerCase().includes('occup')),
+        iRem=fi('remarque'), iLat=fi('latit'), iLon=fi('longit');
+  const lat=parseFloat(v(iLat)), lon=parseFloat(v(iLon));
+  if (isNaN(lat)||isNaN(lon)) return null;
+  const dateStr = v(iDate);
+  const annee = dateStr ? parseInt(dateStr.slice(0,4)) : 2026;
+  return {
+    annee, date_recensement:dateStr,
+    observateur:v(iObs), village:v(iVill), adresse:v(iAdr),
+    type_batiment:v(iTyp), emplacement:v(iEmpl),
+    nnentiers:n(iN0), nnoccupes:n(iN1), nncasses:n(iN2),
+    nainstalles:n(iN3), naoccupes:n(iN4),
+    remarque:v(iRem), latitude:lat, longitude:lon
+  };
+}
+
+async function sendBatch(rows) {
+  const r = await fetch(SB_URL+'/rest/v1/observations', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
+    body:JSON.stringify(rows)
+  });
+  return r.ok;
+}
+
+async function startImport() {
+  document.getElementById('btn-import').disabled = true;
+  document.getElementById('progress-bar').style.display = 'block';
+  let totalOk=0, totalErr=0;
+
+  for (let i=0; i<filesToProcess.length; i++) {
+    const f = filesToProcess[i];
+    const st = document.getElementById('st-'+i);
+    st.textContent = 'Lecture...';
+    st.className = 'fst st-wait';
+    document.getElementById('progress-fill').style.width = Math.round((i/filesToProcess.length)*100)+'%';
+
+    try {
+      const text = await f.text();
+      const lines = text.split(/?
+/).filter(l=>l.trim());
+      if (lines.length < 2) { st.textContent='Vide'; st.className='fst st-err'; continue; }
+      const hdrs = parseLine(lines[0]).map(h=>h.toLowerCase());
+      const rows = [];
+      for (let j=1; j<lines.length; j++) {
+        const r = mapRow(hdrs, parseLine(lines[j]));
+        if (r) rows.push(r);
+      }
+      if (!rows.length) { st.textContent='Aucune ligne valide'; st.className='fst st-err'; continue; }
+      const ok = await sendBatch(rows);
+      if (ok) { st.textContent=rows.length+' lignes envoyées'; st.className='fst st-ok'; totalOk+=rows.length; }
+      else { st.textContent='Erreur d'envoi'; st.className='fst st-err'; totalErr++; }
+    } catch(e) {
+      st.textContent='Erreur: '+e.message; st.className='fst st-err'; totalErr++;
+    }
+  }
+  document.getElementById('progress-fill').style.width='100%';
+  const box = document.getElementById('summary-box');
+  box.style.display = 'block';
+  document.getElementById('summary-title').textContent = totalErr===0 ? '✅ Import terminé avec succès' : '⚠️ Import terminé avec des erreurs';
+  document.getElementById('summary-text').textContent = totalOk+' observations importées vers Supabase.'+(totalErr?' '+totalErr+' fichier(s) en erreur.':'');
+  document.getElementById('btn-import').disabled = false;
+}
+
+function resetAll() {
+  filesToProcess=[];
+  document.getElementById('file-list').innerHTML='';
+  document.getElementById('progress-bar').style.display='none';
+  document.getElementById('progress-fill').style.width='0%';
+  document.getElementById('summary-box').style.display='none';
+  document.getElementById('btn-import').style.display='none';
+  document.getElementById('btn-reset').style.display='none';
+}
+</script></body></html>

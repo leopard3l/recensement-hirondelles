@@ -8,6 +8,26 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Hirondelles Terrain</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2d6a2d">
+<style>
+/* ── GUIDE PAS À PAS ── */
+#guide-overlay{position:fixed;inset:0;z-index:8000;pointer-events:none;display:none}
+#guide-overlay.on{display:block;pointer-events:all}
+#guide-spot{position:fixed;box-shadow:0 0 0 9999px rgba(0,0,0,.55);border-radius:10px;z-index:8001;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none}
+#guide-box{position:fixed;background:#fff;border-radius:12px;padding:18px 20px;width:280px;z-index:8002;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+#guide-box h3{font-size:15px;font-weight:700;color:#2d6a2d;margin-bottom:8px}
+#guide-box p{font-size:13.5px;color:#556055;line-height:1.55;margin-bottom:14px}
+#guide-nav{display:flex;gap:8px;align-items:center}
+#guide-step{font-size:12px;color:#aaa;margin-right:auto}
+.g-btn{padding:7px 14px;border-radius:7px;border:none;font-size:13px;font-weight:600;cursor:pointer}
+.g-btn.primary{background:#2d6a2d;color:#fff}
+.g-btn.secondary{background:#f4f8f4;color:#556055;border:1px solid #dce8dc}
+/* ── INDICATEUR HORS LIGNE ── */
+#offline-bar{display:none;position:fixed;top:52px;left:0;right:0;background:#d97706;color:#fff;text-align:center;padding:6px;font-size:13px;z-index:500}
+#pending-badge{display:none;position:absolute;top:-4px;right:-4px;background:#e53935;color:#fff;border-radius:99px;font-size:10px;font-weight:700;padding:2px 6px;min-width:18px;text-align:center}
+#btn-dl{position:relative}
+</style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -170,8 +190,9 @@
 <div id="topbar">
   <h1>&#x1F426; Hirondelles — Terrain</h1>
   <span id="cnt">0 obs.</span>
-  <button class="tbx" onclick="importFile()">&#x2B06; Importer</button>
+  <button class="tbx" id="btn-guide" onclick="startGuide()">Guide</button><button class="tbx" onclick="importFile()">&#x2B06; Importer</button>
   <button class="tbx" id="btn-dl" onclick="exportCSV()">&#x1F4BE; T&eacute;l&eacute;charger (<span id="dl-cnt">0</span>)</button>
+  <button class="tbx" onclick="clearAllData()" style="opacity:.65" title="Vider pour nouveau village">&#x1F5D1;</button>
 </div>
 
 <div id="backdrop" onclick="closeSheet()"></div>
@@ -391,7 +412,8 @@ function renderMkrs(){
       '🪺 '+(o.n0||0)+' entiers · '+(o.n1||0)+' occupés · '+(o.n2||0)+' cassés<br>'+
       '🏗 '+(o.n3||0)+' installés · '+(o.n4||0)+' occupés<br>'+
       (o.empl?'<small style="color:#666">📍 '+o.empl+'</small><br>':'')+
-      (o.rem?'<small style="color:#888;font-style:italic">'+o.rem+'</small>':'')+
+      (o.rem?'<small style="color:#888;font-style:italic">'+o.rem+'</small><br>':'')+
+      '<button onclick="deleteObs(\''+o.id+'\')" style="margin-top:8px;width:100%;background:#c0392b;color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;cursor:pointer">🗑 Supprimer cette observation</button>'+
       '</div>',{maxWidth:260}
     );
   });
@@ -500,7 +522,7 @@ function geolocate(){
 async function reverseGeocodeVillage(lat,lon){
   try{
     const r=await fetch(
-      'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&accept-language=fr&zoom=16',
+      'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&accept-language=fr&zoom=18',
       {headers:{'User-Agent':'HirondellesGaume2026/1.0'}}
     );
     if(!r.ok)return;
@@ -570,10 +592,32 @@ function saveObs(){
   map.setView([curLat,curLon],map.getZoom());
   const total=load().length;
   toast('✅ Enregistré sur cet appareil ('+total+' obs. au total)',2800);
-  // Rappel de télécharger toutes les 3 observations
   if(total%3===0){
     setTimeout(()=>toast('💾 Pensez à télécharger vos données !',3500),3200);
   }
+  // Envoyer vers Supabase en arrière-plan
+  sendToSupabase(o).then(ok=>{
+    if(!ok) setTimeout(()=>toast('\u26A0\uFE0F Hors ligne \u2014 donn\u00E9es sauvegard\u00E9es localement',3000),1500);
+  });
+}
+
+// ── SUPPRIMER UNE OBSERVATION ────────────────────────────────
+function deleteObs(id){
+  if(!confirm('Supprimer cette observation ?'))return;
+  store(load().filter(o=>o.id!==id));
+  map.closePopup();
+  renderMkrs();
+  toast('\uD83D\uDDD1 Observation supprim\u00E9e');
+}
+
+// ── VIDER TOUT (nouveau village) ─────────────────────────────
+function clearAllData(){
+  const n=load().length;
+  if(!n){toast('\u26A0\uFE0F Aucune donn\u00E9e \u00E0 effacer');return;}
+  if(!confirm('Effacer les '+n+' observations ?\n\nT\u00E9l\u00E9chargez le CSV d\u2019abord si vous voulez les conserver !'))return;
+  localStorage.removeItem(KEY);
+  renderMkrs();
+  toast('\uD83D\uDDD1 Vid\u00E9 \u2014 pr\u00EAt pour un nouveau village',3000);
 }
 
 // ── EXPORT CSV ────────────────────────────────────────────────
@@ -672,8 +716,49 @@ function processRows(rows){
   toast('✅ '+imported.length+' observations importées',3000);
 }
 
+// ── SUPABASE ─────────────────────────────────────────────────
+const SB_URL='https://qgrrfthtdzjyxovodiegv.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo';
+
+async function sendToSupabase(o){
+  if(!navigator.onLine){ addPending(o); updateBadge(); return false; }
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SB_KEY,
+        'Authorization':'Bearer '+SB_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        annee:2026,
+        date_recensement:o.date||'',
+        observateur:o.obs||'',
+        village:o.ent||'',
+        adresse:o.adr||'',
+        type_batiment:o.typ||'',
+        nnentiers:o.n0||0,
+        nnoccupes:o.n1||0,
+        nncasses:o.n2||0,
+        nainstalles:o.n3||0,
+        naoccupes:o.n4||0,
+        emplacement:o.empl||'',
+        remarque:o.rem||'',
+        latitude:o.lat||null,
+        longitude:o.lon||null
+      })
+    });
+    return r.ok;
+  }catch{return false;}
+}
+
+function addPending(o){ const p=getPending(); p.push(o); savePending(p); }
+
 // ── INIT ──────────────────────────────────────────────────────
 renderMkrs();
+updateBadge();
+if(!navigator.onLine)document.getElementById('offline-bar').style.display='block';
 </script>
 </body>
 </html>
