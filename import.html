@@ -30,6 +30,7 @@
   </div>
 </main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodieg.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
 let filesToProcess = [];
+let importEnCours = false;
 
 function handleDrop(e) {
   e.preventDefault();
@@ -97,6 +98,8 @@ async function sendBatch(rows) {
 }
 
 async function startImport() {
+  if (importEnCours) return;
+  importEnCours = true;
   document.getElementById('btn-import').disabled = true;
   document.getElementById('progress-bar').style.display = 'block';
   let totalOk=0, totalErr=0;
@@ -131,7 +134,6 @@ async function startImport() {
   box.style.display = 'block';
   document.getElementById('summary-title').textContent = totalErr===0 ? '✅ Import terminé avec succès' : '⚠️ Import terminé avec des erreurs';
   document.getElementById('summary-text').textContent = totalOk+' observations importées vers Supabase.'+(totalErr?' '+totalErr+' fichier(s) en erreur.':'');
-  document.getElementById('btn-import').disabled = false;
 }
 
 function resetAll() {
@@ -142,5 +144,6 @@ function resetAll() {
   document.getElementById('summary-box').style.display='none';
   document.getElementById('btn-import').style.display='none';
   document.getElementById('btn-reset').style.display='none';
+  importEnCours = false;
 }
 </script></body></html>
