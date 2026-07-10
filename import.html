@@ -120,7 +120,7 @@ async function startImport() {
       if (!rows.length) { st.textContent='Aucune ligne valide'; st.className='fst st-err'; continue; }
       const ok = await sendBatch(rows);
       if (ok) { st.textContent=rows.length+' lignes envoyées'; st.className='fst st-ok'; totalOk+=rows.length; }
-      else { st.textContent='Erreur d'envoi'; st.className='fst st-err'; totalErr++; }
+      else { st.textContent="Erreur d'envoi"; st.className='fst st-err'; totalErr++; }
     } catch(e) {
       st.textContent='Erreur: '+e.message; st.className='fst st-err'; totalErr++;
     }
