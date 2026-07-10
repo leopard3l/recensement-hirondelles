@@ -65,8 +65,7 @@ function exportAll(){
   const h=['Date','Observateur','Village','Adresse','Type','Nnentiers','Nnoccupes','Nncasses','Nainstalles','Naoccupes','Emplacement','Remarque','Latitude','Longitude'];
   const rows=all.map(o=>[o.date_recensement,o.observateur,o.village,o.adresse,o.type_batiment,o.nnentiers,o.nnoccupes,o.nncasses,o.nainstalles,o.naoccupes,o.emplacement,o.remarque,o.latitude,o.longitude].map(v=>'"'+(v??'').toString().replace(/"/g,'""')+'"').join(','));
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('
-')],{type:'text/csv;charset=utf-8'}));
+  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('')],{type:'text/csv;charset=utf-8'}));
   a.download='recensement_gaume_2026_complet.csv';a.click();
 }
 loadData().catch(()=>{document.getElementById('dtbody').innerHTML='<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Erreur de connexion</td></tr>';});
