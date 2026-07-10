@@ -36,7 +36,7 @@
       </div>
     </a>
   </div>
-</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodiegv.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+</main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodieg.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
 fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}})
 .then(r=>r.json()).then(d=>{
   document.getElementById('s-obs').textContent=d.length;
