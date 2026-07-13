@@ -7,7 +7,7 @@
   <p class="section-label">Avancement de la campagne 2026</p>
   <div class="stats">
     <div class="stat-card"><div class="num" id="s-obs">&mdash;</div><div class="lbl">Observations</div></div>
-    <div class="stat-card"><div class="num" id="s-nids">&mdash;</div><div class="lbl">Nids entiers</div></div>
+    <div class="stat-card"><div class="num" id="s-nids">&mdash;</div><div class="lbl">Total nids recens&eacute;s</div></div>
     <div class="stat-card"><div class="num" id="s-vill">&mdash;</div><div class="lbl">Villages prospecté</div></div>
   </div>
 
@@ -56,11 +56,11 @@ const hmap = L.map('home-map', {zoomControl:true, attributionControl:false})
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(hmap);
 const hmkrs = L.layerGroup().addTo(hmap);
 
-fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers,nnoccupes,adresse,latitude,longitude',
+fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,nnentiers,nnoccupes,nncasses,nainstalles,naoccupes,adresse,latitude,longitude',
   {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}})
 .then(r=>r.json()).then(d=>{
   document.getElementById('s-obs').textContent  = d.length;
-  document.getElementById('s-nids').textContent = d.reduce((s,o)=>s+(o.nnentiers||0),0);
+  document.getElementById('s-nids').textContent = d.reduce((s,o)=>s+(o.nnentiers||0)+(o.nnoccupes||0)+(o.nncasses||0)+(o.nainstalles||0)+(o.naoccupes||0),0);
   document.getElementById('s-vill').textContent = new Set(d.map(o=>o.village).filter(Boolean)).size;
   d.forEach(o=>{
     if(!o.latitude||!o.longitude) return;
