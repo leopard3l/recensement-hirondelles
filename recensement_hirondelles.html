@@ -122,8 +122,8 @@ tr:hover td{background:var(--vb)}
 
       <!-- Entit&eacute; -->
       <div class="fl">
-        <label>Village (auto-d&eacute;tect&eacute;)</label>
-        <input type="text" id="f-ent" placeholder="D&eacute;tection&hellip;" autocomplete="off"
+        <label>Village</label>
+        <input type="text" id="f-ent" placeholder="Ex: Bellefontaine" autocomplete="off"
           style="background:var(--vb);font-weight:500;color:var(--v);border-color:var(--vl)">
       </div>
 
@@ -483,16 +483,15 @@ function saveObs(){
   d=editId?d.map(x=>x.id===editId?o:x):[...d,o];
   store(d);renderMkrs();closePanel();
   toast(editId?'\u270F\uFE0F Observation modifi\u00E9e':'\u2705 Observation ajout\u00E9e !');
-  // Envoyer vers Supabase uniquement pour les nouvelles observations
-  if(!editId){
+  if(editId){
+    // Modification : mettre à jour dans Supabase si on a l'ID
     const ancien = load().find(x=>x.id===editId);
     if(ancien?.supabase_id) updateInSupabase(ancien.supabase_id, o);
   } else {
+    // Nouvelle observation : INSERT dans Supabase
     sendToSupabase(o).then(result=>{
-      console.log('Résultat Supabase:', result);
-       }).catch(err=>{
-      console.log('Erreur Supabase:', err);
-       });
+      if(!result) setTimeout(()=>toast('\u26a0\ufe0f Hors ligne \u2014 sauvegard\u00e9 localement',3000),1500);
+    });
   }
 }
 function editObs(id){map.closePopup();openForm(null,null,id);}
