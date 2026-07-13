@@ -10,6 +10,10 @@
 :root{--v:#2d6a2d;--vl:#4a9e4a;--vb:#f0f7f0;--t:#1a2e1a;--s:#5a7a5a;--b:#c8dcc8;--w:#fff;--d:#c0392b}
 body{font-family:system-ui,sans-serif;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 /* TOPBAR */
+<label style="color:#fff;font-size:12px;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap">
+  <input type="checkbox" id="cb-sb" onchange="toggleSbLayer()" style="accent-color:#fff">
+  Masquer d&eacute;j&agrave; recens&eacute;s
+</label>
 #tb{background:var(--v);color:#fff;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;z-index:1000}
 #tb h1{font-size:14px;font-weight:600;flex:1}
 .btn{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);color:#fff;padding:5px 11px;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap}
@@ -302,32 +306,34 @@ function renderMkrs(){
 }
 
 // Charger les observations Supabase au démarrage (travail des autres bénévoles)
+let sbLayer = L.layerGroup().addTo(map);
+
 async function loadFromSupabase(){
   try{
     const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,adresse,nnentiers,latitude,longitude',
       {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
     if(!r.ok) return;
     const data=await r.json();
+    sbLayer.clearLayers();
     data.forEach(o=>{
       if(!o.latitude||!o.longitude) return;
       L.circleMarker([o.latitude,o.longitude],{
         radius:Math.max(6,6+(o.nnentiers||0)*.3),
-        color:'#e53935',
-        weight:2,
-        fillColor:'#ffcdd2',
-        fillOpacity:.7,
+        color:'#c62828', weight:2,
+        fillColor:'#ffcdd2', fillOpacity:.7,
         dashArray:'4,3'
-      }).addTo(map)
-      .bindPopup(
-        '<div style="font-size:13px">'
-        +'<b style="color:#c62828">Déjà recensé</b><br>'
-        +(o.village||'')+'<br>'
-        +'<small>'+(o.adresse||'')+'</small><br>'
-        +'Nids entiers\u00a0: '+(o.nnentiers||0)
-        +'</div>'
-      );
+      }).addTo(sbLayer)
+      .bindPopup('<div style="font-size:13px"><b style="color:#c62828">D\u00e9j\u00e0 recens\u00e9</b><br>'
+        +(o.village||'')+'<br><small>'+(o.adresse||'')+'</small><br>'
+        +'Nids entiers\u00a0: '+(o.nnentiers||0)+'</div>');
     });
   }catch(e){}
+}
+
+function toggleSbLayer(){
+  const cb=document.getElementById('cb-sb');
+  if(cb.checked) map.removeLayer(sbLayer);
+  else map.addLayer(sbLayer);
 }
   
 // Formulaire
