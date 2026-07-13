@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c32b2fbd1f5e5823c9d34b05394d5e7e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c32b2fbd1f5e5823c9d34b05394d5e7e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c32b2fbd1f5e5823c9d34b05394d5e7e = L.map(
+                "map_c32b2fbd1f5e5823c9d34b05394d5e7e",
+                {
+                    center: [49.65, 5.4],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c564fe9b81db076e7caab5e1484e42c5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c564fe9b81db076e7caab5e1484e42c5.addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var circle_marker_f35af136904277a2c2e09db8a6363ee0 = L.circleMarker(
+                [49.660508, 5.496948743589743],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.724679892033027, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_2afb3dbc822d711d82ffaaccb0b6be6e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_b09e165a35825444ba26cabf94762a01 = $(`<div id="html_b09e165a35825444ba26cabf94762a01" style="width: 100.0%; height: 100.0%;"><b>Bellefontaine</b><br>🐦 117 nids au total<br>✓ 25 occupés<br>📍 39 sites recensés</div>`)[0];
+                popup_2afb3dbc822d711d82ffaaccb0b6be6e.setContent(html_b09e165a35825444ba26cabf94762a01);
+            
+        
+
+        circle_marker_f35af136904277a2c2e09db8a6363ee0.bindPopup(popup_2afb3dbc822d711d82ffaaccb0b6be6e)
+        ;
+
+        
+    
+    
+            circle_marker_f35af136904277a2c2e09db8a6363ee0.bindTooltip(
+                `<div>
+                       Bellefontaine : 117 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1366ac2ccbccef1d68015859b8bb4c07 = L.marker(
+                [49.660508, 5.496948743589743],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_c2d30e07dfde8350999801b1a8cf51c2 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eBellefontaine\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_1366ac2ccbccef1d68015859b8bb4c07.setIcon(div_icon_c2d30e07dfde8350999801b1a8cf51c2);
+            
+    
+            var circle_marker_a75f14f544f0495c29a435ffba2b82a0 = L.circleMarker(
+                [49.73914722222221, 5.3417],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eab308", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.067037964806599, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_01c53fe78c653fbed80a15a60dfba89b = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_c41861c0c947669c5c1c6b2a1623c738 = $(`<div id="html_c41861c0c947669c5c1c6b2a1623c738" style="width: 100.0%; height: 100.0%;"><b>Chiny</b><br>🐦 35 nids au total<br>✓ 30 occupés<br>📍 10 sites recensés</div>`)[0];
+                popup_01c53fe78c653fbed80a15a60dfba89b.setContent(html_c41861c0c947669c5c1c6b2a1623c738);
+            
+        
+
+        circle_marker_a75f14f544f0495c29a435ffba2b82a0.bindPopup(popup_01c53fe78c653fbed80a15a60dfba89b)
+        ;
+
+        
+    
+    
+            circle_marker_a75f14f544f0495c29a435ffba2b82a0.bindTooltip(
+                `<div>
+                       Chiny : 35 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_46c24623bae305f0c09725769f5c667d = L.marker(
+                [49.73914722222221, 5.3417],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_08697204c60973a7111fa7ba289b81e1 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eChiny\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_46c24623bae305f0c09725769f5c667d.setIcon(div_icon_08697204c60973a7111fa7ba289b81e1);
+            
+    
+            var circle_marker_9abf0f8c8ac7455caf38664b69f81bdd = L.circleMarker(
+                [49.69477314814814, 5.416722222222222],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.094107511358107, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_85c46daa052d172d1493f9870d72b49f = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_96a3e1e41b7437cc4459f0e7c9a095a2 = $(`<div id="html_96a3e1e41b7437cc4459f0e7c9a095a2" style="width: 100.0%; height: 100.0%;"><b>Chiny (Jamoigne)</b><br>🐦 234 nids au total<br>✓ 234 occupés<br>📍 6 sites recensés</div>`)[0];
+                popup_85c46daa052d172d1493f9870d72b49f.setContent(html_96a3e1e41b7437cc4459f0e7c9a095a2);
+            
+        
+
+        circle_marker_9abf0f8c8ac7455caf38664b69f81bdd.bindPopup(popup_85c46daa052d172d1493f9870d72b49f)
+        ;
+
+        
+    
+    
+            circle_marker_9abf0f8c8ac7455caf38664b69f81bdd.bindTooltip(
+                `<div>
+                       Chiny (Jamoigne) : 234 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_7bad189c46b6dd5898ecff4ab9aa9b0b = L.marker(
+                [49.69477314814814, 5.416722222222222],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_88bc90f5b9c9c482e0ae8adf3ea22697 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eChiny (Jamoigne)\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_7bad189c46b6dd5898ecff4ab9aa9b0b.setIcon(div_icon_88bc90f5b9c9c482e0ae8adf3ea22697);
+            
+    
+            var circle_marker_b73a155d58c302b87231145b20eec8c3 = L.circleMarker(
+                [49.70629166666665, 5.457277777777775],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_08ae9f2bd554b82273faf6f9c680535f = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_0c42fa724a1c53c9ae4462b77b58fb6e = $(`<div id="html_0c42fa724a1c53c9ae4462b77b58fb6e" style="width: 100.0%; height: 100.0%;"><b>Chiny (Termes)</b><br>🐦 4 nids au total<br>✓ 4 occupés<br>📍 2 sites recensés</div>`)[0];
+                popup_08ae9f2bd554b82273faf6f9c680535f.setContent(html_0c42fa724a1c53c9ae4462b77b58fb6e);
+            
+        
+
+        circle_marker_b73a155d58c302b87231145b20eec8c3.bindPopup(popup_08ae9f2bd554b82273faf6f9c680535f)
+        ;
+
+        
+    
+    
+            circle_marker_b73a155d58c302b87231145b20eec8c3.bindTooltip(
+                `<div>
+                       Chiny (Termes) : 4 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5ffc9ef15c62ee82f0609536c1db001c = L.marker(
+                [49.70629166666665, 5.457277777777775],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_99029e8429e26bd7db05784ac84e45ea = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eChiny (Termes)\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_5ffc9ef15c62ee82f0609536c1db001c.setIcon(div_icon_99029e8429e26bd7db05784ac84e45ea);
+            
+    
+            var circle_marker_17b7d8adf8a77a8f2f474b56c69b5b0f = L.circleMarker(
+                [49.580348290598295, 5.577496794871793],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.241259605543496, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_990d0b1913e2cb7cd9bef05116bcb539 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_ef23249f996fa214c061c81fb325a582 = $(`<div id="html_ef23249f996fa214c061c81fb325a582" style="width: 100.0%; height: 100.0%;"><b>Ethe</b><br>🐦 57 nids au total<br>✓ 35 occupés<br>📍 26 sites recensés</div>`)[0];
+                popup_990d0b1913e2cb7cd9bef05116bcb539.setContent(html_ef23249f996fa214c061c81fb325a582);
+            
+        
+
+        circle_marker_17b7d8adf8a77a8f2f474b56c69b5b0f.bindPopup(popup_990d0b1913e2cb7cd9bef05116bcb539)
+        ;
+
+        
+    
+    
+            circle_marker_17b7d8adf8a77a8f2f474b56c69b5b0f.bindTooltip(
+                `<div>
+                       Ethe : 57 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_fe912ef67ec8607b51ce7c4b918153c1 = L.marker(
+                [49.580348290598295, 5.577496794871793],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_16a55b1c9bbd7eae317bcddf8b696dcf = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eEthe\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_fe912ef67ec8607b51ce7c4b918153c1.setIcon(div_icon_16a55b1c9bbd7eae317bcddf8b696dcf);
+            
+    
+            var circle_marker_70b6c6de08592ca534096e594ad5ed68 = L.circleMarker(
+                [49.71466493055555, 5.2337395833333344],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.786215256704057, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_b0f325d5a0a6c1f2de9f0b4caa155c7e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_6c7ce7d6f084c1599e8c13a136868fb1 = $(`<div id="html_6c7ce7d6f084c1599e8c13a136868fb1" style="width: 100.0%; height: 100.0%;"><b>Fontenoille</b><br>🐦 52 nids au total<br>✓ 26 occupés<br>📍 16 sites recensés</div>`)[0];
+                popup_b0f325d5a0a6c1f2de9f0b4caa155c7e.setContent(html_6c7ce7d6f084c1599e8c13a136868fb1);
+            
+        
+
+        circle_marker_70b6c6de08592ca534096e594ad5ed68.bindPopup(popup_b0f325d5a0a6c1f2de9f0b4caa155c7e)
+        ;
+
+        
+    
+    
+            circle_marker_70b6c6de08592ca534096e594ad5ed68.bindTooltip(
+                `<div>
+                       Fontenoille : 52 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4cd60ab0a1d16b4c56510dbb8741627c = L.marker(
+                [49.71466493055555, 5.2337395833333344],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_875987ae4175fdb0c8df5a4c42c9c9b7 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eFontenoille\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_4cd60ab0a1d16b4c56510dbb8741627c.setIcon(div_icon_875987ae4175fdb0c8df5a4c42c9c9b7);
+            
+    
+            var circle_marker_b4e17ad38b885b8dace347b890acc0f3 = L.circleMarker(
+                [49.559583333333336, 5.745431166666666],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_c72c66f4ea35505638fd5c5cfa4a83eb = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_bb5581f04948629f06c96019c83596a5 = $(`<div id="html_bb5581f04948629f06c96019c83596a5" style="width: 100.0%; height: 100.0%;"><b>Guerlange</b><br>🐦 11 nids au total<br>✓ 8 occupés<br>📍 6 sites recensés</div>`)[0];
+                popup_c72c66f4ea35505638fd5c5cfa4a83eb.setContent(html_bb5581f04948629f06c96019c83596a5);
+            
+        
+
+        circle_marker_b4e17ad38b885b8dace347b890acc0f3.bindPopup(popup_c72c66f4ea35505638fd5c5cfa4a83eb)
+        ;
+
+        
+    
+    
+            circle_marker_b4e17ad38b885b8dace347b890acc0f3.bindTooltip(
+                `<div>
+                       Guerlange : 11 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2129dd6d12406b1b40526938bda32fc0 = L.marker(
+                [49.559583333333336, 5.745431166666666],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_d9fa8debe1717c404a83785cfeceade2 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eGuerlange\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_2129dd6d12406b1b40526938bda32fc0.setIcon(div_icon_d9fa8debe1717c404a83785cfeceade2);
+            
+    
+            var circle_marker_1bf264fcdabb1867b50120747ca4f606 = L.circleMarker(
+                [49.71404166666667, 5.312172222222223],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.592491195588837, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_eda04da20fa9e9f396d77a00b1728079 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_95d33d83b41c86387d602bee62aa4861 = $(`<div id="html_95d33d83b41c86387d602bee62aa4861" style="width: 100.0%; height: 100.0%;"><b>Lacuisine</b><br>🐦 61 nids au total<br>✓ 25 occupés<br>📍 20 sites recensés</div>`)[0];
+                popup_eda04da20fa9e9f396d77a00b1728079.setContent(html_95d33d83b41c86387d602bee62aa4861);
+            
+        
+
+        circle_marker_1bf264fcdabb1867b50120747ca4f606.bindPopup(popup_eda04da20fa9e9f396d77a00b1728079)
+        ;
+
+        
+    
+    
+            circle_marker_1bf264fcdabb1867b50120747ca4f606.bindTooltip(
+                `<div>
+                       Lacuisine : 61 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_579ab7d4343e6cced48b7735c3bf4fd1 = L.marker(
+                [49.71404166666667, 5.312172222222223],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_325d3df02fbe80eac8fa47d68474d3d3 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eLacuisine\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_579ab7d4343e6cced48b7735c3bf4fd1.setIcon(div_icon_325d3df02fbe80eac8fa47d68474d3d3);
+            
+    
+            var circle_marker_f88cbe695c5fb6abb1de383b9b53fba9 = L.circleMarker(
+                [49.60392876923077, 5.482060153846154],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.241259605543496, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_07c61c802d3e0ce27948d0aa78d03535 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_54e0eaae9eb92a56577bc01a4acad390 = $(`<div id="html_54e0eaae9eb92a56577bc01a4acad390" style="width: 100.0%; height: 100.0%;"><b>Meix-devant-Virton</b><br>🐦 57 nids au total<br>✓ 18 occupés<br>📍 13 sites recensés</div>`)[0];
+                popup_07c61c802d3e0ce27948d0aa78d03535.setContent(html_54e0eaae9eb92a56577bc01a4acad390);
+            
+        
+
+        circle_marker_f88cbe695c5fb6abb1de383b9b53fba9.bindPopup(popup_07c61c802d3e0ce27948d0aa78d03535)
+        ;
+
+        
+    
+    
+            circle_marker_f88cbe695c5fb6abb1de383b9b53fba9.bindTooltip(
+                `<div>
+                       Meix-devant-Virton : 57 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_80677e229c61cb24438a24642e9db98c = L.marker(
+                [49.60392876923077, 5.482060153846154],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_910f0c5d431da0bb47ac76ed71a5626f = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eMeix-devant-Virton\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_80677e229c61cb24438a24642e9db98c.setIcon(div_icon_910f0c5d431da0bb47ac76ed71a5626f);
+            
+    
+            var circle_marker_d5dfb6fa1241df8a391bbd5b40108157 = L.circleMarker(
+                [49.69526133333333, 5.373392],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eab308", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_5595f725e37d515a98aad560793bff64 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_bb45749cf4cc8643e7567a4468a2e48d = $(`<div id="html_bb45749cf4cc8643e7567a4468a2e48d" style="width: 100.0%; height: 100.0%;"><b>Moyen-Izel-Pin</b><br>🐦 22 nids au total<br>✓ 10 occupés<br>📍 6 sites recensés</div>`)[0];
+                popup_5595f725e37d515a98aad560793bff64.setContent(html_bb45749cf4cc8643e7567a4468a2e48d);
+            
+        
+
+        circle_marker_d5dfb6fa1241df8a391bbd5b40108157.bindPopup(popup_5595f725e37d515a98aad560793bff64)
+        ;
+
+        
+    
+    
+            circle_marker_d5dfb6fa1241df8a391bbd5b40108157.bindTooltip(
+                `<div>
+                       Moyen-Izel-Pin : 22 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_534a5093591235220c6b093b7ff2b116 = L.marker(
+                [49.69526133333333, 5.373392],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_47d17b007ece18809921e26c21d0267a = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eMoyen-Izel-Pin\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_534a5093591235220c6b093b7ff2b116.setIcon(div_icon_47d17b007ece18809921e26c21d0267a);
+            
+    
+            var circle_marker_e384cf571ecdece4311aa8ebb7251d16 = L.circleMarker(
+                [49.71641582491581, 5.175099326599327],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.587083808199319, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_6b82a04a4a21514b4019144b3faf83ab = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_494b02934f686ddd7a956a9ad6e67826 = $(`<div id="html_494b02934f686ddd7a956a9ad6e67826" style="width: 100.0%; height: 100.0%;"><b>Muno</b><br>🐦 86 nids au total<br>✓ 15 occupés<br>📍 33 sites recensés</div>`)[0];
+                popup_6b82a04a4a21514b4019144b3faf83ab.setContent(html_494b02934f686ddd7a956a9ad6e67826);
+            
+        
+
+        circle_marker_e384cf571ecdece4311aa8ebb7251d16.bindPopup(popup_6b82a04a4a21514b4019144b3faf83ab)
+        ;
+
+        
+    
+    
+            circle_marker_e384cf571ecdece4311aa8ebb7251d16.bindTooltip(
+                `<div>
+                       Muno : 86 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_49ce8653d24cb3350266cae9fe649465 = L.marker(
+                [49.71641582491581, 5.175099326599327],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_33320b638b88633d2217ac7d7a86a000 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eMuno\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_49ce8653d24cb3350266cae9fe649465.setIcon(div_icon_33320b638b88633d2217ac7d7a86a000);
+            
+    
+            var circle_marker_126408dffd7ab5dba024e22047d8d3bd = L.circleMarker(
+                [49.70874043376302, 5.533021267869038],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_11bbdfa05df6ce2cdd516cdaaa561afc = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_3ca627f9e0073e4e7a8c274fbe1ddce2 = $(`<div id="html_3ca627f9e0073e4e7a8c274fbe1ddce2" style="width: 100.0%; height: 100.0%;"><b>Orsinfaing</b><br>🐦 10 nids au total<br>✓ 0 occupés<br>📍 4 sites recensés</div>`)[0];
+                popup_11bbdfa05df6ce2cdd516cdaaa561afc.setContent(html_3ca627f9e0073e4e7a8c274fbe1ddce2);
+            
+        
+
+        circle_marker_126408dffd7ab5dba024e22047d8d3bd.bindPopup(popup_11bbdfa05df6ce2cdd516cdaaa561afc)
+        ;
+
+        
+    
+    
+            circle_marker_126408dffd7ab5dba024e22047d8d3bd.bindTooltip(
+                `<div>
+                       Orsinfaing : 10 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_62e9ef6c5e1bba5043ad8c26c68b3b22 = L.marker(
+                [49.70874043376302, 5.533021267869038],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_0f8f689b67a57f645efa5d6bb5b383aa = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eOrsinfaing\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_62e9ef6c5e1bba5043ad8c26c68b3b22.setIcon(div_icon_0f8f689b67a57f645efa5d6bb5b383aa);
+            
+    
+            var circle_marker_6ff04a6404772d0479157ab3e255d169 = L.circleMarker(
+                [49.59279413888045, 5.724759391305772],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eab308", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.372632863067705, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_f559943b569d078af7bb03f892eaadc6 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_a06cc7771e7b6debbbe008a052492b03 = $(`<div id="html_a06cc7771e7b6debbbe008a052492b03" style="width: 100.0%; height: 100.0%;"><b>Rachecourt</b><br>🐦 29 nids au total<br>✓ 3 occupés<br>📍 10 sites recensés</div>`)[0];
+                popup_f559943b569d078af7bb03f892eaadc6.setContent(html_a06cc7771e7b6debbbe008a052492b03);
+            
+        
+
+        circle_marker_6ff04a6404772d0479157ab3e255d169.bindPopup(popup_f559943b569d078af7bb03f892eaadc6)
+        ;
+
+        
+    
+    
+            circle_marker_6ff04a6404772d0479157ab3e255d169.bindTooltip(
+                `<div>
+                       Rachecourt : 29 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ba6a10a57fdca23df9525a1277e84802 = L.marker(
+                [49.59279413888045, 5.724759391305772],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_7af88102fc1ab574ea89ae541ead82cf = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eRachecourt\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_ba6a10a57fdca23df9525a1277e84802.setIcon(div_icon_7af88102fc1ab574ea89ae541ead82cf);
+            
+    
+            var circle_marker_1207b7b67b42fc73597aaef4bb5bc7a3 = L.circleMarker(
+                [49.59463541666668, 5.508190972222221],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eab308", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.286365426602506, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_d8ba9f4387bc1c08c4ff09a4e91dd4a5 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_27403422a4324f7f33d8475aa40f4196 = $(`<div id="html_27403422a4324f7f33d8475aa40f4196" style="width: 100.0%; height: 100.0%;"><b>Robelmont</b><br>🐦 37 nids au total<br>✓ 12 occupés<br>📍 8 sites recensés</div>`)[0];
+                popup_d8ba9f4387bc1c08c4ff09a4e91dd4a5.setContent(html_27403422a4324f7f33d8475aa40f4196);
+            
+        
+
+        circle_marker_1207b7b67b42fc73597aaef4bb5bc7a3.bindPopup(popup_d8ba9f4387bc1c08c4ff09a4e91dd4a5)
+        ;
+
+        
+    
+    
+            circle_marker_1207b7b67b42fc73597aaef4bb5bc7a3.bindTooltip(
+                `<div>
+                       Robelmont : 37 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_7bd86830d465c5d75e28a0c0e2bc1913 = L.marker(
+                [49.59463541666668, 5.508190972222221],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_3c7915ba75646e55569110145f24f7f7 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eRobelmont\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_7bd86830d465c5d75e28a0c0e2bc1913.setIcon(div_icon_3c7915ba75646e55569110145f24f7f7);
+            
+    
+            var circle_marker_6c5a5c91a3297f48a37ff493345e0bb1 = L.circleMarker(
+                [49.7186409117647, 5.485146823529412],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.90892738900184, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_7a4494f786947b339b36d92ff0b0e907 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_aa00facbc2221d8e0c311bf9a15d74f5 = $(`<div id="html_aa00facbc2221d8e0c311bf9a15d74f5" style="width: 100.0%; height: 100.0%;"><b>Rossignol</b><br>🐦 136 nids au total<br>✓ 51 occupés<br>📍 34 sites recensés</div>`)[0];
+                popup_7a4494f786947b339b36d92ff0b0e907.setContent(html_aa00facbc2221d8e0c311bf9a15d74f5);
+            
+        
+
+        circle_marker_6c5a5c91a3297f48a37ff493345e0bb1.bindPopup(popup_7a4494f786947b339b36d92ff0b0e907)
+        ;
+
+        
+    
+    
+            circle_marker_6c5a5c91a3297f48a37ff493345e0bb1.bindTooltip(
+                `<div>
+                       Rossignol : 136 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_aef97770d290f8e0824190526ee2d18c = L.marker(
+                [49.7186409117647, 5.485146823529412],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_200fd700ab238c885ed9771a30462862 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eRossignol\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_aef97770d290f8e0824190526ee2d18c.setIcon(div_icon_200fd700ab238c885ed9771a30462862);
+            
+    
+            var circle_marker_7c6e82f1f4b8c83e7207057ec86dddb5 = L.circleMarker(
+                [49.72904571428571, 5.243093142857143],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eab308", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.250818908944589, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_d18272d8e3f7f7cb27e55afe89844813 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_0850e68de55ff6ac3f47c964cb84d66d = $(`<div id="html_0850e68de55ff6ac3f47c964cb84d66d" style="width: 100.0%; height: 100.0%;"><b>Saint-Cécile</b><br>🐦 28 nids au total<br>✓ 2 occupés<br>📍 7 sites recensés</div>`)[0];
+                popup_d18272d8e3f7f7cb27e55afe89844813.setContent(html_0850e68de55ff6ac3f47c964cb84d66d);
+            
+        
+
+        circle_marker_7c6e82f1f4b8c83e7207057ec86dddb5.bindPopup(popup_d18272d8e3f7f7cb27e55afe89844813)
+        ;
+
+        
+    
+    
+            circle_marker_7c6e82f1f4b8c83e7207057ec86dddb5.bindTooltip(
+                `<div>
+                       Saint-Cécile : 28 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1bd5b7f4bdddd0b1f670fe72e5ed3285 = L.marker(
+                [49.72904571428571, 5.243093142857143],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_29228d52743beaae5533c873e23e28ae = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eSaint-C\u00e9cile\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_1bd5b7f4bdddd0b1f670fe72e5ed3285.setIcon(div_icon_29228d52743beaae5533c873e23e28ae);
+            
+    
+            var circle_marker_c72f036bd28debd917161489acc21526 = L.circleMarker(
+                [49.57553976, 5.4852957600000005],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.266793729618197, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_e141ac88dbc9c5d1b8a0f98a84e0f6c4 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_b2f77420d34755f8ff39498230e21722 = $(`<div id="html_b2f77420d34755f8ff39498230e21722" style="width: 100.0%; height: 100.0%;"><b>Villers-la-Loue</b><br>🐦 110 nids au total<br>✓ 56 occupés<br>📍 25 sites recensés</div>`)[0];
+                popup_e141ac88dbc9c5d1b8a0f98a84e0f6c4.setContent(html_b2f77420d34755f8ff39498230e21722);
+            
+        
+
+        circle_marker_c72f036bd28debd917161489acc21526.bindPopup(popup_e141ac88dbc9c5d1b8a0f98a84e0f6c4)
+        ;
+
+        
+    
+    
+            circle_marker_c72f036bd28debd917161489acc21526.bindTooltip(
+                `<div>
+                       Villers-la-Loue : 110 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5cc0360019f9a6f1c452bc0fdb716cab = L.marker(
+                [49.57553976, 5.4852957600000005],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_ec46f53fd7df6efec63462c660040058 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eVillers-la-Loue\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_5cc0360019f9a6f1c452bc0fdb716cab.setIcon(div_icon_ec46f53fd7df6efec63462c660040058);
+            
+    
+            var circle_marker_1b33f8ccaed14eeffbdf659e839b2868 = L.circleMarker(
+                [49.56609883291569, 5.5310316573011935],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.072695186140606, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_162e8910c7518dcd5ca379f08cd73e8e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_0532f6e1cb6b9b8a68e25e9f9c449be7 = $(`<div id="html_0532f6e1cb6b9b8a68e25e9f9c449be7" style="width: 100.0%; height: 100.0%;"><b>Virton</b><br>🐦 174 nids au total<br>✓ 141 occupés<br>📍 15 sites recensés</div>`)[0];
+                popup_162e8910c7518dcd5ca379f08cd73e8e.setContent(html_0532f6e1cb6b9b8a68e25e9f9c449be7);
+            
+        
+
+        circle_marker_1b33f8ccaed14eeffbdf659e839b2868.bindPopup(popup_162e8910c7518dcd5ca379f08cd73e8e)
+        ;
+
+        
+    
+    
+            circle_marker_1b33f8ccaed14eeffbdf659e839b2868.bindTooltip(
+                `<div>
+                       Virton : 174 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_62c04319617e2edb2496bb1e04a8116b = L.marker(
+                [49.56609883291569, 5.5310316573011935],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_e2e85e0f62c0a29f5c634c8ffd7b3a9a = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eVirton\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_62c04319617e2edb2496bb1e04a8116b.setIcon(div_icon_e2e85e0f62c0a29f5c634c8ffd7b3a9a);
+            
+    
+            var circle_marker_c6e6ec552d76762ee0980252c59e2452 = L.circleMarker(
+                [49.71528833333334, 5.204055666666666],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 2}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+        var popup_aa70d65e05544104367d47db61cf3b87 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_bf3aaa72be32cd754b4a3248e0288338 = $(`<div id="html_bf3aaa72be32cd754b4a3248e0288338" style="width: 100.0%; height: 100.0%;"><b>Watrinsart</b><br>🐦 15 nids au total<br>✓ 5 occupés<br>📍 6 sites recensés</div>`)[0];
+                popup_aa70d65e05544104367d47db61cf3b87.setContent(html_bf3aaa72be32cd754b4a3248e0288338);
+            
+        
+
+        circle_marker_c6e6ec552d76762ee0980252c59e2452.bindPopup(popup_aa70d65e05544104367d47db61cf3b87)
+        ;
+
+        
+    
+    
+            circle_marker_c6e6ec552d76762ee0980252c59e2452.bindTooltip(
+                `<div>
+                       Watrinsart : 15 nids  
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b91d12bb01ff18c4054f8baf0ffc2902 = L.marker(
+                [49.71528833333334, 5.204055666666666],
+                {
+}
+            ).addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+            var div_icon_2906c14d34759f2604e250e5e6755699 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:10px; font-weight:bold; color:#1e293b; white-space:nowrap; margin-left:12px; margin-top:-5px\u0027\u003eWatrinsart\u003c/div\u003e",
+  "iconSize": [150, 20],
+  "className": "empty",
+});
+        
+    
+                marker_b91d12bb01ff18c4054f8baf0ffc2902.setIcon(div_icon_2906c14d34759f2604e250e5e6755699);
+            
+    
+            tile_layer_c564fe9b81db076e7caab5e1484e42c5.addTo(map_c32b2fbd1f5e5823c9d34b05394d5e7e);
+        
+    
+                marker_1366ac2ccbccef1d68015859b8bb4c07.setIcon(div_icon_c2d30e07dfde8350999801b1a8cf51c2);
+            
+    
+                marker_46c24623bae305f0c09725769f5c667d.setIcon(div_icon_08697204c60973a7111fa7ba289b81e1);
+            
+    
+                marker_7bad189c46b6dd5898ecff4ab9aa9b0b.setIcon(div_icon_88bc90f5b9c9c482e0ae8adf3ea22697);
+            
+    
+                marker_5ffc9ef15c62ee82f0609536c1db001c.setIcon(div_icon_99029e8429e26bd7db05784ac84e45ea);
+            
+    
+                marker_fe912ef67ec8607b51ce7c4b918153c1.setIcon(div_icon_16a55b1c9bbd7eae317bcddf8b696dcf);
+            
+    
+                marker_4cd60ab0a1d16b4c56510dbb8741627c.setIcon(div_icon_875987ae4175fdb0c8df5a4c42c9c9b7);
+            
+    
+                marker_2129dd6d12406b1b40526938bda32fc0.setIcon(div_icon_d9fa8debe1717c404a83785cfeceade2);
+            
+    
+                marker_579ab7d4343e6cced48b7735c3bf4fd1.setIcon(div_icon_325d3df02fbe80eac8fa47d68474d3d3);
+            
+    
+                marker_80677e229c61cb24438a24642e9db98c.setIcon(div_icon_910f0c5d431da0bb47ac76ed71a5626f);
+            
+    
+                marker_534a5093591235220c6b093b7ff2b116.setIcon(div_icon_47d17b007ece18809921e26c21d0267a);
+            
+    
+                marker_49ce8653d24cb3350266cae9fe649465.setIcon(div_icon_33320b638b88633d2217ac7d7a86a000);
+            
+    
+                marker_62e9ef6c5e1bba5043ad8c26c68b3b22.setIcon(div_icon_0f8f689b67a57f645efa5d6bb5b383aa);
+            
+    
+                marker_ba6a10a57fdca23df9525a1277e84802.setIcon(div_icon_7af88102fc1ab574ea89ae541ead82cf);
+            
+    
+                marker_7bd86830d465c5d75e28a0c0e2bc1913.setIcon(div_icon_3c7915ba75646e55569110145f24f7f7);
+            
+    
+                marker_aef97770d290f8e0824190526ee2d18c.setIcon(div_icon_200fd700ab238c885ed9771a30462862);
+            
+    
+                marker_1bd5b7f4bdddd0b1f670fe72e5ed3285.setIcon(div_icon_29228d52743beaae5533c873e23e28ae);
+            
+    
+                marker_5cc0360019f9a6f1c452bc0fdb716cab.setIcon(div_icon_ec46f53fd7df6efec63462c660040058);
+            
+    
+                marker_62c04319617e2edb2496bb1e04a8116b.setIcon(div_icon_e2e85e0f62c0a29f5c634c8ffd7b3a9a);
+            
+    
+                marker_b91d12bb01ff18c4054f8baf0ffc2902.setIcon(div_icon_2906c14d34759f2604e250e5e6755699);
+            
+</script>
+</html>
