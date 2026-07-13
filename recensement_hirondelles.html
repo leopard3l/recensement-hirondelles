@@ -485,14 +485,11 @@ function saveObs(){
     const ancien = load().find(x=>x.id===editId);
     if(ancien?.supabase_id) updateInSupabase(ancien.supabase_id, o);
   } else {
-    sendToSupabase(o).then(sbId=>{
-      if(!sbId){
-        setTimeout(()=>toast('\u26a0\ufe0f Hors ligne \u2014 sauvegard\u00e9 localement',3000),1500);
-      } else {
-        const d=load();
-        const i=d.findIndex(x=>x.id===o.id);
-        if(i>=0){d[i].supabase_id=sbId;store(d);}
-      }
+    sendToSupabase(o).then(result=>{
+      console.log('Résultat Supabase:', result);
+       }).catch(err=>{
+      console.log('Erreur Supabase:', err);
+       });
     });
   }
 }
