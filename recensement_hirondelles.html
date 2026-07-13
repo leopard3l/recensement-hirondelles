@@ -487,8 +487,6 @@ function saveObs(){
   } else {
     sendToSupabase(o).then(result=>{
       if(!result) setTimeout(()=>toast('\u26a0\ufe0f Hors ligne \u2014 sauvegard\u00e9 localement',3000),1500);
-    }).catch(err=>{
-      console.log('Erreur Supabase:', err);
     });
   }
 }
