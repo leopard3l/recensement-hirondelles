@@ -424,12 +424,20 @@ function saveObs(){
   toast(editId?'\u270F\uFE0F Observation modifi\u00E9e':'\u2705 Observation ajout\u00E9e !');
   // Envoyer vers Supabase uniquement pour les nouvelles observations
   if(!editId){
-    sendToSupabase(o).then(ok=>{
-      if(!ok) setTimeout(()=>toast('\u26A0\uFE0F Hors ligne \u2014 observation sauvegard\u00E9e localement',3000),1500);
+    const ancien = load().find(x=>x.id===editId);
+    if(ancien?.supabase_id) updateInSupabase(ancien.supabase_id, o);
+  } else {
+    sendToSupabase(o).then(sbId=>{
+      if(!sbId){
+        setTimeout(()=>toast('\u26a0\ufe0f Hors ligne \u2014 sauvegard\u00e9 localement',3000),1500);
+      } else {
+        const d=load();
+        const i=d.findIndex(x=>x.id===o.id);
+        if(i>=0){d[i].supabase_id=sbId;store(d);}
+      }
     });
   }
 }
-
 function editObs(id){map.closePopup();openForm(null,null,id);}
 
 function deleteCurrentObs(){
@@ -735,7 +743,7 @@ async function sendToSupabase(o){
         'Content-Type':'application/json',
         'apikey':SB_KEY,
         'Authorization':'Bearer '+SB_KEY,
-        'Prefer':'return=minimal'
+        'Prefer':'return=representation'
       },
       body:JSON.stringify({
         annee:2026,
@@ -753,6 +761,27 @@ async function sendToSupabase(o){
         remarque:o.rem||'',
         latitude:o.lat||null,
         longitude:o.lon||null
+      })
+    });
+    if(!r.ok) return null;
+    const data = await r.json();
+    return data[0]?.id || null;;
+  }catch{return null;}
+}
+  
+async function updateInSupabase(sbId, o){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations?id=eq.'+sbId,{
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','apikey':SB_KEY,
+               'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
+      body:JSON.stringify({
+        date_recensement:o.date||'', observateur:o.obs||'',
+        village:o.ent||'', adresse:o.adr||'', type_batiment:o.typ||'',
+        nnentiers:o.n0||0, nnoccupes:o.n1||0, nncasses:o.n2||0,
+        nainstalles:o.n3||0, naoccupes:o.n4||0,
+        emplacement:o.empl||'', remarque:o.rem||'',
+        latitude:o.lat||null, longitude:o.lon||null
       })
     });
     return r.ok;
