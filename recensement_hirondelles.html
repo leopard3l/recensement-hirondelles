@@ -373,6 +373,7 @@ function openForm(lat,lon,id){
     if(lat)document.getElementById('f-lat').value=lat.toFixed(6);
     if(lon)document.getElementById('f-lon').value=lon.toFixed(6);
     document.getElementById('f-obs').value=localStorage.getItem('obs')||'';
+    document.getElementById('f-ent').value=localStorage.getItem('last_village')||'';
     document.getElementById('f-date').value=localStorage.getItem('last_date')||today();
     document.getElementById('f-typ').value='Maison / Immeuble';
     document.getElementById('typ-autre-box').style.display='none';
@@ -389,7 +390,7 @@ function clearForm(){
   ['f-lat','f-lon','f-adr','f-rem','f-typ-a','e-aut-txt'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.value='';
   });
-  document.getElementById('f-ent').value='';
+  // f-ent conservé entre les observations
   document.getElementById('f-typ').value='Maison / Immeuble';
   document.getElementById('typ-autre-box').style.display='none';
   ['e-cor','e-fen','e-aut'].forEach(id=>document.getElementById(id).checked=false);
@@ -461,6 +462,8 @@ function saveObs(){
   const obs=document.getElementById('f-obs').value;
   const date=document.getElementById('f-date').value||today();
   if(obs)localStorage.setItem('obs',obs);
+  const ent=document.getElementById('f-ent').value;
+  if(ent)localStorage.setItem('last_village',ent);
   if(date)localStorage.setItem('last_date',date);
   const o={
     id:editId||Date.now().toString(),
