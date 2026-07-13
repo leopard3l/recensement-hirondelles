@@ -51,6 +51,9 @@
   padding:7px 12px;border-radius:20px;font-size:12px;cursor:pointer;white-space:nowrap}
 #cnt{font-size:12px;color:rgba(255,255,255,.8);background:rgba(255,255,255,.15);
   padding:5px 10px;border-radius:20px}
+<label style="color:#fff;font-size:11px;display:flex;align-items:center;gap:4px;cursor:pointer">
+  <input type="checkbox" id="cb-sb" onchange="toggleSbLayer()"> Masquer recens&eacute;s
+</label>
 
 /* HINT CARTE */
 #map-hint{
@@ -185,6 +188,33 @@
 </head>
 <body>
 
+<div id="map-legend" style="
+  position:fixed; bottom:28px; right:12px; z-index:900;
+  background:#fff; border-radius:8px; border:1px solid #ccc;
+  padding:10px 14px; font-family:sans-serif; font-size:12px;
+  line-height:1.9; box-shadow:0 2px 8px rgba(0,0,0,.15)">
+  <b style="font-size:13px">L&eacute;gende</b><br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+  </svg>Mes observations<br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"
+      stroke-dasharray="3,2"/>
+  </svg>D&eacute;j&agrave; recens&eacute; (autre b&eacute;n&eacute;vole)<br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#66bb6a" stroke="#fff" stroke-width="1.5"/>
+  </svg>1 &agrave; 5 nids<br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#fdd835" stroke="#fff" stroke-width="1.5"/>
+  </svg>6 &agrave; 15 nids<br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#fb8c00" stroke="#fff" stroke-width="1.5"/>
+  </svg>16 &agrave; 30 nids<br>
+  <svg width="14" height="14" style="vertical-align:middle;margin-right:6px">
+    <circle cx="7" cy="7" r="6" fill="#e53935" stroke="#fff" stroke-width="1.5"/>
+  </svg>Plus de 30 nids
+</div>
+  
 <div id="map"></div>
 
 <div id="topbar">
@@ -420,34 +450,35 @@ function renderMkrs(){
 }
 
 // Charger les observations Supabase au démarrage (travail des autres bénévoles)
+let sbLayer = L.layerGroup().addTo(map);
+
 async function loadFromSupabase(){
   try{
     const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,adresse,nnentiers,latitude,longitude',
       {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
     if(!r.ok) return;
     const data=await r.json();
+    sbLayer.clearLayers();
     data.forEach(o=>{
       if(!o.latitude||!o.longitude) return;
       L.circleMarker([o.latitude,o.longitude],{
         radius:Math.max(6,6+(o.nnentiers||0)*.3),
-        color:'#e53935',
-        weight:2,
-        fillColor:'#ffcdd2',
-        fillOpacity:.7,
+        color:'#c62828', weight:2,
+        fillColor:'#ffcdd2', fillOpacity:.7,
         dashArray:'4,3'
-      }).addTo(map)
-      .bindPopup(
-        '<div style="font-size:13px">'
-        +'<b style="color:#c62828">Déjà recensé</b><br>'
-        +(o.village||'')+'<br>'
-        +'<small>'+(o.adresse||'')+'</small><br>'
-        +'Nids entiers\u00a0: '+(o.nnentiers||0)
-        +'</div>'
-      );
+      }).addTo(sbLayer)
+      .bindPopup('<div style="font-size:13px"><b style="color:#c62828">D\u00e9j\u00e0 recens\u00e9</b><br>'
+        +(o.village||'')+'<br><small>'+(o.adresse||'')+'</small><br>'
+        +'Nids entiers\u00a0: '+(o.nnentiers||0)+'</div>');
     });
   }catch(e){}
 }
 
+function toggleSbLayer(){
+  const cb=document.getElementById('cb-sb');
+  if(cb.checked) map.removeLayer(sbLayer);
+  else map.addLayer(sbLayer);
+}
 // Tap sur la carte
 map.on('click',e=>{
   openNew(e.latlng.lat,e.latlng.lng);
