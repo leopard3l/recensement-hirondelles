@@ -301,6 +301,35 @@ function renderMkrs(){
   });
 }
 
+// Charger les observations Supabase au démarrage (travail des autres bénévoles)
+async function loadFromSupabase(){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=village,adresse,nnentiers,latitude,longitude',
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    if(!r.ok) return;
+    const data=await r.json();
+    data.forEach(o=>{
+      if(!o.latitude||!o.longitude) return;
+      L.circleMarker([o.latitude,o.longitude],{
+        radius:Math.max(6,6+(o.nnentiers||0)*.3),
+        color:'#e53935',
+        weight:2,
+        fillColor:'#ffcdd2',
+        fillOpacity:.7,
+        dashArray:'4,3'
+      }).addTo(map)
+      .bindPopup(
+        '<div style="font-size:13px">'
+        +'<b style="color:#c62828">Déjà recensé</b><br>'
+        +(o.village||'')+'<br>'
+        +'<small>'+(o.adresse||'')+'</small><br>'
+        +'Nids entiers\u00a0: '+(o.nnentiers||0)
+        +'</div>'
+      );
+    });
+  }catch(e){}
+}
+  
 // Formulaire
 function openForm(lat,lon,id){
   editId=id||null;
@@ -789,6 +818,7 @@ async function updateInSupabase(sbId, o){
 }
 
 renderMkrs();
+loadFromSupabase(); // points des autres bénévoles en rouge bordé
 </script>
 </body>
 </html>
