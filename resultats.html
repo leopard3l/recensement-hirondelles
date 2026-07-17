@@ -71,7 +71,17 @@ async function load(){
   mkrs.clearLayers();
   d.forEach(o=>{if(!o.latitude||!o.longitude)return;
     L.circleMarker([o.latitude,o.longitude],{radius:Math.max(6,6+(o.nnentiers||0)*.3),color:'#fff',weight:1.5,fillColor:col(o.nnentiers||0),fillOpacity:.88})
-    .addTo(mkrs).bindPopup('<b style="color:#2d6a2d">'+(o.village||'')+'</b><br><small>'+(o.adresse||'')+'</small><br>Nids entiers : '+(o.nnentiers||0));
+    .addTo(mkrs).bindPopup('<b style="color:#2d6a2d">'+(o.village||'')+'</b><br>'
+  +'<small style="color:#666">'+(o.adresse||'')+'</small><br>'
+  +'<hr style="margin:5px 0;border-color:#eee">'
+  +(o.nnentiers?'🪺 <b>'+o.nnentiers+'</b> nid'+(o.nnentiers>1?'s':'')+' entiers<br>':'')
+  +(o.nnoccupes?'🐦 <b>'+o.nnoccupes+'</b> nid'+(o.nnoccupes>1?'s':'')+' occup\u00e9s<br>':'')
+  +(o.nncasses?'🏚 <b>'+o.nncasses+'</b> nid'+(o.nncasses>1?'s':'')+' cass\u00e9s<br>':'')
+  +(o.nainstalles?'🏗 <b>'+o.nainstalles+'</b> nid'+(o.nainstalles>1?'s':'')+' artificiel'+(o.nainstalles>1?'s':'')+' install\u00e9s<br>':'')
+  +(o.naoccupes?'✅ <b>'+o.naoccupes+'</b> artificiel'+(o.naoccupes>1?'s':'')+' occup\u00e9s<br>':'')
+  +(o.emplacement?'<small style="color:#888">📍 '+o.emplacement+'</small><br>':'')
+  +(o.remarque?'<small style="color:#888;font-style:italic">💬 '+o.remarque+'</small>':'')
+);
   });
   const byV={};
   d.forEach(o=>{const v=o.village||'Non renseigné';if(!byV[v])byV[v]={s:0,e:0,oc:0,c:0};byV[v].s++;byV[v].e+=o.nnentiers||0;byV[v].oc+=o.nnoccupes||0;byV[v].c+=o.nncasses||0;});
