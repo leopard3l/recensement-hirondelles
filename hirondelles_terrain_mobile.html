@@ -457,9 +457,18 @@ function saveObs(){
 // ── DELETE ────────────────────────────────────────────────────
 function deleteObs(id){
   if(!confirm('Supprimer cette observation ?'))return;
-  store(load().filter(o=>o.id!==id));
+  const data = load();
+  const obs = data.find(o=>o.id===id);
+  store(data.filter(o=>o.id!==id));
   map.closePopup();renderMkrs();
   toast('\uD83D\uDDD1 Observation supprim\u00E9e');
+  // Supprimer aussi dans Supabase via les coordonnées et la date
+  if(obs && obs.lat && obs.lon && obs.date){
+    fetch(SB_URL+'/rest/v1/observations?latitude=eq.'+obs.lat+'&longitude=eq.'+obs.lon+'&date_recensement=eq.'+obs.date,{
+      method:'DELETE',
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+    }).catch(()=>{});
+  }
 }
 
 // ── MENU ──────────────────────────────────────────────────────
