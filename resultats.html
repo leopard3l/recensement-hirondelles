@@ -61,14 +61,22 @@
     </div>
     <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border)">
       <table class="cmp-table">
-        <thead><tr>
-          <th>Village</th>
-          <th id="cmp-h-prev">2025</th>
-          <th id="cmp-h-curr">2026</th>
-          <th>&#xc9;volution</th>
-          <th>Tendance</th>
-        </tr></thead>
-        <tbody id="cmp-tbody"><tr><td colspan="5" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr></tbody>
+        <thead>
+          <tr>
+            <th rowspan="2">Village</th>
+            <th colspan="2" style="text-align:center;border-bottom:1px solid var(--border)" id="cmp-h-prev-grp">2025</th>
+            <th colspan="2" style="text-align:center;border-bottom:1px solid var(--border)" id="cmp-h-curr-grp">2026</th>
+            <th rowspan="2">&#xc9;vol. entiers</th>
+            <th rowspan="2">Tendance</th>
+          </tr>
+          <tr>
+            <th style="color:#2d6a2d">Entiers</th>
+            <th style="color:#c62828">Cass&eacute;s</th>
+            <th style="color:#2d6a2d">Entiers</th>
+            <th style="color:#c62828">Cass&eacute;s</th>
+          </tr>
+        </thead>
+        <tbody id="cmp-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr></tbody>
       </table>
     </div>
     <p style="font-size:12px;color:#aaa;margin-top:10px">
@@ -142,18 +150,23 @@ let cmpLoaded = false;
 async function loadComparaison(){
   cmpLoaded = true;
   const tbody = document.getElementById('cmp-tbody');
-  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:#aaa">Chargement...</td></tr>';
 
   const [dPrev, dCurr] = await Promise.all([
-    sbFetch(SB_URL+'/rest/v1/observations?'+ANNEE_PREC_FILTER+'&select=village,nnentiers'),
-    sbFetch(SB_URL+'/rest/v1/observations?'+ANNEE_FILTER+'&select=village,nnentiers'),
+    sbFetch(SB_URL+'/rest/v1/observations?'+ANNEE_PREC_FILTER+'&select=village,nnentiers,nncasses'),
+    sbFetch(SB_URL+'/rest/v1/observations?'+ANNEE_FILTER+'&select=village,nnentiers,nncasses'),
   ]);
-  if (!dPrev || !dCurr) { tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:#aaa">Données insuffisantes pour la comparaison</td></tr>'; return; }
+  if (!dPrev || !dCurr) { tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:#aaa">Données insuffisantes pour la comparaison</td></tr>'; return; }
 
-  // Grouper par village
+  // Grouper par village : entiers + cassés
   const group = (data) => {
     const r = {};
-    data.forEach(o=>{const v=o.village||'Non renseigné';r[v]=(r[v]||0)+(o.nnentiers||0);});
+    data.forEach(o=>{
+      const v=o.village||'Non renseigné';
+      if(!r[v])r[v]={e:0,c:0};
+      r[v].e+=o.nnentiers||0;
+      r[v].c+=o.nncasses||0;
+    });
     return r;
   };
   const prev = group(dPrev);
@@ -161,29 +174,41 @@ async function loadComparaison(){
   const allVillages = [...new Set([...Object.keys(prev), ...Object.keys(curr)])].sort();
 
   // Totaux globaux
-  const totPrev = Object.values(prev).reduce((s,v)=>s+v,0);
-  const totCurr = Object.values(curr).reduce((s,v)=>s+v,0);
-  const totEvol = totCurr - totPrev;
-  document.getElementById('c-tot-prev').textContent = totPrev;
-  document.getElementById('c-tot-curr').textContent = totCurr;
+  const totPrevE = Object.values(prev).reduce((s,v)=>s+v.e,0);
+  const totCurrE = Object.values(curr).reduce((s,v)=>s+v.e,0);
+  const totPrevC = Object.values(prev).reduce((s,v)=>s+v.c,0);
+  const totCurrC = Object.values(curr).reduce((s,v)=>s+v.c,0);
+  const totEvol = totCurrE - totPrevE;
+
+  document.getElementById('c-tot-prev').textContent = totPrevE + ' entiers / ' + totPrevC + ' cassés';
+  document.getElementById('c-tot-curr').textContent = totCurrE + ' entiers / ' + totCurrC + ' cassés';
   const evolEl = document.getElementById('c-evol');
-  evolEl.textContent = (totEvol>=0?'+':'')+totEvol;
+  evolEl.textContent = (totEvol>=0?'+':'')+totEvol+' entiers';
   evolEl.className = 'num '+(totEvol>0?'trend-up':totEvol<0?'trend-dn':'trend-eq');
+
+  // Adapter titres groupes
+  document.getElementById('cmp-h-prev-grp').textContent = ANNEE_PRECEDENTE;
+  document.getElementById('cmp-h-curr-grp').textContent = ANNEE;
 
   // Tableau
   tbody.innerHTML = allVillages.map(v=>{
     const p = prev[v] ?? null;
     const c = curr[v] ?? null;
     const onlyOne = p===null || c===null;
-    const evol = onlyOne ? null : c - p;
-    const pct = (p && evol!==null) ? Math.round(evol/p*100) : null;
-    const trend = evol===null ? '' : evol>0 ? '▲' : evol<0 ? '▼' : '=';
-    const tClass = evol===null ? '' : evol>0 ? 'trend-up' : evol<0 ? 'trend-dn' : 'trend-eq';
+    const evolE = onlyOne ? null : c.e - p.e;
+    const pct = (p && p.e && evolE!==null) ? Math.round(evolE/p.e*100) : null;
+    const trend = evolE===null ? '' : evolE>0 ? '▲' : evolE<0 ? '▼' : '=';
+    const tClass = evolE===null ? '' : evolE>0 ? 'trend-up' : evolE<0 ? 'trend-dn' : 'trend-eq';
+    // Mettre en évidence les cassés qui augmentent
+    const cassEvol = onlyOne ? null : c.c - p.c;
+    const cassStyle = cassEvol===null?'' : cassEvol>0?'color:#c62828;font-weight:700':cassEvol<0?'color:#2d6a2d;font-weight:700':'';
     return '<tr>'
       +'<td style="font-weight:600;color:var(--text)">'+v+(onlyOne?'<span class="only-badge">Une seule année</span>':'')+'</td>'
-      +'<td>'+(p!==null?p:'—')+'</td>'
-      +'<td>'+(c!==null?c:'—')+'</td>'
-      +'<td class="'+tClass+'">'+(evol!==null?(evol>=0?'+':'')+evol+(pct!==null?' ('+pct+'%)':''):'—')+'</td>'
+      +'<td style="color:#2d6a2d;font-weight:600">'+(p!==null?p.e:'—')+'</td>'
+      +'<td style="color:#c62828">'+(p!==null?p.c:'—')+'</td>'
+      +'<td style="color:#2d6a2d;font-weight:600">'+(c!==null?c.e:'—')+'</td>'
+      +'<td style="'+cassStyle+'">'+(c!==null?c.c+(cassEvol!==null&&cassEvol!==0?' ('+(cassEvol>0?'+':'')+cassEvol+')':''):'—')+'</td>'
+      +'<td class="'+tClass+'">'+(evolE!==null?(evolE>=0?'+':'')+evolE+(pct!==null?' ('+pct+'%)':''):'—')+'</td>'
       +'<td style="font-size:18px" class="'+tClass+'">'+trend+'</td>'
       +'</tr>';
   }).join('');
