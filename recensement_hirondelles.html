@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Recensement Hirondelles &#x2014; Gaume 2026</title>
+<script src="config.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -795,7 +796,7 @@ async function sendToSupabase(o){
         'Prefer':'return=representation'
       },
       body:JSON.stringify({
-        annee:2026,
+        annee:ANNEE,
         date_recensement:o.date||'',
         observateur:o.obs||'',
         village:o.ent||'',

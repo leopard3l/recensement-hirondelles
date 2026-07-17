@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><script src="config.js"></script><title>Administration &mdash; Hirondelles Gaume</title><style>.admin-section{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:20px}.admin-section h2{font-size:17px;font-weight:700;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:10px}.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:600}.status-ok{background:#e8f5e8;color:var(--green)}.status-err{background:#fef2f2;color:#c62828}.status-loading{background:#f0f0f0;color:#888}.year-input{width:100px;border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-size:20px;font-weight:700;text-align:center;color:var(--green)}.year-input:focus{outline:none;border-color:var(--green)}.step-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:16px}.step-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.5}.step-num{width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.mini-stat{background:var(--green-bg);border-radius:8px;padding:14px;text-align:center}.mini-stat .n{font-size:22px;font-weight:700;color:var(--green)}.mini-stat .l{font-size:12px;color:var(--muted);margin-top:2px}.year-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #f0f0f0}.year-row:last-child{border-bottom:none}.danger-zone{background:#fef2f2;border:1px solid #e8c0c0;border-radius:8px;padding:14px 18px;margin-top:12px;font-size:13.5px;color:#7a2828}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="dashboard.html">Dashboard</a><a href="import.html">Importer</a><a href="admin.html" class="active">Administration</a></div></nav><div class="hero"><h1>Administration</h1><p>Gestion de la campagne et pr&eacute;paration de la suivante &mdash; r&eacute;serv&eacute; au coordinateur</p></div><main><!-- SANTÉ DU SYSTÈME --><div class="admin-section"><h2>&#x1F4BB; Sant&eacute; du syst&egrave;me</h2><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div>Supabase&nbsp;: <span class="status-badge status-loading" id="sb-status">V&eacute;rification...</span></div><div>Ann&eacute;e courante&nbsp;: <strong id="annee-courante" style="color:var(--green);font-size:18px"></strong></div></div><p style="font-size:13px;color:var(--muted);margin-top:10px">Si Supabase est inactif, allez sur <a href="https://supabase.com" target="_blank">supabase.com</a> &rarr; votre projet &rarr; bouton <strong>Restore</strong>.</p></div><!-- STATS PAR ANNÉE --><div class="admin-section"><h2>&#x1F4CA; Donn&eacute;es par campagne</h2><div id="years-list"><p style="color:#aaa">Chargement...</p></div></div><!-- NOUVELLE CAMPAGNE --><div class="admin-section"><h2>&#x1F4C5; D&eacute;marrer une nouvelle campagne</h2><p style="font-size:14px;color:var(--muted);margin-bottom:16px">Entrez l&apos;ann&eacute;e de la prochaine campagne. Cliquez sur G&eacute;n&eacute;rer — un fichier <code>config.js</code> sera t&eacute;l&eacute;charg&eacute;. Uploadez-le sur GitHub et la nouvelle campagne d&eacute;marre automatiquement.</p><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><div><label style="font-size:13px;color:var(--muted);display:block;margin-bottom:4px">Ann&eacute;e</label><input type="number" id="new-year" class="year-input" min="2026" max="2040"></div><button class="btn btn-primary" onclick="genererConfig()" style="margin-top:20px">&#x2B07; G&eacute;n&eacute;rer config.js</button></div><div id="gen-result" style="display:none;margin-top:16px"><div style="background:#e8f5e8;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:14px;color:var(--green);margin-bottom:14px">&#x2705; Fichier <code>config.js</code> t&eacute;l&eacute;charg&eacute; avec succ&egrave;s !</div><p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px">Que faire maintenant &mdash; instructions pas &agrave; pas&nbsp;:</p><ul class="step-list"><li><div class="step-num">1</div>Ouvrez <a href="https://github.com" target="_blank">github.com</a> et allez dans votre d&eacute;p&ocirc;t <strong>recensement-hirondelles</strong>.</li><li><div class="step-num">2</div>Cliquez sur le fichier <code>config.js</code> dans la liste des fichiers.</li><li><div class="step-num">3</div>Cliquez sur l&apos;ic&ocirc;ne <strong>crayon ✏️</strong> en haut &agrave; droite pour modifier.</li><li><div class="step-num">4</div>S&eacute;lectionnez tout le contenu (Ctrl+A) et collez le nouveau contenu g&eacute;n&eacute;r&eacute;.</li><li><div class="step-num">5</div>Cliquez <strong>Commit changes</strong> en bas. Le site se met &agrave; jour en 2 minutes.</li></ul><div class="danger-zone">&#x26A0;&#xFE0F; <strong>Avant de changer l&apos;ann&eacute;e</strong> : assurez-vous d&apos;avoir export&eacute; toutes les donn&eacute;es de la campagne actuelle depuis le <a href="dashboard.html">Dashboard</a>.</div></div></div><!-- EXPORT PAR ANNÉE --><div class="admin-section"><h2>&#x1F4E5; Exporter les donn&eacute;es</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end"><div><label style="font-size:13px;color:var(--muted);display:block;margin-bottom:4px">Ann&eacute;e &agrave; exporter</label><select id="export-year" style="border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px"><option>Chargement...</option></select></div><button class="btn btn-primary" onclick="exportAnnee()">&#x2B07; T&eacute;l&eacute;charger Excel</button></div></div></main><footer>Parc Naturel de Gaume &mdash; Administration &mdash; Acc&egrave;s r&eacute;serv&eacute;</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script>const SB_URL="https://qgrrfthtdzjyxovodieg.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
+document.getElementById('annee-courante').textContent = ANNEE;
+document.getElementById('new-year').value = ANNEE + 1;
+
+// ── SANTÉ SUPABASE ────────────────────────────────────────────
+async function checkSB(){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations?select=id&limit=1',
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const st=document.getElementById('sb-status');
+    if(r.ok){st.textContent='✓ Actif';st.className='status-badge status-ok';}
+    else{st.textContent='✗ Erreur HTTP '+r.status;st.className='status-badge status-err';}
+  }catch{
+    const st=document.getElementById('sb-status');
+    st.textContent='✗ Inaccessible — projet peut-être en pause';
+    st.className='status-badge status-err';
+  }
+}
+checkSB();
+
+// ── STATS PAR ANNÉE ───────────────────────────────────────────
+let allYears = [];
+async function loadYears(){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/observations?select=annee,village,nnentiers',
+      {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    if(!r.ok)return;
+    const d=await r.json();
+    const byYear={};
+    d.forEach(o=>{
+      const y=o.annee||'?';
+      if(!byYear[y])byYear[y]={obs:0,nids:0,villages:new Set()};
+      byYear[y].obs++;byYear[y].nids+=o.nnentiers||0;
+      if(o.village)byYear[y].villages.add(o.village);
+    });
+    allYears=Object.keys(byYear).sort().reverse();
+    document.getElementById('years-list').innerHTML=allYears.length?
+      '<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>Ann\u00e9e</th><th>Observations</th><th>Nids entiers</th><th>Villages</th></tr></thead><tbody>'+
+      allYears.map(y=>'<tr><td style="font-weight:700;color:var(--green);font-size:16px">'+y+'</td><td>'+byYear[y].obs+'</td><td>'+byYear[y].nids+'</td><td>'+byYear[y].villages.size+'</td></tr>').join('')+
+      '</tbody></table></div>'
+      :'<p style="color:#aaa">Aucune donnée dans Supabase.</p>';
+    // Remplir le select export
+    const sel=document.getElementById('export-year');
+    sel.innerHTML=allYears.map(y=>`<option value="${y}">${y}</option>`).join('');
+  }catch(e){document.getElementById('years-list').innerHTML='<p style="color:#aaa">Erreur de connexion.</p>';}
+}
+loadYears();
+
+// ── GÉNÉRER CONFIG.JS ─────────────────────────────────────────
+function genererConfig(){
+  const yr=parseInt(document.getElementById('new-year').value);
+  if(!yr||yr<2026||yr>2040){alert('Année invalide (entre 2026 et 2040)');return;}
+  const content=`// ── CONFIGURATION CAMPAGNE ───────────────────────────────────
+// Pour changer d'année : modifiez uniquement cette valeur
+// puis uploadez ce fichier sur GitHub.
+const ANNEE = ${yr};
+
+// Filtre Supabase automatique (ne pas modifier)
+const ANNEE_FILTER = 'annee=eq.' + ANNEE;
+const ANNEE_PRECEDENTE = ANNEE - 1;
+const ANNEE_PREC_FILTER = 'annee=eq.' + ANNEE_PRECEDENTE;
+`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:'text/javascript'}));
+  a.download='config.js';a.click();
+  document.getElementById('gen-result').style.display='block';
+}
+
+// ── EXPORT EXCEL PAR ANNÉE ────────────────────────────────────
+async function exportAnnee(){
+  const yr=document.getElementById('export-year').value;
+  if(!yr){alert('Sélectionnez une année');return;}
+  const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.'+yr+'&select=*&order=village,adresse',
+    {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  if(!r.ok){alert('Erreur de chargement');return;}
+  const d=await r.json();
+  if(!d.length){alert('Aucune donnée pour '+yr);return;}
+  const rows=d.map(o=>({
+    'Date':o.date_recensement||'','Observateur':o.observateur||'','Village':o.village||'',
+    'Adresse':o.adresse||'','Type bâtiment':o.type_batiment||'',
+    'Nids naturels entiers':o.nnentiers||0,'Nids naturels occupés':o.nnoccupes||0,
+    'Nids naturels cassés':o.nncasses||0,'Nids artif. installés':o.nainstalles||0,
+    'Nids artif. occupés':o.naoccupes||0,'Emplacement':o.emplacement||'',
+    'Remarque':o.remarque||'','Latitude':o.latitude||'','Longitude':o.longitude||''
+  }));
+  const ws=XLSX.utils.json_to_sheet(rows);
+  ws['!cols']=[10,16,16,28,18,8,8,8,8,8,18,24,10,10].map(w=>({wch:w}));
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Données '+yr);
+  XLSX.writeFile(wb,'recensement_hirondelles_gaume_'+yr+'.xlsx');
+}
+</script></body></html>

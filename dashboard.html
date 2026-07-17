@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>Dashboard &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero" style="padding:30px 28px">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><script src="config.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>Dashboard &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero" style="padding:30px 28px">
   <h1>Dashboard coordinateur</h1>
   <p>Vue compl&egrave;te des donn&eacute;es &mdash; R&eacute;serv&eacute; au Parc Naturel de Gaume</p>
 </div>
@@ -34,7 +35,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&
 let mkrs=L.layerGroup().addTo(map);
 function col(n){return n<=0?'#9e9e9e':n<=5?'#66bb6a':n<=15?'#fdd835':n<=30?'#fb8c00':'#e53935';}
 async function loadData(){
-  const r=await fetch(SB_URL+'/rest/v1/observations?annee=eq.2026&select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  const r=await fetch(SB_URL+'/rest/v1/observations?'+ANNEE_FILTER+'&select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
   all=await r.json();
   renderAll(all);
   document.getElementById('last-up').textContent='Actualis&eacute; &agrave; '+new Date().toLocaleTimeString('fr-BE');
@@ -65,8 +66,9 @@ function exportAll(){
   const h=['Date','Observateur','Village','Adresse','Type','Nnentiers','Nnoccupes','Nncasses','Nainstalles','Naoccupes','Emplacement','Remarque','Latitude','Longitude'];
   const rows=all.map(o=>[o.date_recensement,o.observateur,o.village,o.adresse,o.type_batiment,o.nnentiers,o.nnoccupes,o.nncasses,o.nainstalles,o.naoccupes,o.emplacement,o.remarque,o.latitude,o.longitude].map(v=>'"'+(v??'').toString().replace(/"/g,'""')+'"').join(','));
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('')],{type:'text/csv;charset=utf-8'}));
-  a.download='recensement_gaume_2026_complet.csv';a.click();
+  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('
+')],{type:'text/csv;charset=utf-8'}));
+  a.download='recensement_gaume_'+ANNEE_complet.csv';a.click();
 }
 loadData().catch(()=>{document.getElementById('dtbody').innerHTML='<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Erreur de connexion</td></tr>';});
 setInterval(loadData,120000);

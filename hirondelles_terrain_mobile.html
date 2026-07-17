@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#2d6a2d">
 <link rel="manifest" href="manifest.json">
 <title>Hirondelles Terrain</title>
+<script src="config.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -457,18 +458,9 @@ function saveObs(){
 // ── DELETE ────────────────────────────────────────────────────
 function deleteObs(id){
   if(!confirm('Supprimer cette observation ?'))return;
-  const data = load();
-  const obs = data.find(o=>o.id===id);
-  store(data.filter(o=>o.id!==id));
+  store(load().filter(o=>o.id!==id));
   map.closePopup();renderMkrs();
   toast('\uD83D\uDDD1 Observation supprim\u00E9e');
-  // Supprimer aussi dans Supabase via les coordonnées et la date
-  if(obs && obs.lat && obs.lon && obs.date){
-    fetch(SB_URL+'/rest/v1/observations?latitude=eq.'+obs.lat+'&longitude=eq.'+obs.lon+'&date_recensement=eq.'+obs.date,{
-      method:'DELETE',
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-    }).catch(()=>{});
-  }
 }
 
 // ── MENU ──────────────────────────────────────────────────────
@@ -577,7 +569,7 @@ async function sendToSupabase(o){
     const r=await fetch(SB_URL+'/rest/v1/observations',{
       method:'POST',
       headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
-      body:JSON.stringify({annee:2026,date_recensement:o.date||'',observateur:o.obs||'',
+      body:JSON.stringify({annee:ANNEE,date_recensement:o.date||'',observateur:o.obs||'',
         village:o.ent||'',adresse:o.adr||'',type_batiment:o.typ||'',
         nnentiers:o.n0||0,nnoccupes:o.n1||0,nncasses:o.n2||0,
         nainstalles:o.n3||0,naoccupes:o.n4||0,
