@@ -1,149 +1,321 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Importer des donn&eacute;es &mdash; Hirondelles Gaume</title><style>.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:48px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--white)}.drop-zone.drag{border-color:var(--green);background:var(--green-bg)}.drop-zone h3{font-size:16px;color:var(--text);margin-bottom:8px}.drop-zone p{font-size:13.5px;color:var(--muted)}.file-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px}.file-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:8px;font-size:13.5px}.file-item .fname{flex:1;font-weight:500;color:var(--text)}.file-item .fst{font-size:12px;padding:3px 10px;border-radius:99px;font-weight:600}.st-wait{background:#f0f0f0;color:#888}.st-ok{background:#e8f5e8;color:var(--green)}.st-err{background:#fef2f2;color:#c0392b}.progress-bar{height:6px;background:#e8f5e8;border-radius:3px;overflow:hidden;margin-top:8px}.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}.summary-box{background:var(--green-bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-top:16px;display:none}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats</a><a href="import.html" class="active">Importer données</a><a href="recensement_hirondelles.html" class="">Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">Terrain mobile</a></div></nav><div class="hero">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Importer des donn&eacute;es &mdash; Hirondelles Gaume</title><style>.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:48px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--white)}.drop-zone.drag{border-color:var(--green);background:var(--green-bg)}.drop-zone h3{font-size:16px;color:var(--text);margin-bottom:8px}.drop-zone p{font-size:13.5px;color:var(--muted)}.mapping-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}.mapping-table th{background:var(--green-bg);padding:8px 12px;text-align:left;color:var(--green);font-weight:600;border-bottom:1px solid var(--border)}.mapping-table td{padding:7px 12px;border-bottom:1px solid #f0f0f0}.badge-ok{background:#e8f5e8;color:var(--green);border-radius:99px;padding:2px 8px;font-size:11px;font-weight:600}.badge-no{background:#fef2f2;color:#c0392b;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:600}.badge-def{background:#fff8e1;color:#d97706;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:600}.preview-table{width:100%;border-collapse:collapse;font-size:12px;overflow-x:auto}.preview-table th{background:var(--green-bg);padding:6px 10px;text-align:left;color:var(--green);font-weight:600;white-space:nowrap}.preview-table td{padding:5px 10px;border-bottom:1px solid #f0f0f0;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}.file-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px}.file-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:8px;font-size:13.5px}.file-item .fname{flex:1;font-weight:500;color:var(--text)}.fst{font-size:12px;padding:3px 10px;border-radius:99px;font-weight:600}.st-wait{background:#f0f0f0;color:#888}.st-ok{background:#e8f5e8;color:var(--green)}.st-err{background:#fef2f2;color:#c0392b}.progress-bar{height:6px;background:#e8f5e8;border-radius:3px;overflow:hidden;margin-top:8px}.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}.section-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-top:16px}.section-box h3{font-size:14px;font-weight:600;color:var(--green);margin-bottom:10px}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html" class="">Accueil</a><a href="protocole.html" class="">Protocole</a><a href="guide.html" class="">Guide</a><a href="resultats.html" class="">Résultats</a><a href="recensement_hirondelles.html" class="">Outil bureau</a><a href="hirondelles_terrain_mobile.html" class="">Terrain mobile</a></div></nav><div class="hero">
   <h1>Importer des donn&eacute;es</h1>
-  <p>Envoyez vos fichiers CSV vers la base de donn&eacute;es du Parc &mdash; tous les villages en une fois</p>
+  <p>Compatible CSV et Excel &mdash; d&eacute;tection automatique des colonnes</p>
 </div>
 <main>
   <div class="card">
-    <h2>Mode d&apos;emploi</h2>
-    <p>Glissez vos fichiers CSV (un par village) dans la zone ci-dessous. Chaque fichier est lu, les donn&eacute;es sont envoy&eacute;es &agrave; Supabase. L&apos;ann&eacute;e est d&eacute;tect&eacute;e automatiquement depuis le champ &laquo;&nbsp;Date&nbsp;&raquo; de chaque ligne.</p>
-    <p>Les doublons sont &eacute;vit&eacute;s gr&acirc;ce &agrave; la v&eacute;rification des coordonn&eacute;es et de l&apos;adresse.</p>
+    <h2>Comment &ccedil;a fonctionne</h2>
+    <p>D&eacute;posez un ou plusieurs fichiers. L&apos;outil d&eacute;tecte automatiquement les colonnes m&ecirc;me si elles sont dans un ordre diff&eacute;rent ou nomm&eacute;es diff&eacute;remment. Un aper&ccedil;u est affich&eacute; avant l&apos;envoi pour v&eacute;rifier que tout est correct.</p>
+    <p style="margin-top:6px"><strong>Colonnes reconnues automatiquement&nbsp;:</strong> Date (ou Jour), Entit&eacute; (ou Village, Commune), Observateur, Adresse, Type de b&acirc;timent, les 5 compteurs de nids, Emplacement, Remarque, Latitude, Longitude.</p>
+    <p style="margin-top:6px"><strong>Valeurs NA, N/A, vides</strong> &rarr; converties en 0 pour les compteurs, en vide pour le texte.</p>
   </div>
-  <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()"
+
+  <div class="drop-zone" id="drop-zone"
+    onclick="document.getElementById('file-input').click()"
     ondragover="event.preventDefault();this.classList.add('drag')"
     ondragleave="this.classList.remove('drag')"
     ondrop="handleDrop(event)">
-    <h3>D&eacute;posez vos fichiers CSV ici</h3>
-    <p>ou cliquez pour s&eacute;lectionner des fichiers</p>
-    <input type="file" id="file-input" accept=".csv" multiple style="display:none" onchange="handleFiles(this.files)">
+    <h3>D&eacute;posez vos fichiers ici</h3>
+    <p>CSV ou Excel (.xlsx) &mdash; plusieurs fichiers accept&eacute;s</p>
+    <input type="file" id="file-input" accept=".csv,.xlsx,.xls" multiple style="display:none" onchange="handleFiles(this.files)">
   </div>
+
   <ul class="file-list" id="file-list"></ul>
-  <div class="progress-bar" id="progress-bar" style="display:none">
-    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+
+  <div id="preview-zone" style="display:none">
+    <div class="section-box">
+      <h3>D&eacute;tection des colonnes</h3>
+      <table class="mapping-table" id="mapping-table">
+        <thead><tr><th>Champ Supabase</th><th>Colonne d&eacute;tect&eacute;e</th><th>Statut</th></tr></thead>
+        <tbody id="mapping-body"></tbody>
+      </table>
+    </div>
+    <div class="section-box" style="margin-top:12px">
+      <h3>Aper&ccedil;u des 3 premi&egrave;res lignes</h3>
+      <div style="overflow-x:auto"><table class="preview-table" id="preview-table"></table></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px">
+      <button class="btn btn-primary" id="btn-import" onclick="startImport()">Envoyer vers Supabase</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Choisir d&apos;autres fichiers</button>
+    </div>
   </div>
-  <div class="summary-box" id="summary-box">
-    <h3 id="summary-title" style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:8px"></h3>
-    <p id="summary-text" style="font-size:14px;color:var(--muted);margin:0"></p>
-  </div>
-  <div style="margin-top:20px;display:flex;gap:10px">
-    <button class="btn btn-primary" id="btn-import" style="display:none" onclick="startImport()">Envoyer vers Supabase</button>
-    <button class="btn btn-secondary" id="btn-reset" style="display:none" onclick="resetAll()">Recommencer</button>
+
+  <div id="import-zone" style="display:none">
+    <ul class="file-list" id="import-list"></ul>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div id="summary-box" style="display:none;background:var(--green-bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-top:12px">
+      <strong id="summary-title" style="color:var(--green)"></strong>
+      <p id="summary-text" style="font-size:13.5px;color:var(--muted);margin-top:4px"></p>
+    </div>
+    <button class="btn btn-secondary" onclick="resetAll()" style="margin-top:12px">Nouvel import</button>
   </div>
 </main><footer>Parc Naturel de Gaume &mdash; Recensement Hirondelles de fen&ecirc;tre 2026 &mdash; en partenariat avec Aves Lorraine</footer><script>const SB_URL="https://qgrrfthtdzjyxovodieg.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
 let filesToProcess = [];
+let parsedData = [];
+let colMap = {};
 let importEnCours = false;
 
+// ── NETTOYAGE VALEURS ─────────────────────────────────────────
+function cleanStr(v) {
+  if (v === null || v === undefined) return '';
+  const s = v.toString().trim();
+  if (['na','n/a','#na','null','none','#n/a',''].includes(s.toLowerCase())) return '';
+  return s;
+}
+function cleanNum(v) {
+  const s = cleanStr(v).replace(',','.');
+  const n = parseFloat(s);
+  return (isNaN(n) || n < 0) ? 0 : Math.round(n);
+}
+function cleanDate(v) {
+  const s = cleanStr(v);
+  if (!s) return '';
+  // ISO YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  // DD/MM/YYYY ou DD-MM-YYYY ou DD.MM.YYYY
+  const m = s.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
+  if (m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+  // Numéro de série Excel (ex: 45000)
+  if (/^\d{4,5}$/.test(s)) {
+    const d = new Date((parseInt(s) - 25569) * 86400000);
+    if (!isNaN(d)) return d.toISOString().slice(0,10);
+  }
+  // Garder tel quel si contient une année
+  if (/202[0-9]/.test(s)) return s;
+  return s;
+}
+
+// ── DÉTECTION DES COLONNES ────────────────────────────────────
+function normalize(s) {
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]/g,'');
+}
+
+function detectCols(hdrs) {
+  const h = hdrs.map(normalize);
+  const find = (...keys) => {
+    for (const k of keys) {
+      const i = h.findIndex(x => x.includes(k));
+      if (i >= 0) return i;
+    }
+    return -1;
+  };
+  // Pour Nnoccupés : premier "occup" dans la moitié gauche du tableau
+  const iN1 = h.findIndex((x,i) => x.includes('occup') && i <= Math.floor(h.length*0.6));
+  // Pour Naoccupés : dernier "occup"
+  const iN4 = [...h].map((x,i)=>({x,i})).reverse().find(o=>o.x.includes('occup'))?.i ?? -1;
+  
+  return {
+    date:  find('date','jour','recensement'),
+    ent:   find('entit','village','commune','localit','lieu','secteur'),
+    obs:   find('observat','observ','benev','prenom','nom','agent'),
+    adr:   find('adress','rue','localisa','adresse'),
+    typ:   find('typebat','typede','type','batiment','edifice','construction'),
+    empl:  find('emplace','position','localisa','emplacement'),
+    n0:    find('nnentier','entier','nidentier','nidsent'),
+    n1:    iN1 >= 0 ? iN1 : find('nnoccup','nidsocc'),
+    n2:    find('nncass','casse','incomplet','abim','nidscas'),
+    n3:    find('nainstall','install','artificielinst','artifinstall'),
+    n4:    (iN4 !== iN1 && iN4 >= 0) ? iN4 : find('naoccup'),
+    rem:   find('remarque','comment','note','observation'),
+    lat:   find('latitud','latit','lat'),
+    lon:   find('longitud','longit','lon','lng'),
+    num:   find('numero','numer','num'),
+  };
+}
+
+const FIELD_LABELS = {
+  date:'Date',ent:'Village / Entité',obs:'Observateur',
+  adr:'Adresse',typ:'Type bâtiment',empl:'Emplacement',
+  n0:'Nids entiers',n1:'Nids occupés',n2:'Nids cassés',
+  n3:'Na installés',n4:'Na occupés',rem:'Remarque',
+  lat:'Latitude ⚠',lon:'Longitude ⚠',num:'Numéro'
+};
+const REQUIRED = ['lat','lon'];
+const DEFAULT_DATE = new Date().getFullYear()+'-06-15';
+
+// ── PARSE CSV ─────────────────────────────────────────────────
+function parseCSVText(text) {
+  const lines = text.split('\n').map(l => l.replace(/\r$/,''));
+  return lines.filter(l=>l.trim()).map(line => {
+    const r=[]; let cur='', inQ=false;
+    for(let i=0;i<line.length;i++){
+      if(line[i]==='"'){inQ=!inQ;}
+      else if(line[i]===','&&!inQ){r.push(cur.replace(/^"|"$/g,'').trim());cur='';}
+      else cur+=line[i];
+    }
+    r.push(cur.replace(/^"|"$/g,'').trim());
+    return r;
+  });
+}
+
+// ── HANDLE FILES ──────────────────────────────────────────────
 function handleDrop(e) {
   e.preventDefault();
   document.getElementById('drop-zone').classList.remove('drag');
   handleFiles(e.dataTransfer.files);
 }
 
-function handleFiles(files) {
-  filesToProcess = Array.from(files).filter(f => f.name.endsWith('.csv'));
-  if (!filesToProcess.length) { alert('Veuillez sélectionner des fichiers .csv'); return; }
-  const list = document.getElementById('file-list');
-  list.innerHTML = '';
-  filesToProcess.forEach((f, i) => {
-    const li = document.createElement('li');
-    li.className = 'file-item';
-    li.innerHTML = '<span class="fname">'+f.name+'</span><span class="fst st-wait" id="st-'+i+'">En attente</span>';
-    list.appendChild(li);
-  });
-  document.getElementById('btn-import').style.display = 'block';
-  document.getElementById('btn-reset').style.display = 'block';
-}
+async function handleFiles(files) {
+  filesToProcess = Array.from(files).filter(f=>f.name.match(/\.(csv|xlsx|xls)$/i));
+  if (!filesToProcess.length) { alert('Format non supporté. Utilisez CSV ou Excel (.xlsx)'); return; }
+  
+  // On analyse le PREMIER fichier pour l'aperçu
+  const f = filesToProcess[0];
+  let rows;
+  try {
+    if (f.name.toLowerCase().endsWith('.csv')) {
+      const text = await f.text();
+      rows = parseCSVText(text);
+    } else {
+      if (!window.XLSX) await loadXLSX();
+      const wb = XLSX.read(await f.arrayBuffer(),{type:'array',raw:false,dateNF:'yyyy-mm-dd'});
+      rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:false,dateNF:'yyyy-mm-dd'});
+    }
+  } catch(e) { alert('Erreur lecture : '+e.message); return; }
 
-function parseLine(line) {
-  const r=[]; let cur='', inQ=false;
-  for (let i=0; i<line.length; i++) {
-    if (line[i]==='"') { inQ=!inQ; }
-    else if (line[i]===',' && !inQ) { r.push(cur.trim().replace(/^"|"$/g,'')); cur=''; }
-    else cur+=line[i];
+  if (rows.length < 2) { alert('Fichier vide ou invalide'); return; }
+
+  const hdrs = rows[0].map(h=>cleanStr(h));
+  colMap = detectCols(hdrs);
+  parsedData = rows;
+
+  // Afficher mapping
+  const tbody = document.getElementById('mapping-body');
+  tbody.innerHTML = '';
+  for (const [key, label] of Object.entries(FIELD_LABELS)) {
+    const idx = colMap[key];
+    const found = idx >= 0;
+    const required = REQUIRED.includes(key);
+    const badge = found
+      ? `<span class="badge-ok">✓ "${cleanStr(hdrs[idx])}"</span>`
+      : required
+        ? `<span class="badge-no">✗ Non trouvée — obligatoire</span>`
+        : `<span class="badge-def">~ Optionnelle</span>`;
+    tbody.innerHTML += `<tr><td>${label}</td><td>${found?'Colonne '+(idx+1):''}</td><td>${badge}</td></tr>`;
   }
-  r.push(cur.trim().replace(/^"|"$/g,''));
-  return r;
+
+  // Aperçu 3 lignes
+  const preview = document.getElementById('preview-table');
+  const previewRows = rows.slice(1,4).map(r=>mapRow(r,hdrs,colMap)).filter(Boolean);
+  if (previewRows.length) {
+    const keys = Object.keys(previewRows[0]).filter(k=>previewRows.some(r=>r[k]));
+    preview.innerHTML = '<thead><tr>'+keys.map(k=>`<th>${k}</th>`).join('')+'</tr></thead>'
+      +'<tbody>'+previewRows.map(r=>'<tr>'+keys.map(k=>`<td>${r[k]??''}</td>`).join('')+'</tr>').join('')+'</tbody>';
+  }
+
+  // Fichiers listés
+  const list = document.getElementById('file-list');
+  list.innerHTML = filesToProcess.map((f,i)=>`<li class="file-item"><span class="fname">${f.name}</span><span class="fst st-wait" id="fst-${i}">En attente</span></li>`).join('');
+
+  document.getElementById('drop-zone').style.display='none';
+  document.getElementById('preview-zone').style.display='block';
 }
 
-function mapRow(hdrs, vals) {
-  const fi = k => hdrs.findIndex(h => h.toLowerCase().replace(/[^a-z]/g,'').includes(k));
-  const v = i => (i>=0 && vals[i]) ? vals[i].trim() : '';
-  const n = i => parseInt(v(i)) || 0;
-  const iDate=fi('date'), iObs=fi('observat'), iVill=fi('entit')>=0?fi('entit'):fi('village'),
-        iAdr=fi('adresse'), iTyp=fi('type'), iEmpl=fi('emplace'),
-        iN0=fi('entier'), iN1=hdrs.findIndex((h,i)=>h.toLowerCase().includes('occup')&&i<8),
-        iN2=fi('cass'), iN3=fi('install'),
-        iN4=hdrs.findLastIndex(h=>h.toLowerCase().includes('occup')),
-        iRem=fi('remarque'), iLat=fi('latit'), iLon=fi('longit');
-  const lat=parseFloat(v(iLat)), lon=parseFloat(v(iLon));
-  if (isNaN(lat)||isNaN(lon)) return null;
-  const dateStr = v(iDate);
-  const annee = dateStr ? parseInt(dateStr.slice(0,4)) : 2026;
+function mapRow(r, hdrs, cm) {
+  const v = i => i >= 0 && i < r.length ? r[i] : '';
+  const lat = parseFloat(cleanStr(v(cm.lat)).replace(',','.'));
+  const lon = parseFloat(cleanStr(v(cm.lon)).replace(',','.'));
+  if (isNaN(lat) || isNaN(lon)) return null;
+  const dateVal = cleanDate(v(cm.date)) || DEFAULT_DATE;
+  const annee = parseInt(dateVal.slice(0,4)) || 2026;
   return {
-    annee, date_recensement:dateStr,
-    observateur:v(iObs), village:v(iVill), adresse:v(iAdr),
-    type_batiment:v(iTyp), emplacement:v(iEmpl),
-    nnentiers:n(iN0), nnoccupes:n(iN1), nncasses:n(iN2),
-    nainstalles:n(iN3), naoccupes:n(iN4),
-    remarque:v(iRem), latitude:lat, longitude:lon
+    annee, date_recensement: dateVal,
+    observateur: cleanStr(v(cm.obs)),
+    village:     cleanStr(v(cm.ent)),
+    adresse:     cleanStr(v(cm.adr)),
+    type_batiment: cleanStr(v(cm.typ)),
+    emplacement: cleanStr(v(cm.empl)),
+    nnentiers:   cleanNum(v(cm.n0)),
+    nnoccupes:   cleanNum(v(cm.n1)),
+    nncasses:    cleanNum(v(cm.n2)),
+    nainstalles: cleanNum(v(cm.n3)),
+    naoccupes:   cleanNum(v(cm.n4)),
+    remarque:    cleanStr(v(cm.rem)),
+    latitude: lat, longitude: lon
   };
 }
 
-async function sendBatch(rows) {
-  const r = await fetch(SB_URL+'/rest/v1/observations', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},
-    body:JSON.stringify(rows)
-  });
-  return r.ok;
-}
-
+// ── IMPORT ────────────────────────────────────────────────────
 async function startImport() {
   if (importEnCours) return;
   importEnCours = true;
-  document.getElementById('btn-import').disabled = true;
-  document.getElementById('progress-bar').style.display = 'block';
-  let totalOk=0, totalErr=0;
+  document.getElementById('preview-zone').style.display='none';
+  document.getElementById('import-zone').style.display='block';
+  const ilist = document.getElementById('import-list');
+  ilist.innerHTML = filesToProcess.map((f,i)=>`<li class="file-item"><span class="fname">${f.name}</span><span class="fst st-wait" id="ist-${i}">Traitement…</span></li>`).join('');
 
-  for (let i=0; i<filesToProcess.length; i++) {
-    const f = filesToProcess[i];
-    const st = document.getElementById('st-'+i);
-    st.textContent = 'Lecture...';
-    st.className = 'fst st-wait';
-    document.getElementById('progress-fill').style.width = Math.round((i/filesToProcess.length)*100)+'%';
+  let totalOk=0, totalSkip=0, totalErr=0;
+
+  for (let fi=0; fi<filesToProcess.length; fi++) {
+    const f = filesToProcess[fi];
+    const st = document.getElementById('ist-'+fi);
+    document.getElementById('progress-fill').style.width=Math.round(fi/filesToProcess.length*100)+'%';
     try {
-      const text = await f.text();
-      const lines = text.split('\n').map(l=>l.replace(/\r/,'')).filter(l=>l.trim());
-    
-      if (lines.length < 2) { st.textContent='Vide'; st.className='fst st-err'; continue; }
-      const hdrs = parseLine(lines[0]).map(h=>h.toLowerCase());
-      const rows = [];
-      for (let j=1; j<lines.length; j++) {
-        const r = mapRow(hdrs, parseLine(lines[j]));
-        if (r) rows.push(r);
+      let rows;
+      if (f.name.toLowerCase().endsWith('.csv')) {
+        rows = parseCSVText(await f.text());
+      } else {
+        if (!window.XLSX) await loadXLSX();
+        const wb = XLSX.read(await f.arrayBuffer(),{type:'array',raw:false,dateNF:'yyyy-mm-dd'});
+        rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:false,dateNF:'yyyy-mm-dd'});
       }
-      if (!rows.length) { st.textContent='Aucune ligne valide'; st.className='fst st-err'; continue; }
-      const ok = await sendBatch(rows);
-      if (ok) { st.textContent=rows.length+' lignes envoyées'; st.className='fst st-ok'; totalOk+=rows.length; }
-      else { st.textContent="Erreur d'envoi"; st.className='fst st-err'; totalErr++; }
+      const hdrs = rows[0].map(h=>cleanStr(h));
+      const cm = detectCols(hdrs);
+      const valid = [], skipped = [];
+      for (let i=1; i<rows.length; i++) {
+        const mapped = mapRow(rows[i], hdrs, cm);
+        if (mapped) valid.push(mapped);
+        else skipped.push(i+1);
+      }
+      if (!valid.length) {
+        st.textContent='Aucune ligne valide (lat/lon manquantes ?)';
+        st.className='fst st-err'; totalErr++; continue;
+      }
+      // Envoyer par lots de 100
+      let sent=0;
+      for (let i=0; i<valid.length; i+=100) {
+        const batch = valid.slice(i,i+100);
+        const r = await fetch(SB_URL+'/rest/v1/observations',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,
+                   'Prefer':'resolution=ignore-duplicates,return=minimal'},
+          body:JSON.stringify(batch)
+        });
+        if (r.ok) sent+=batch.length;
+      }
+      st.textContent=sent+' lignes import\u00e9es'+(skipped.length?' ('+skipped.length+' ignor\u00e9es sans coordonn\u00e9es)':'');
+      st.className='fst st-ok';
+      totalOk+=sent; totalSkip+=skipped.length;
     } catch(e) {
-      st.textContent='Erreur: '+e.message; st.className='fst st-err'; totalErr++;
+      st.textContent='Erreur : '+e.message;
+      st.className='fst st-err'; totalErr++;
     }
   }
   document.getElementById('progress-fill').style.width='100%';
-  const box = document.getElementById('summary-box');
-  box.style.display = 'block';
-  document.getElementById('summary-title').textContent = totalErr===0 ? '✅ Import terminé avec succès' : '⚠️ Import terminé avec des erreurs';
-  document.getElementById('summary-text').textContent = totalOk+' observations importées vers Supabase.'+(totalErr?' '+totalErr+' fichier(s) en erreur.':'');
+  const box=document.getElementById('summary-box');
+  box.style.display='block';
+  document.getElementById('summary-title').textContent=totalErr?'\u26a0\ufe0f Import termin\u00e9 avec des erreurs':'\u2705 Import termin\u00e9 avec succ\u00e8s';
+  document.getElementById('summary-text').textContent=totalOk+' observations envoy\u00e9es vers Supabase.'+(totalSkip?' '+totalSkip+' lignes sans coordonn\u00e9es ignor\u00e9es.':'')+(totalErr?' '+totalErr+' fichier(s) en erreur.':'');
 }
 
-function resetAll() {
-  filesToProcess=[];
+function loadXLSX(){
+  return new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload=res;s.onerror=rej;document.head.appendChild(s);
+  });
+}
+
+function resetAll(){
+  filesToProcess=[];parsedData=[];colMap={};importEnCours=false;
+  document.getElementById('drop-zone').style.display='';
+  document.getElementById('preview-zone').style.display='none';
+  document.getElementById('import-zone').style.display='none';
   document.getElementById('file-list').innerHTML='';
-  document.getElementById('progress-bar').style.display='none';
   document.getElementById('progress-fill').style.width='0%';
   document.getElementById('summary-box').style.display='none';
-  document.getElementById('btn-import').style.display='none';
-  document.getElementById('btn-reset').style.display='none';
-  importEnCours = false;
+  document.getElementById('file-input').value='';
 }
 </script></body></html>
