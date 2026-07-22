@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><script src="config.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>Dashboard &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="dashboard.html" class="active">Dashboard</a><a href="import.html">Importer</a><a href="admin.html">Administration</a></div></nav><div class="hero" style="padding:30px 28px">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/><title>Dashboard &mdash; Hirondelles Gaume</title></head><body><nav><a href="index.html" class="brand">Hirondelles de fenêtre — Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="protocole.html">Protocole</a><a href="guide.html">Guide</a><a href="resultats.html">Résultats 2026</a><a href="recensement_hirondelles.html">Outil bureau</a><a href="hirondelles_terrain_mobile.html">Terrain mobile</a></div></nav><div class="hero" style="padding:30px 28px">
   <h1>Dashboard coordinateur</h1>
   <p>Vue compl&egrave;te des donn&eacute;es &mdash; R&eacute;serv&eacute; au Parc Naturel de Gaume</p>
 </div>
@@ -13,7 +13,7 @@
   </div>
   <div id="map-dash" style="height:360px"></div>
   <div class="toolbar">
-    <button class="btn btn-primary" onclick="exportAll()">T&eacute;l&eacute;charger tout (CSV)</button>
+    <button class="btn btn-primary" onclick="exportAll()">T&eacute;l&eacute;charger tout (Excel)</button>
     <button class="btn btn-secondary" onclick="loadData()">Actualiser</button>
     <span class="refresh-info" id="last-up"></span>
   </div>
@@ -61,13 +61,36 @@ function filterTable(){
   const v=document.getElementById('f-v').value;
   renderAll(all.filter(o=>(!v||o.village===v)&&(!q||['village','adresse','observateur'].some(k=>(o[k]||'').toLowerCase().includes(q)))));
 }
-function exportAll(){
+async function exportAll(){
   if(!all.length)return;
-  const h=['Date','Observateur','Village','Adresse','Type','Nnentiers','Nnoccupes','Nncasses','Nainstalles','Naoccupes','Emplacement','Remarque','Latitude','Longitude'];
-  const rows=all.map(o=>[o.date_recensement,o.observateur,o.village,o.adresse,o.type_batiment,o.nnentiers,o.nnoccupes,o.nncasses,o.nainstalles,o.naoccupes,o.emplacement,o.remarque,o.latitude,o.longitude].map(v=>'"'+(v??'').toString().replace(/"/g,'""')+'"').join(','));
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob(['﻿'+[h.join(','),...rows].join('')],{type:'text/csv;charset=utf-8'}));
-  a.download='recensement_gaume_'+ANNEE+'_complet.csv';a.click();
+  if(!window.XLSX){
+    await new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s.onload=res;s.onerror=rej;document.head.appendChild(s);
+    });
+  }
+  const rows=all.map(o=>({
+    'Date':o.date_recensement||'',
+    'Observateur':o.observateur||'',
+    'Village':o.village||'',
+    'Adresse':o.adresse||'',
+    'Type de b\u00e2timent':o.type_batiment||'',
+    'Nids naturels entiers':o.nnentiers||0,
+    'Nids naturels occup\u00e9s':o.nnoccupes||0,
+    'Nids naturels cass\u00e9s':o.nncasses||0,
+    'Nids artif. install\u00e9s':o.nainstalles||0,
+    'Nids artif. occup\u00e9s':o.naoccupes||0,
+    'Emplacement':o.emplacement||'',
+    'Remarque':o.remarque||'',
+    'Latitude':o.latitude||'',
+    'Longitude':o.longitude||''
+  }));
+  const ws=XLSX.utils.json_to_sheet(rows);
+  ws['!cols']=[10,16,16,28,18,8,8,8,8,8,18,24,10,10].map(w=>({wch:w}));
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Donn\u00e9es '+ANNEE);
+  XLSX.writeFile(wb,'recensement_gaume_'+ANNEE+'_complet.xlsx');
 }
 loadData().catch(()=>{document.getElementById('dtbody').innerHTML='<tr><td colspan="12" style="text-align:center;padding:20px;color:#aaa">Erreur de connexion</td></tr>';});
 setInterval(loadData,120000);
