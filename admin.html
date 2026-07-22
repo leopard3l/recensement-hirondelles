@@ -1,76 +1,11 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><script src="config.js"></script><title>Administration &mdash; Hirondelles Gaume</title><style>.admin-section{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:20px}.admin-section h2{font-size:17px;font-weight:700;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:10px}.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:600}.status-ok{background:#e8f5e8;color:var(--green)}.status-err{background:#fef2f2;color:#c62828}.status-loading{background:#f0f0f0;color:#888}.year-input{width:100px;border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-size:20px;font-weight:700;text-align:center;color:var(--green)}.year-input:focus{outline:none;border-color:var(--green)}.step-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:16px}.step-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.5}.step-num{width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.mini-stat{background:var(--green-bg);border-radius:8px;padding:14px;text-align:center}.mini-stat .n{font-size:22px;font-weight:700;color:var(--green)}.mini-stat .l{font-size:12px;color:var(--muted);margin-top:2px}.year-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #f0f0f0}.year-row:last-child{border-bottom:none}.danger-zone{background:#fef2f2;border:1px solid #e8c0c0;border-radius:8px;padding:14px 18px;margin-top:12px;font-size:13.5px;color:#7a2828}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="dashboard.html">Dashboard</a><a href="import.html">Importer</a><a href="admin.html" class="active">Administration</a></div></nav><div class="hero"><h1>Administration</h1><p>Gestion de la campagne et pr&eacute;paration de la suivante &mdash; r&eacute;serv&eacute; au coordinateur</p></div><main><!-- RÉACTIVATION SUPABASE -->
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><script src="config.js"></script><title>Administration &mdash; Hirondelles Gaume</title><style>.admin-section{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:20px}.admin-section h2{font-size:17px;font-weight:700;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:10px}.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:600}.status-ok{background:#e8f5e8;color:var(--green)}.status-err{background:#fef2f2;color:#c62828}.status-loading{background:#f0f0f0;color:#888}.year-input{width:100px;border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-size:20px;font-weight:700;text-align:center;color:var(--green)}.year-input:focus{outline:none;border-color:var(--green)}.step-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:16px}.step-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.5}.step-num{width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.mini-stat{background:var(--green-bg);border-radius:8px;padding:14px;text-align:center}.mini-stat .n{font-size:22px;font-weight:700;color:var(--green)}.mini-stat .l{font-size:12px;color:var(--muted);margin-top:2px}.year-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #f0f0f0}.year-row:last-child{border-bottom:none}.danger-zone{background:#fef2f2;border:1px solid #e8c0c0;border-radius:8px;padding:14px 18px;margin-top:12px;font-size:13.5px;color:#7a2828}</style></head><body><nav><a href="index.html" class="brand">Hirondelles de fen&ecirc;tre &mdash; Gaume</a><button id="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">&#9776;</button><div class="nav-links"><a href="index.html">Accueil</a><a href="dashboard.html">Dashboard</a><a href="import.html">Importer</a><a href="admin.html" class="active">Administration</a></div></nav><div class="hero"><h1>Administration</h1><p>Gestion de la campagne et pr&eacute;paration de la suivante &mdash; r&eacute;serv&eacute; au coordinateur</p></div><main><!-- KEEP ALIVE -->
 <div class="admin-section">
-<h2>&#x1F504; R&eacute;activer Supabase</h2>
-<p style="font-size:14px;color:var(--muted);margin-bottom:14px">Si le projet Supabase est en pause (apr&egrave;s 1 semaine d&apos;inactivit&eacute;), utilisez ce bouton pour le relancer automatiquement. Votre token est sauvegard&eacute; uniquement dans ce navigateur, jamais dans le code.</p>
-<div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px">
-  <div style="flex:1;min-width:220px">
-    <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Token d&apos;acc&egrave;s Supabase <a href="https://supabase.com/dashboard/account/tokens" target="_blank" style="color:var(--green);font-size:11px">(g&eacute;n&eacute;rer &rarr;)</a></label>
-    <input type="password" id="pat-input" placeholder="sbp_xxxxxxxxxxxxxxxxxxxx"
-      style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;font-family:monospace"
-      value="">
-  </div>
-  <button class="btn btn-secondary" onclick="savePAT()">Sauvegarder</button>
-</div>
-<div style="display:flex;gap:10px;flex-wrap:wrap">
-  <button class="btn btn-primary" onclick="restoreProject()" id="btn-restore">&#x25B6; Relancer le projet Supabase</button>
-  <span id="restore-status" style="font-size:13px;color:var(--muted);align-self:center"></span>
-</div>
-<div style="margin-top:14px;background:#f9f9f9;border-radius:8px;padding:12px 16px;font-size:13px;color:var(--muted)">
-  <strong>Lors de la passation :</strong> le futur coordinateur doit cr&eacute;er son propre token sur supabase.com avec les identifiants du Parc, le saisir ici et cliquer Sauvegarder. Le token pr&eacute;c&eacute;dent peut &ecirc;tre r&eacute;voqu&eacute;.
-</div>
+<h2>&#x23F0; Maintien automatique de Supabase</h2>
+<p style="font-size:14px;color:var(--muted)">Le projet Supabase est maintenu actif automatiquement chaque lundi via GitHub Actions. Aucune intervention manuelle n&apos;est n&eacute;cessaire.</p>
+<p style="font-size:14px;color:var(--muted);margin-top:8px">Pour v&eacute;rifier ou lancer manuellement le ping : <a href="https://github.com/leopard3l/recensement-hirondelles/actions" target="_blank" style="color:var(--green)">GitHub Actions &rarr;</a></p>
 </div>
 
 <!-- SANTÉ DU SYSTÈME --><div class="admin-section"><h2>&#x1F4BB; Sant&eacute; du syst&egrave;me</h2><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div>Supabase&nbsp;: <span class="status-badge status-loading" id="sb-status">V&eacute;rification...</span></div><div>Ann&eacute;e courante&nbsp;: <strong id="annee-courante" style="color:var(--green);font-size:18px"></strong></div></div><p style="font-size:13px;color:var(--muted);margin-top:10px">Si Supabase est inactif, allez sur <a href="https://supabase.com" target="_blank">supabase.com</a> &rarr; votre projet &rarr; bouton <strong>Restore</strong>.</p></div><!-- STATS PAR ANNÉE --><div class="admin-section"><h2>&#x1F4CA; Donn&eacute;es par campagne</h2><div id="years-list"><p style="color:#aaa">Chargement...</p></div></div><!-- NOUVELLE CAMPAGNE --><div class="admin-section"><h2>&#x1F4C5; D&eacute;marrer une nouvelle campagne</h2><p style="font-size:14px;color:var(--muted);margin-bottom:16px">Entrez l&apos;ann&eacute;e de la prochaine campagne. Cliquez sur G&eacute;n&eacute;rer — un fichier <code>config.js</code> sera t&eacute;l&eacute;charg&eacute;. Uploadez-le sur GitHub et la nouvelle campagne d&eacute;marre automatiquement.</p><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><div><label style="font-size:13px;color:var(--muted);display:block;margin-bottom:4px">Ann&eacute;e</label><input type="number" id="new-year" class="year-input" min="2026" max="2040"></div><button class="btn btn-primary" onclick="genererConfig()" style="margin-top:20px">&#x2B07; G&eacute;n&eacute;rer config.js</button></div><div id="gen-result" style="display:none;margin-top:16px"><div style="background:#e8f5e8;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:14px;color:var(--green);margin-bottom:14px">&#x2705; Fichier <code>config.js</code> t&eacute;l&eacute;charg&eacute; avec succ&egrave;s !</div><p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px">Que faire maintenant &mdash; instructions pas &agrave; pas&nbsp;:</p><ul class="step-list"><li><div class="step-num">1</div>Ouvrez <a href="https://github.com" target="_blank">github.com</a> et allez dans votre d&eacute;p&ocirc;t <strong>recensement-hirondelles</strong>.</li><li><div class="step-num">2</div>Cliquez sur le fichier <code>config.js</code> dans la liste des fichiers.</li><li><div class="step-num">3</div>Cliquez sur l&apos;ic&ocirc;ne <strong>crayon ✏️</strong> en haut &agrave; droite pour modifier.</li><li><div class="step-num">4</div>S&eacute;lectionnez tout le contenu (Ctrl+A) et collez le nouveau contenu g&eacute;n&eacute;r&eacute;.</li><li><div class="step-num">5</div>Cliquez <strong>Commit changes</strong> en bas. Le site se met &agrave; jour en 2 minutes.</li></ul><div class="danger-zone">&#x26A0;&#xFE0F; <strong>Avant de changer l&apos;ann&eacute;e</strong> : assurez-vous d&apos;avoir export&eacute; toutes les donn&eacute;es de la campagne actuelle depuis le <a href="dashboard.html">Dashboard</a>.</div></div></div><!-- EXPORT PAR ANNÉE --><div class="admin-section"><h2>&#x1F4E5; Exporter les donn&eacute;es</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end"><div><label style="font-size:13px;color:var(--muted);display:block;margin-bottom:4px">Ann&eacute;e &agrave; exporter</label><select id="export-year" style="border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px"><option>Chargement...</option></select></div><button class="btn btn-primary" onclick="exportAnnee()">&#x2B07; T&eacute;l&eacute;charger Excel</button></div></div></main><footer>Parc Naturel de Gaume &mdash; Administration &mdash; Acc&egrave;s r&eacute;serv&eacute;</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script>const SB_URL="https://qgrrfthtdzjyxovodieg.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFncnJmdGh0ZHpqeXhvdm9kaWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjcxMzcsImV4cCI6MjA5OTI0MzEzN30.WjoRc4-RAxv4gRioW0ZRP1-IkwdL_MjaREyFLWeDtOo";
-const SB_REF = 'qgrrfthtdzjyxovodieg';
-
-// Token stocké en localStorage (jamais dans le code)
-function getPAT(){ return localStorage.getItem('sb_pat')||''; }
-function savePAT(){
-  const v=document.getElementById('pat-input').value.trim();
-  if(!v){alert('Token vide');return;}
-  localStorage.setItem('sb_pat',v);
-  document.getElementById('restore-status').textContent='✓ Token sauvegardé dans ce navigateur';
-  document.getElementById('restore-status').style.color='var(--green)';
-}
-
-// Pré-remplir si déjà sauvegardé
-window.addEventListener('load',()=>{
-  const p=getPAT();
-  if(p) document.getElementById('pat-input').value=p.slice(0,8)+'...';
-});
-
-async function restoreProject(){
-  const pat=getPAT();
-  if(!pat){alert('Entrez et sauvegardez votre token d\'accès Supabase d\'abord.');return;}
-  const st=document.getElementById('restore-status');
-  st.textContent='⏳ Envoi de la demande...';st.style.color='#888';
-  document.getElementById('btn-restore').disabled=true;
-  try{
-    const r=await fetch('https://api.supabase.com/v1/projects/'+SB_REF+'/restore',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+pat,'Content-Type':'application/json'}
-    });
-    if(r.ok||r.status===201){
-      st.textContent='✅ Demande envoyée — le projet sera actif dans 1 à 2 minutes.';
-      st.style.color='var(--green)';
-      setTimeout(checkSB,90000); // re-vérifier après 90s
-    } else if(r.status===401){
-      st.textContent='⚠️ Token invalide ou expiré — générez-en un nouveau sur supabase.com';
-      st.style.color='#c62828';
-    } else if(r.status===404){
-      st.textContent='ℹ️ Le projet est déjà actif (ou l\'ID est incorrect)';
-      st.style.color='#888';
-    } else {
-      st.textContent='⚠️ Erreur '+r.status+' — vérifiez votre token';
-      st.style.color='#c62828';
-    }
-  }catch(e){
-    st.textContent='⚠️ Impossible de contacter l\'API Supabase : '+e.message;
-    st.style.color='#c62828';
-  }
-  document.getElementById('btn-restore').disabled=false;
-}
-
 document.getElementById('annee-courante').textContent = ANNEE;
 document.getElementById('new-year').value = ANNEE + 1;
 
