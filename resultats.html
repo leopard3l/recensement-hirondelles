@@ -160,7 +160,7 @@ async function loadComparaison(){
   const group = (data) => {
     const r = {};
     data.forEach(o=>{
-      const v=o.village||'Non renseigné';
+      const v=(o.village||'Non renseigné').trim().replace(/\s+/g,' ');
       if(!r[v])r[v]={e:0,c:0};
       r[v].e+=o.nnentiers||0;
       r[v].c+=o.nncasses||0;
